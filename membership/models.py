@@ -97,3 +97,20 @@ class VIPCourseEnrollment(models.Model):
 
     class Meta(object):
         app_label = 'membership'
+
+
+class VIPCoursePrice(models.Model):
+    """ VIP course price """
+
+    SUBSCRIBE_NORMAL = 0
+    SUBSCRIBE_PAY = 1
+
+    SUBSCRIBE_TYPE_CHOICES = (
+        (SUBSCRIBE_NORMAL, u'subscribe normal'),
+        (SUBSCRIBE_PAY, u'subscribe pay'),
+    )
+    course_id = CourseKeyField(max_length=255, db_index=True)
+    subscribe = models.IntegerField(default=SUBSCRIBE_NORMAL, choices=SUBSCRIBE_TYPE_CHOICES)
+
+    class Meta(object):
+        app_label = 'membership'
