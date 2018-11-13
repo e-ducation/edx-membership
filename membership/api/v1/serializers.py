@@ -4,6 +4,8 @@ Membership Serializers
 """
 from __future__ import unicode_literals
 
+import pytz
+import datetime
 from rest_framework import serializers
 from membership.models import VIPPackage, VIPOrder, VIPInfo
 
@@ -28,8 +30,7 @@ class VIPInfoSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     def get_status(self, info):
-        import datetime
-        return info.expired_at > datetime.datetime.today().date()
+        return info.expired_at > datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
 
     class Meta:
         model = VIPInfo
@@ -41,8 +42,7 @@ class VIPStatusSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     def get_status(self, info):
-        import datetime
-        return info.expired_at > datetime.datetime.today().date()
+        return info.expired_at > datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
 
     class Meta:
         model = VIPInfo
