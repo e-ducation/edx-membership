@@ -14,6 +14,7 @@ def index(request):
     response = render_to_response('membership/index.html', context)
     return response
 
+
 def card(request):
     context = {
 

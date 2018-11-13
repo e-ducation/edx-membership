@@ -3,21 +3,30 @@
 Database models for membership.
 """
 from __future__ import absolute_import, unicode_literals
+import logging
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from six import text_type
 from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
+from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from opaque_keys.edx.keys import CourseKey
+
+log = logging.getLogger(__name__)
 
 
 class VIPInfo(models.Model):
     """ VIP card information """
 
     user = models.ForeignKey(User, related_name="vip_user")
-    start_at = models.DateField(auto_now_add=True)
-    expired_at = models.DateField()
+    start_at = models.DateTimeField(auto_now_add=True)
+    expired_at = models.DateTimeField()
 
     class Meta(object):
         app_label = 'membership'
+
+    def __unicode__(self):
+        return self.user.username
 
 
 class VIPPackage(models.Model):
@@ -29,9 +38,13 @@ class VIPPackage(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
     price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
     suggested_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
+    is_recommended = models.BooleanField(default=False)
 
     class Meta(object):
         app_label = 'membership'
+
+    def __unicode__(self):
+        return self.name
 
 
 class VIPOrder(models.Model):
@@ -68,23 +81,26 @@ class VIPOrder(models.Model):
     name = models.CharField(max_length=64)
     month = models.IntegerField()
     trans_at = models.DateTimeField(auto_now_add=True)
-    start_at = models.DateField()
-    expired_at = models.DateField()
+    start_at = models.DateTimeField()
+    expired_at = models.DateTimeField()
     status = models.IntegerField(choices=STATUS_CHOICES)
     price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
     suggested_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
     created_by = models.ForeignKey(User, related_name="vip_order")
     description = models.CharField(max_length=255, blank=True, null=True)
-    refno = models.CharField(max_length=255, null=True)
-    openid = models.CharField(max_length=128, null=True)
-    outtradeno = models.CharField(max_length=120, null=True)
+    refno = models.CharField(max_length=255, blank=True, null=True)
+    openid = models.CharField(max_length=128, blank=True, null=True)
+    outtradeno = models.CharField(max_length=120, blank=True, null=True)
     pay_type = models.IntegerField(null=False, choices=PAY_TYPE_CHOICES)
-    receipt = models.TextField(null=True)
-    version = models.CharField(max_length=255, null=True)
-    os_version = models.CharField(max_length=255, null=True)
+    receipt = models.TextField(blank=True, null=True)
+    version = models.CharField(max_length=255, blank=True, null=True)
+    os_version = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta(object):
         app_label = 'membership'
+
+    def __unicode__(self):
+        return self.name
 
 
 class VIPCourseEnrollment(models.Model):
@@ -97,6 +113,39 @@ class VIPCourseEnrollment(models.Model):
 
     class Meta(object):
         app_label = 'membership'
+
+    @classmethod
+    def enroll(cls, user, course_key, is_active=True):
+        """
+        enroll course for vip user
+        """
+        try:
+            course = CourseOverview.get_from_id(course_key)
+        except CourseOverview.DoesNotExist:
+            pass
+
+        enrollment = cls.get_or_create_enrollment(user, course_key)
+
+        return enrollment
+
+    @classmethod
+    def get_or_create_enrollment(cls, user, course_key):
+        """
+        """
+        assert isinstance(course_key, CourseKey)
+
+        if user.id is None:
+            user.save()
+
+        enrollment, __ = cls.objects.get_or_create(
+            user=user,
+            course_id=course_key,
+            defaults={
+                'is_active': True
+            }
+        )
+
+        return enrollment
 
 
 class VIPCoursePrice(models.Model):
