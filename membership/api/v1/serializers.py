@@ -30,7 +30,7 @@ class VIPInfoSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     def get_status(self, info):
-        return info.expired_at > datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
+        return info.expired_at.today() >= datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
 
     class Meta:
         model = VIPInfo
@@ -42,7 +42,7 @@ class VIPStatusSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     def get_status(self, info):
-        return info.expired_at > datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
+        return info.expired_at.today() >= datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
 
     class Meta:
         model = VIPInfo

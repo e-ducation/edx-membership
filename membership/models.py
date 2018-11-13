@@ -19,8 +19,8 @@ class VIPInfo(models.Model):
     """ VIP card information """
 
     user = models.ForeignKey(User, related_name="vip_user")
-    start_at = models.DateField(auto_now_add=True)
-    expired_at = models.DateField()
+    start_at = models.DateTimeField(auto_now_add=True)
+    expired_at = models.DateTimeField()
 
     class Meta(object):
         app_label = 'membership'
@@ -81,8 +81,8 @@ class VIPOrder(models.Model):
     name = models.CharField(max_length=64)
     month = models.IntegerField()
     trans_at = models.DateTimeField(auto_now_add=True)
-    start_at = models.DateField()
-    expired_at = models.DateField()
+    start_at = models.DateTimeField()
+    expired_at = models.DateTimeField()
     status = models.IntegerField(choices=STATUS_CHOICES)
     price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
     suggested_price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
