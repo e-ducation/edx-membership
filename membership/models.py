@@ -119,13 +119,11 @@ class VIPCourseEnrollment(models.Model):
         """
         enroll course for vip user
         """
-        # All the server-side checks for whether a user is allowed to enroll.
         try:
             course = CourseOverview.get_from_id(course_key)
         except CourseOverview.DoesNotExist:
             pass
 
-        # User is allowed to enroll if they've reached this point.
         enrollment = cls.get_or_create_enrollment(user, course_key)
 
         return enrollment
@@ -133,12 +131,7 @@ class VIPCourseEnrollment(models.Model):
     @classmethod
     def get_or_create_enrollment(cls, user, course_key):
         """
-
         """
-        # If we're passing in a newly constructed (i.e. not yet persisted) User,
-        # save it to the database so that it can have an ID that we can throw
-        # into our CourseEnrollment object. Otherwise, we'll get an
-        # IntegrityError for having a null user_id.
         assert isinstance(course_key, CourseKey)
 
         if user.id is None:
