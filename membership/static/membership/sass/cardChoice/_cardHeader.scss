@@ -1,0 +1,19 @@
+.card-box{  
+  width: 100%;
+  background: url('../images/vip bg.png') no-repeat;
+  background-size: 100%;
+  .vip-box{ 
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 38px 0;
+    .vip-message{  
+      padding: 28px;
+      height: 100px;
+      max-width: 995px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+  }
+}
+

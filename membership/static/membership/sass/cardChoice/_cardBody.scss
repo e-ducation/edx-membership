@@ -1,0 +1,26 @@
+.card-choice{ 
+  width: 100%;
+  background: $whiteFont;
+  padding-top: 32px;
+  padding-bottom: 48px;
+  .choice-padding{  
+    max-width: 995px;
+    margin: 0 auto;
+    background: #000;
+    ul{ 
+      list-style: none;
+      height: 264px;
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 824px;
+      padding-left:  0;
+      li{ 
+        height: 100%;
+        width: 178px;
+        float: left;
+        background: #fff;
+        margin:0 14px; 
+      }
+    }
+  }
+}

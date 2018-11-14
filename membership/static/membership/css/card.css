@@ -1,0 +1,40 @@
+.card-box {
+  width: 100%;
+  background: url("../images/vip bg.png") no-repeat;
+  background-size: 100%; }
+  .card-box .vip-box {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 38px 0; }
+    .card-box .vip-box .vip-message {
+      padding: 28px;
+      height: 100px;
+      max-width: 995px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+
+.card-choice {
+  width: 100%;
+  background: #fff;
+  padding-top: 32px;
+  padding-bottom: 48px; }
+  .card-choice .choice-padding {
+    max-width: 995px;
+    margin: 0 auto;
+    background: #000; }
+    .card-choice .choice-padding ul {
+      list-style: none;
+      height: 264px;
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 824px;
+      padding-left: 0; }
+      .card-choice .choice-padding ul li {
+        height: 100%;
+        width: 178px;
+        float: left;
+        background: #fff;
+        margin: 0 14px; }
+
+/*# sourceMappingURL=card.css.map */
