@@ -20,4 +20,21 @@ from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
 %>
 
-    <h1>充钱就能变强！</h1>
+<link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
+
+<div class="card-box">
+    <div class="vip-box">
+        <div class="vip-message"></div>
+    </div>
+</div>
+
+<div class="card-choice">
+    <div class="choice-padding">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>

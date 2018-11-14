@@ -19,9 +19,9 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<link src="${static.url('membership/index.css')}" />
+<link rel="stylesheet" href="${static.url('membership/index.css')}" />
 
 <h1>hello membership</h1>
 
 <a href="${reverse('membership_card')}">马上加入</button>
-<script type="text/javascript" src="${static.url('membership/index.js')}"></script>
+  <script type="text/javascript" src="${static.url('membership/index.js')}"></script>
