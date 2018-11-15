@@ -4,8 +4,12 @@ URLs for membership api.
 """
 from __future__ import absolute_import, unicode_literals
 
-from django.conf.urls import url, include
-from .views import PackageListAPIView, VIPInfoAPIView, VIPOrderAPIView, VIPStatusAPIView
+from django.conf.urls import url
+from .views import (
+    PackageListAPIView, VIPInfoAPIView, VIPOrderAPIView,
+    VIPStatusAPIView, VIPPayOrderView, VIPAlipayPaying,
+    VIPPurchase, VIPWechatPaying
+)
 
 
 urlpatterns = [
@@ -15,7 +19,7 @@ urlpatterns = [
         name='package_list'
     ),
     url(
-        r'vip/info/(?P<user>\d+)$',
+        r'vip/info/$',
         VIPInfoAPIView.as_view(),
         name='vip_info'
     ),
@@ -25,8 +29,28 @@ urlpatterns = [
         name='vip_order'
     ),
     url(
-        r'vip/status/(?P<user>\d+)$',
+        r'vip/status/$',
         VIPStatusAPIView.as_view(),
         name='vip_status'
+    ),
+    url(
+        r'vip/pay/order/$',
+        VIPPayOrderView.as_view(),
+        name='vip_pay_order'
+    ),
+    url(
+        r'vip/pay/alipay/paying/$',
+        VIPAlipayPaying.as_view(),
+        name='vip_alipay_paying'
+    ),
+    url(
+        r'vip/purchase/$',
+        VIPPurchase.as_view(),
+        name='vip_purchase'
+    ),
+    url(
+        r'vip/pay/wechat/paying/$',
+        VIPWechatPaying.as_view(),
+        name='vip_wechat_paying'
     ),
 ]
