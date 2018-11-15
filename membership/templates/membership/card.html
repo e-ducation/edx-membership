@@ -24,17 +24,101 @@ from student.models import CourseEnrollment
 
 <div class="card-box">
     <div class="vip-box">
-        <div class="vip-message"></div>
+        <div class="vip-message">
+            <p class="vip-name">英荔商学院VIP会员</p>
+            <span class="vip-line"></span>
+            <div>
+                <ul class="vip-basic-inf">
+                    <li class="has-vip-time">已开通<span>1</span>天 剩余<span class="has-time">365</span>天</li>
+                    <li>开通日期:<span></span></li>
+                    <li>到期日期:<span></span></li>
+                </ul>
+                <a class="vip-instro" href="#">查看介绍</a>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="card-choice">
     <div class="choice-padding">
         <ul>
-            <li></li>
-            <li></li>
+            <li class="current">
+                <div class="vip-card-header">
+                    <p>半年会员</p>
+                </div>
+                <div class="vip-card-body">
+                    <p class="now-money"><span>$500</span>.00</p>
+                    <p class="old-money">600</p>
+                    <div class="become-vip">续费</div>
+                </div>
+            </li>
+            <li>
+                <div class="vip-card-header">
+                    <p>半年会员</p>
+                </div>
+                <div class="vip-card-body">
+                    <p class="now-money"><span>$500</span>.00</p>
+                    <p class="old-money">600</p>
+                    <div class="become-vip">续费</div>
+                </div>
+            </li>
             <li></li>
             <li></li>
         </ul>
+
+        <div class="pay-way">
+            <!-- 三角形 -->
+            <div class="triangle_border_up">
+                <div></div>
+            </div>
+
+            <div class="pay-box">
+                <div>
+                    <p class="pay-left">选择支付方式</p>
+                    <p class="pay-right"><span>订阅会员有效期一年</span>学费：<span>$199999</span><span>.00</span></p>
+                </div>
+
+                <ul class="pay">
+                    <li class="alipay">
+
+                    </li>
+                    <li class="wehatpay">
+
+                    </li>
+                </ul>
+
+                <div class="paybtn">交学费</div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
+<script>
+
+    $.ajax({
+        type: "get",
+        url: "/api/v1/vip/order/1",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    //api/v1/vip/info/{user}
+
+    $.ajax({
+        type: "get",
+        url: "/api/v1/vip/packages",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+</script>
