@@ -1,0 +1,75 @@
+.card-box{  
+  width: 100%;
+  background: url('../images/card_bg.png') no-repeat;
+  background-size: 100%;
+  .vip-box{ 
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 38px 0 48px 0;
+    .vip-message{  
+      padding: 28px;
+      height: 100px;
+      max-width: 939px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      .vip-name{ 
+        font-size: 18px;
+        color: $blackFont;
+        line-height: 32px;
+      }
+      .vip-line{ 
+        width: 100%;
+        height: 2px;
+        display: block;
+        background: $greyLine;
+        margin-top: 8px;
+      }
+      .vip-basic-inf{  
+        float: left;
+        padding-left: 0px;
+        list-style: none;
+        li{ 
+          float: left;
+          font-size: 14px;
+          color: $normalFont;
+          margin-right: 54px;
+        }
+        li:nth-of-type(2),li:nth-of-type(3){  
+          margin-top: 17px;
+        }
+        li:nth-of-type(3){  
+          margin-right: 0px;
+        }
+      }
+      .has-vip-time{ 
+        line-height: 34px;
+        .has-time{  
+          font-size: 36px;
+          color: $buleFont;
+        }
+      }
+      .vip-instro{ 
+        width: 90px;
+        height: $btnHeight;
+        background-color: $buleFont;
+        border-radius: 2px;
+        border: solid 0px $buleFont;
+        color: $whiteFont;
+        float: right;
+        display: inline-block;
+        color: #fff;
+        line-height: 34px;
+        font-size: 14px;
+        text-shadow: none;
+        text-align: center;
+        margin-top: 22px;
+        &:hover{  
+          text-decoration: none;
+          background-color: rgba($buleFont,0.9);
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,209 @@
+.card-box {
+  width: 100%;
+  background: url("../images/card_bg.png") no-repeat;
+  background-size: 100%; }
+  .card-box .vip-box {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 38px 0 48px 0; }
+    .card-box .vip-box .vip-message {
+      padding: 28px;
+      height: 100px;
+      max-width: 939px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); }
+      .card-box .vip-box .vip-message .vip-name {
+        font-size: 18px;
+        color: #2e313c;
+        line-height: 32px; }
+      .card-box .vip-box .vip-message .vip-line {
+        width: 100%;
+        height: 2px;
+        display: block;
+        background: #eef0f2;
+        margin-top: 8px; }
+      .card-box .vip-box .vip-message .vip-basic-inf {
+        float: left;
+        padding-left: 0px;
+        list-style: none; }
+        .card-box .vip-box .vip-message .vip-basic-inf li {
+          float: left;
+          font-size: 14px;
+          color: #656d78;
+          margin-right: 54px; }
+        .card-box .vip-box .vip-message .vip-basic-inf li:nth-of-type(2), .card-box .vip-box .vip-message .vip-basic-inf li:nth-of-type(3) {
+          margin-top: 17px; }
+        .card-box .vip-box .vip-message .vip-basic-inf li:nth-of-type(3) {
+          margin-right: 0px; }
+      .card-box .vip-box .vip-message .has-vip-time {
+        line-height: 34px; }
+        .card-box .vip-box .vip-message .has-vip-time .has-time {
+          font-size: 36px;
+          color: #4788c7; }
+      .card-box .vip-box .vip-message .vip-instro {
+        width: 90px;
+        height: 34px;
+        background-color: #4788c7;
+        border-radius: 2px;
+        border: solid 0px #4788c7;
+        color: #fff;
+        float: right;
+        display: inline-block;
+        color: #fff;
+        line-height: 34px;
+        font-size: 14px;
+        text-shadow: none;
+        text-align: center;
+        margin-top: 22px; }
+        .card-box .vip-box .vip-message .vip-instro:hover {
+          text-decoration: none;
+          background-color: rgba(71, 136, 199, 0.9); }
+
+.card-choice {
+  width: 100%;
+  background: #feffff;
+  padding-top: 32px;
+  padding-bottom: 48px; }
+  .card-choice .choice-padding {
+    max-width: 995px;
+    margin: 0 auto; }
+    .card-choice .choice-padding ul {
+      list-style: none;
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 824px;
+      padding-left: 0; }
+      .card-choice .choice-padding ul li {
+        height: 264px;
+        width: 176px;
+        float: left;
+        background: #fff;
+        margin: 0 14px;
+        border-radius: 3px;
+        border: 1px solid #b6dcfe; }
+        .card-choice .choice-padding ul li .vip-card-header {
+          border-bottom: 1px solid #b6dcfe;
+          height: 60px;
+          line-height: 60px;
+          background: rgba(182, 220, 254, 0.3); }
+          .card-choice .choice-padding ul li .vip-card-header p {
+            text-align: center;
+            font-size: 18px;
+            color: #2e313c; }
+        .card-choice .choice-padding ul li .vip-card-body .now-money {
+          margin-top: 40px;
+          font-size: 14px;
+          text-align: center;
+          color: #4788c7; }
+          .card-choice .choice-padding ul li .vip-card-body .now-money span {
+            font-size: 24px; }
+        .card-choice .choice-padding ul li .vip-card-body .old-money {
+          font-size: 14px;
+          color: #656d78;
+          text-align: center;
+          text-decoration: line-through;
+          margin-top: 24px;
+          margin-bottom: 24px; }
+        .card-choice .choice-padding ul li .vip-card-body .become-vip {
+          height: 34px;
+          color: #4788c7;
+          width: 100px;
+          border: 1px solid #4788c7;
+          text-align: center;
+          line-height: 34px;
+          margin: 0 auto;
+          border-radius: 4px;
+          margin-top: 20px;
+          background: rgba(182, 220, 254, 0.3); }
+      .card-choice .choice-padding ul li.current {
+        border: 1px solid #ffe4d1; }
+        .card-choice .choice-padding ul li.current .vip-card-header {
+          border-bottom: 1px solid #ffe4d1;
+          background: rgba(255, 228, 209, 0.3); }
+        .card-choice .choice-padding ul li.current .vip-card-body .now-money {
+          color: #fa7f2b; }
+        .card-choice .choice-padding ul li.current .vip-card-body .become-vip {
+          border: 1px solid #fa7f2b;
+          color: #fa7f2b;
+          background: rgba(255, 228, 209, 0.3); }
+  .card-choice .pay-way {
+    height: 242px;
+    width: 100%;
+    margin-top: 2px;
+    position: relative;
+    overflow: hidden; }
+    .card-choice .pay-way .triangle_border_up {
+      width: 0;
+      height: 0;
+      border-left: 24px solid transparent;
+      border-right: 24px solid transparent;
+      border-bottom: 24px solid #e2e6ec;
+      position: absolute;
+      left: 164px; }
+      .card-choice .pay-way .triangle_border_up div {
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-bottom: 30px solid #fff;
+        position: absolute;
+        left: -30px;
+        top: 2px; }
+    .card-choice .pay-way .pay-box {
+      height: 217px;
+      width: 100%;
+      background: #fff;
+      border: 1px solid #e2e6ec;
+      margin-top: 24px;
+      box-sizing: border-box;
+      padding: 28px; }
+      .card-choice .pay-way .pay-box div {
+        height: 24px; }
+        .card-choice .pay-way .pay-box div .pay-left {
+          float: left; }
+        .card-choice .pay-way .pay-box div .pay-right {
+          float: right;
+          margin-top: 0;
+          color: #656d78;
+          font-size: 14px; }
+          .card-choice .pay-way .pay-box div .pay-right span:nth-of-type(1) {
+            margin-right: 30px;
+            color: #656d78; }
+          .card-choice .pay-way .pay-box div .pay-right span:nth-of-type(2) {
+            color: #fa7f2b;
+            font-size: 24px; }
+          .card-choice .pay-way .pay-box div .pay-right span:nth-of-type(3) {
+            color: #fa7f2b; }
+      .card-choice .pay-way .pay-box .pay {
+        padding-left: 0;
+        list-style: none;
+        margin-left: 0px;
+        margin-top: 20px;
+        margin-bottom: 20px; }
+        .card-choice .pay-way .pay-box .pay li {
+          width: 186px;
+          height: 62px;
+          margin-left: 0px;
+          background-color: #ffffff;
+          border-radius: 4px;
+          border: solid 1px #e6e9ed; }
+        .card-choice .pay-way .pay-box .pay .alipay {
+          margin-right: 26px;
+          background: url("../images/ALIPAY.png") no-repeat center;
+          background-size: 116px; }
+        .card-choice .pay-way .pay-box .pay .wehatpay {
+          background: url("../images/WECHATPAY.png") no-repeat center;
+          background-size: 146px; }
+      .card-choice .pay-way .pay-box .paybtn {
+        width: 100px;
+        height: 34px;
+        background-color: #fa7f2b;
+        border-radius: 2px;
+        border: solid 0px #fa7f2b;
+        color: #fff;
+        text-align: center;
+        line-height: 34px;
+        font-size: 14px; }
+
+/*# sourceMappingURL=card.css.map */

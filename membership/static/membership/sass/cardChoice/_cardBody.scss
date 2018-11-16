@@ -1,0 +1,196 @@
+.card-choice{ 
+  width: 100%;
+  background: rgb(254,255,255);
+  padding-top: 32px;
+  padding-bottom: 48px;
+  .choice-padding{  
+    max-width: 995px;
+    margin: 0 auto;
+    ul{ 
+      list-style: none;
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 824px;
+      padding-left:  0;
+      li{ 
+        height: 264px;
+        width: 176px;
+        float: left;
+        background: #fff;
+        margin:0 14px; 
+        border-radius: 3px;
+        border: 1px solid rgb(182,220,254);
+        .vip-card-header{  
+          border-bottom:1px solid rgb(182,220,254);
+          height: 60px;
+          line-height: 60px;
+          background: rgba(182,220,254,0.3);
+          p{  
+            text-align: center;
+            font-size: 18px;
+            color: $blackFont;
+          }
+        }
+        .vip-card-body{  
+
+          .now-money{ 
+            margin-top: 40px;
+            font-size: 14px;
+            text-align: center;
+            color:$buleFont;
+            span { 
+              
+              font-size: 24px;
+              
+            }
+          }
+          .old-money{ 
+            font-size: 14px;
+            color:$normalFont;
+            text-align: center;
+            text-decoration: line-through;
+            margin-top: 24px;
+            margin-bottom: 24px;
+          }
+          .become-vip{  
+            height: $btnHeight;
+            color:$buleFont;
+            width: 100px;
+            border: 1px solid $buleFont;
+            text-align: center; 
+            line-height: 34px;
+            margin: 0 auto;
+            border-radius: 4px;
+            margin-top: 20px;
+            background: rgba(182,220,254,0.3);
+          }
+          
+        }
+      }
+      li.current{ 
+        border: 1px solid rgb(255,228,209);
+        .vip-card-header{  
+          border-bottom:1px solid rgb(255,228,209);
+          
+          background: rgba(255,228,209,0.3);
+          
+        }
+        .vip-card-body{  
+
+          .now-money{ 
+            color:$orangeFont;
+          }
+        
+          .become-vip{  
+            border: 1px solid $orangeFont;
+            color: $orangeFont;
+            background:rgba(255,228,209,0.3);
+          }
+          
+        }
+      }
+    }
+  }
+
+
+
+  //支付
+  .pay-way{ 
+    height: 242px;
+    width: 100%;
+    margin-top:  2px;
+    position: relative;
+    overflow: hidden;
+    // 三角形
+    .triangle_border_up{
+      width:0;
+      height:0;
+      border-left:24px solid transparent;
+      border-right:24px solid transparent;
+      border-bottom:24px solid rgb(226,230,236);
+      position: absolute;
+      left: 164px;
+      div{ 
+        width:0;
+        height:0;
+        border-left:30px solid transparent;
+        border-right:30px solid transparent;
+        border-bottom:30px solid #fff;
+        position: absolute;
+        left: -30px;
+        top: 2px;
+      }
+    }
+    // 选择支付方式
+    .pay-box{  
+      height: 217px;
+      width: 100%;
+      background: #fff;
+      border: 1px solid rgb(226,230,236);
+      margin-top: 24px;
+      box-sizing: border-box;
+      padding: 28px;
+      div{  
+        height:24px;
+        .pay-left{ 
+          float: left;
+        }
+        .pay-right{  
+          float: right;
+          margin-top: 0;
+          color: $normalFont;
+          font-size: 14px;
+          span:nth-of-type(1){  
+            margin-right: 30px;
+            color: $normalFont;
+          }
+          span:nth-of-type(2){  
+            color:$orangeFont;
+            font-size: 24px; 
+          }
+          span:nth-of-type(3){  
+            color:$orangeFont;
+          
+          }
+        }
+      }
+      .pay{ 
+        padding-left: 0;
+        list-style: none;
+        margin-left: 0px;
+        margin-top: 20px;
+        margin-bottom:  20px;
+        li{ 
+          width: 186px;
+          height: 62px;
+          margin-left: 0px;
+          background-color: #ffffff;
+          border-radius: 4px;
+          border: solid 1px #e6e9ed;
+
+        }
+        .alipay{ 
+          margin-right:  26px;
+          background: url('../images/ALIPAY.png') no-repeat center;
+          background-size:116px;
+        }
+        .wehatpay{ 
+          background: url('../images/WECHATPAY.png') no-repeat center;
+          background-size:146px;
+        }
+      }
+      .paybtn{  
+        width: 100px;
+        height: $btnHeight;
+        background-color: $orangeFont;
+        border-radius: 2px;
+        border: solid 0px $orangeFont;
+        color: $whiteFont;
+        text-align: center;
+        line-height: $btnHeight;
+        font-size: 14px;
+      }
+    }
+
+  }
+}
