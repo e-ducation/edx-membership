@@ -1,0 +1,21 @@
+{
+  "data": {
+    "isVip": true,
+    "isTimeout": true,
+    "sTime": "2017-02-12",
+    "eTime": "2017-10-12",
+    "timeoutDay": "200"
+  },
+  "data01": {
+    "isVip": false,
+    "isTimeout": false,
+    "sTime": "2017-02-12",
+    "eTime": "2019-10-12",
+    "aredyTime": "2",
+    "hasTime": "363"
+  },
+  "data02": {
+    "isVip": false,
+    "isTimeout": false
+  }
+}
