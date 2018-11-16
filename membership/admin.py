@@ -1,5 +1,15 @@
+# -*- coding:utf-8 -*-
+from __future__ import unicode_literals
+
 from django.contrib import admin
-from membership.models import VIPCourseEnrollment, VIPCoursePrice, VIPInfo, VIPOrder, VIPPackage
+
+from membership.models import (
+    VIPCourseEnrollment,
+    VIPCoursePrice,
+    VIPInfo,
+    VIPOrder,
+    VIPPackage
+)
 
 
 @admin.register(VIPCourseEnrollment)

@@ -1,8 +1,12 @@
 # -*- coding:utf-8 -*-
+from __future__ import unicode_literals
+
 import datetime
-from pytz import UTC
-import pytz
+import decimal
 import random
+
+from pytz import UTC
+
 
 def create_trade_id(pid):
     """

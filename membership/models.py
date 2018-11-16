@@ -1,19 +1,23 @@
-# -*- coding: utf-8 -*-
+# -*- coding:utf-8 -*-
 """
 Database models for membership.
 """
 from __future__ import absolute_import, unicode_literals
-import pytz
+
 import logging
+import pytz
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
 from django.contrib.auth.models import User
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
-from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
+from django.db import models
+from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
+
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
 from opaque_keys.edx.keys import CourseKey
 
 log = logging.getLogger(__name__)

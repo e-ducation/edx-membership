@@ -1,15 +1,18 @@
-# -*-coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from __future__ import unicode_literals
+
 import logging
 import json
-from django.urls import reverse
+
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from rest_framework import filters
+from rest_framework import generics
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import filters
-from rest_framework import generics
 from rest_framework.views import APIView
 
 from membership.models import VIPOrder, VIPInfo, VIPPackage
@@ -38,7 +41,6 @@ log = logging.getLogger(__name__)
 
 class VIPStatusAPIView(generics.RetrieveAPIView):
 
-    queryset = VIPInfo.objects.all()
     serializer_class = VIPStatusSerializer
 
     def get_queryset(self):
@@ -62,7 +64,6 @@ class PackageListAPIView(generics.ListAPIView):
 class VIPInfoAPIView(generics.RetrieveAPIView):
     """ 个人VIP信息 """
 
-    queryset = VIPInfo.objects.all()
     serializer_class = VIPInfoSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
@@ -86,6 +87,8 @@ class VIPOrderAPIView(generics.RetrieveAPIView):
 class VIPPayOrderView(APIView):
     """
     VIP pay order view
+    参数：package_id 套餐ID
+    返回: 返回order_id
     """
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
@@ -103,6 +106,8 @@ class VIPPayOrderView(APIView):
 class VIPAlipayPaying(APIView):
     """
     VIP alipay paying
+    参数：package_id 套餐ID
+    返回: 跳转到支付宝支付页面 
     """
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
@@ -128,24 +133,8 @@ class VIPAlipayPaying(APIView):
     def get_pay_html(self, body, subject, total_fee, http_host, order_id):
         """
         get alipay html
+        # 支付信息，订单号必须唯一
         """
-        # 支付信息，订单号必须唯一。
-        # 以下包含的内容替换为实际的内容。
-        # params = {
-        # 'out_trade_no': order_id,
-        # 'subject': subject,
-        # 'body': body[0:len(body) - 1],
-        # 'total_fee': str(total_fee)
-        # }
-        # 及时到帐
-        # tn 请与贵网站订单系统中的唯一订单号匹配 subject 订单名称，显示在支付宝收银台里的“商品名称”里，显示在支付宝的交易管理的“商品名称”的列表里。
-        # body 订单描述、订单详细、订单备注，显示在支付宝收银台里的“商品描述”里 price 订单总金额，显示在支付宝收银台里的“应付总额”里
-        # 担保交易
-        # payhtml=create_partner_trade_by_buyer(order_id_str, body, subject, total_fee)
-        # if len(str(total_fee)) > 0 and total_fee != 0:
-        #    total_fee = int(str(total_fee)[0]) * 0.01
-        # else:
-        #    total_fee = 0.01
         extra_common_param = settings.LMS_ROOT_URL + reverse("vip_purchase")
         total_fee = str_to_specify_digits(str(total_fee))
         trade_id = create_trade_id(order_id)
@@ -171,20 +160,24 @@ class VIPPurchase(APIView):
         """
 
         out_trade_no = request.POST.get("out_trade_no", "")
-        order_id = recovery_order_id(out_trade_no)
         trade_no = request.POST.get("trade_no")
+        pay_type = request.POST.get("trade_type")
 
         # TODO : 需要根据 响应body 进行付款类型的判断
-        pay_type = request.POST.get("trade_type")
-        order = VIPOrder.get_user_order(order_id)
+        order_pay_types = {
+            'alipay': VIPOrder.PAY_TYPE_BY_ALIPAY,
+            'wechat': VIPOrder.PAY_TYPE_BY_WECHAT
+        }
 
-        print '%' * 100
-        print order_id
-        print order 
-        print '%' * 100
+        order_id = recovery_order_id(out_trade_no)
+        order = VIPOrder.get_user_order(order_id)
         if order and order.status == VIPOrder.STATUS_WAIT:
-            order.purchase(order.created_by, pay_type,
-                           outtradeno=out_trade_no, refno=trade_no)
+            order.purchase(
+                order.created_by, 
+                order_pay_types.get(pay_type),
+                outtradeno=out_trade_no, 
+                refno=trade_no
+            )
         return Response({'result': 'success'})
 
 
@@ -197,20 +190,19 @@ class VIPWechatPaying(APIView):
 
     def get(self, request, *args, **kwargs):
         """
-        生成订单 生成二维码
-        生成二维码
-        模式二与模式一相比，流程更为简单，不依赖设置的回调支付URL。商户后台系统先调用微信支付的统一下单接口，
-        微信后台系统返回链接参数code_url，商户后台系统将code_url值生成二维码图片，用户使用微信客户端扫码后发起支付。
-        注意：code_url有效期为2小时，过期后扫码不能再发起支付。
-        统一下单接口:
-        除被扫支付场景以外，商户系统先调用该接口在微信支付服务后台生成预支付交易单，
-        返回正确的预支付交易回话标识后再按扫码、JSAPI、APP等不同场景生成交易串调起支付
-        以下字段在return_code 和result_code都为SUCCESS的时候有返回
-        交易类型	 trade_type
-        预支付交易会话标识	 prepay_id
+        生成订单 生成微信支付二维码
         二维码链接 code_url
+        跳转到微信支付二维码页面 href_url
         :param request:
+        |参数|类型|是否必填|说明|：
+        |package_id|int|是|套餐ID|
+
+        ### 示例
+        GET /api/v1/vip/pay/wechat/paying/?package_id=1
+
         :return:
+        |参数|类型|说明|
+        |href_url|string|跳转微信支付页面链接|
         """
 
         package_id = request.GET.get('package_id')
@@ -234,7 +226,8 @@ class VIPWechatPaying(APIView):
             unifiedorder_pub.setParameter("attach", attach_data)
 
             code_url = unifiedorder_pub.getCodeUrl()
-
-            return Response({'result': 'success', 'code': '200', 'code_url': code_url, 'order_id': order.id})
+            para_str = "?code_url={}&order_id={}&price={}".format(code_url, order.id, order.price)
+            href_url = settings.LMS_ROOT_URL + reverse("vip_pay_wechat_qrcode_paying") + para_str
+            return Response({'result': 'success', 'code': '200', 'href_url': href_url})
         else:
             return Response({'result': 'failed', 'code': '500'})

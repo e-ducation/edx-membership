@@ -19,7 +19,6 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
+<link src="${static.url('membership/index.css')}" />
 
-    <h1>充钱就能变强！</h1>
-    <a href="/api/v1/vip/pay/alipay/paying/?package_id=1" target="_blank">支付宝支付</a>
-    <a href="/api/v1/vip/pay/wechat/paying/?package_id=1" target="_blank">微信支付</a>
+<h1>微信二维码支付页面</h1>
