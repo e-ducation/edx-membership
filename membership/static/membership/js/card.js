@@ -1,5 +1,8 @@
 var vipCard = ""
 //暴露付款方式以及会员价格提供到支付接口
+
+//payWay = 0代表支付宝
+//1代表微信
 var payWay = 0;
 var money = 0;
 // vip会员信息
@@ -180,7 +183,7 @@ $('.popup-pay>div').click(function (e) {
     e.cancelBubble = true;
   }
   payWay = $(this).index();
-  console.log(payWay);
+
   $(this).children(".round").css({ background: "url('../static/membership/images/Group.png') no-repeat center", backgroundSize: '16px' });
   $(this).siblings("div").children(".round").css({ background: "url('../static/membership/images/Normal.png') no-repeat center", backgroundSize: '16px' })
 })
