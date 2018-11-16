@@ -1,0 +1,225 @@
+//头部
+#card-box-phone{
+  .home>header{  
+    padding-bottom: 6px;
+  } 
+  height:  133px;
+  background-size:100% 133px;
+  margin-top: -20px;
+  .vip-box{ 
+    width: 100%;
+    padding: 0 4%;
+    box-sizing:border-box;
+    margin-top: 14px;
+    .vip-message{  
+      padding-top:14px;
+      padding-bottom: 14px;
+      height: 66px;
+      .vip-basic-inf{ 
+        margin-top: 0;
+        li:nth-of-type(1){  
+          width: 100%;
+          margin-right: 0;
+          text-align: center;
+        }
+        li:nth-of-type(2),li:nth-of-type(3){  
+          margin-top: 0px;
+        }
+        .has-time{  
+          font-size: 24px;
+        }
+      } 
+      .no-vip{ 
+        line-height: 40px;
+      }
+    }
+    .phone-vip-name{ 
+      color: $buleFont;
+      font-size: 14px;
+    }
+  }
+
+}
+
+.h5-card{  
+  width: 100%;
+  padding: 4% 4%;
+  height: auto;
+  background:#fff;
+  box-sizing:border-box;
+  >div{ 
+    margin-bottom: 4%;
+    height: 82px;
+    border: 1px solid rgb(182,220,254);
+    border-radius: 3px;
+    background: rgba(182,220,254,0.3);
+    position: relative;
+  }
+  >div.current{ 
+    border: 1px solid rgb(255,228,209);
+    background: rgba(255,228,209,0.3);
+    .card-h5-money{ 
+      color:$orangeFont;
+    }
+  }
+  .h5-recommend{ 
+     width: 45px;
+     height: 41px;
+     background: url('../images/recommend.png') no-repeat top;
+     background-size: 45px 41px;
+     position: absolute;
+     left: -2px;
+     top: -2px;
+  }
+  .card-h5-message{  
+    float: left;
+    margin-left: 28px;
+    p:nth-of-type(1){  
+      color: $blackFont;
+      font-size: 18px;
+      margin-top: 18px;
+    }
+    p:nth-of-type(2){  
+      color: $normalFont;
+      font-size: 14px;
+      margin-top: 10px;
+      text-decoration: line-through;
+    }
+  }
+  .card-h5-money{ 
+    float: right;
+    margin-right: 28px;
+    font-size: 14px;
+    color:$buleFont;
+    margin-top:  33px;
+    span{ 
+      font-size: 24px;
+    }
+  }
+}
+
+
+// 遮罩层
+.h5-popup{ 
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background: rgba(0,0,0,0.3);
+  .content-popup{  
+    height: 230px;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    .popup-top{  
+      height: 54px;
+      width: 100%;
+      padding: 0 8%;
+      background: #f5f7fa;
+      box-sizing: border-box;
+      p{  
+        font-size: 14px;
+        line-height: 54px;
+      }
+      p:nth-of-type(1){ 
+        float: left;
+        color: $blackFont;
+        margin-top: 0;
+      }
+      p:nth-of-type(2){ 
+        float: right;
+        color: $normalFont;
+        margin-top: 0;
+        line-height: 46px;
+        span{ 
+          color:$orangeFont;
+          font-size: 24px;
+        }
+      }
+    }
+    .popup-pay{  
+      padding: 0 8%;
+      background: #fff;
+      width: 100%;
+      height: 128px;
+      box-sizing: border-box;
+      color:$blackFont;
+      .payway-we{ 
+        height: 64px; 
+        line-height: 64px;
+        
+        div:nth-of-type(1){ 
+          float: left;
+          span{ 
+            float: left;
+          }
+          span:nth-of-type(1){  
+            display: inline-block;
+            width: 32px;
+            height: 31px;
+            background: url('../images/h5-we.png') no-repeat center;
+            background-size: 32px 31px;
+            margin-top: 17px;
+            margin-right: 20px;
+          }
+          span:nth-of-type(2){  
+            display: inline-block;
+          }
+        }
+        div:nth-of-type(2){ 
+          float: right;
+          width: 16px;
+          height: 16px;
+          background: url('../images/Normal.png') no-repeat center;
+          background-size: 16px 16px;
+          margin-top: 25px;
+        }
+      }
+      .payway-ali{  
+        height: 64px; 
+        line-height: 64px;
+        div:nth-of-type(1){ 
+          float: left;
+          span{ 
+            float: left;
+          }
+          span:nth-of-type(1){  
+            display: inline-block;
+            width: 31px;
+            height: 31px;
+            background: url('../images/h5-ali.png') no-repeat center;
+            background-size: 31px 31px;
+            margin-top: 17px;
+            margin-right: 20px;
+            
+          }
+          span:nth-of-type(2){  
+            display: inline-block;
+          }
+        }
+        div:nth-of-type(2){ 
+          float: right;
+          width: 16px;
+          height: 16px;
+          background: url('../images/Normal.png') no-repeat center;
+          background-size: 16px 16px;
+          margin-top: 25px;
+          
+        }
+      }
+    }
+    .h5btn-pay{  
+      height: 48px;
+      background: $orangeFont;
+      color: #fff;
+      font-size: 14px;
+      line-height: 48px;
+      text-align: center; 
+    }
+  }
+  
+}
