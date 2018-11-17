@@ -47,3 +47,15 @@ def str_to_specify_digits(str, digits_length=2):
         return result_str
     except Exception as ex:
         return str
+
+
+def xresult(code=0, msg='', data=None):
+    # TODO 异常错误补充
+    ERROR_CODES = {}
+    msg = ERROR_CODES.get(code) if ERROR_CODES.has_key(code) else msg
+
+    return {
+        'code': code,
+        'data': data,
+        'msg': msg
+    }

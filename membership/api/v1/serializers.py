@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 import datetime
 import pytz
 
+from django.conf import settings
 from rest_framework import serializers
 
 from membership.models import VIPPackage, VIPOrder, VIPInfo
@@ -32,20 +33,8 @@ class VIPInfoSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
 
     def get_status(self, info):
-        return info.expired_at.today() >= datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
+        return info.expired_at.date() >= datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
 
     class Meta:
         model = VIPInfo
         fields = ('start_at', 'expired_at', 'status')
-
-
-class VIPStatusSerializer(serializers.ModelSerializer):
-
-    status = serializers.SerializerMethodField()
-
-    def get_status(self, info):
-        return info.expired_at.today() >= datetime.datetime.today().replace(tzinfo=pytz.utc).astimezone(pytz.timezone(settings.TIME_ZONE)).date()
-
-    class Meta:
-        model = VIPInfo
-        fields = ('status', )

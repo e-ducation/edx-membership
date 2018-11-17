@@ -10,7 +10,6 @@ from .views import (
     PackageListAPIView,
     VIPInfoAPIView,
     VIPOrderAPIView,
-    VIPStatusAPIView,
     VIPPayOrderView,
     VIPPurchase,
     VIPAlipayPaying,
@@ -25,7 +24,7 @@ urlpatterns = [
         name='package_list'
     ),
     url(
-        r'vip/info/$',
+        r'vip/info$',
         VIPInfoAPIView.as_view(),
         name='vip_info'
     ),
@@ -33,11 +32,6 @@ urlpatterns = [
         r'vip/order/(?P<pk>\d+)$',
         VIPOrderAPIView.as_view(),
         name='vip_order'
-    ),
-    url(
-        r'vip/status/$',
-        VIPStatusAPIView.as_view(),
-        name='vip_status'
     ),
     url(
         r'vip/pay/order/$',
