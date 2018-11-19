@@ -271,27 +271,3 @@ class VIPCoursePrice(models.Model):
     class Meta(object):
         app_label = 'membership'
 
-    @classmethod
-    def get_course_subscribe_type(cls):
-        """
-        订阅期内课程类型（是否还需收费）
-        """
-        subscribe_type = {}
-        for course in cls.objects.all():
-            subscribe_type.setdefault(course.subscribe, []).append(course.course_id)
-
-        return subscribe_type
-
-    @classmethod
-    def get_vip_course_price_data(cls):
-        '''
-        vip订阅课程类型数据
-        '''
-        return dict(cls.objects.values_list('course_id', 'subscribe'))
-
-    @classmethod
-    def is_subscribe_pay(cls, course_id):
-        """
-        订阅期内该课程类型，是否收费
-        """
-        return cls.objects.filter(course_id=course_id, subscribe=cls.SUBSCRIBE_PAY).exists()

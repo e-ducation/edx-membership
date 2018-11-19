@@ -258,6 +258,6 @@ class VIPWechatPaying(APIView):
                 code_url, order.id, order.price)
             href_url = settings.LMS_ROOT_URL + \
                 reverse("vip_pay_wechat_qrcode_paying") + para_str
-            return Response({'result': 'success', 'code': '200', 'href_url': href_url})
+            return Response({'result': 'success', 'code': '200', 'href_url': href_url, 'order_id': order.id})
         else:
             return Response({'result': 'failed', 'code': '500'})
