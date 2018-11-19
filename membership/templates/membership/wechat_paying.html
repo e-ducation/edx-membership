@@ -19,6 +19,55 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<link src="${static.url('membership/index.css')}" />
+<link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
 
-<h1>微信二维码支付页面</h1>
+<div class="wxpay-wrap">
+    <div class="wxpay-container">
+        <div class="wxpay-header">
+            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">英荔商学院收银台</span>
+        </div>
+        <div id="paying" class="wxpay-content" >
+            <div class="wxpay-number">实付金额：${price}</div>
+            <div>请在2小时内完成支付，否则可能导致购买失败</div>
+            <div class="wxpay-scanner">
+                <!-- <img src="${static.url('membership/images/scanner.png')}" /> -->
+                <div id="qrcode" src="${code_url}"></div>
+            </div>
+            <div>请使用微信扫描二维码</div>
+            <div style="margin-top:5px">以完成支付</div>
+        </div>
+        <div id="result" class="wxpay-content" style="display:none">
+            <div class="wxpay-success-log">
+                <img src="${static.url('membership/images/wxsuccess.png')}" />
+            </div>
+            <div class="wxpay-success-title">
+                支付成功
+            </div>
+            <div class="wxpay-tips">3秒后返回英荔商学院</div>
+            <div class="wxpay-button">
+                <a href="/vip/card">立即返回</a>
+            </div>
+        </div>
+    </div>
+            <h1></h1>
+    <input id="input" type="hidden" value="${order_id}" />
+</div>
+<script type="text/javascript" src="${static.url('membership/libs/qrcode.js')}"></script>
+<script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
+<script>
+    window.onload = function(){
+
+        new QRCode(document.getElementById("qrcode"), "${code_url}");
+        var checker =  new checkStatus()
+        var id = $('#input').val();
+        checker.start(function(){
+            alert('支付成功')
+            // $('#paying').hide();
+            // $('#result').show();
+            // window.location.href = "/vip/pay/result"
+            setTimeout(function(){
+                // window.location.href = "/vip/card"
+            },3000)
+        },id);
+    }
+</script>
