@@ -136,7 +136,8 @@ class VIPAlipayPaying(APIView):
 
         :return:
         |参数|类型|说明|
-        返回: 跳转到支付宝支付页面
+        |alipay_url|string|跳转到支付宝支付页面|
+        |order_id|int|订单id|
         """
         package_id = request.GET.get('package_id')
         order = VIPOrder.create_order(request.user, package_id)
@@ -152,6 +153,7 @@ class VIPAlipayPaying(APIView):
 
         data = {
             'alipay_url': pay_html,
+            'order_id': order.id
         }
         return Response(xresult(data=data))
 
@@ -256,6 +258,6 @@ class VIPWechatPaying(APIView):
                 code_url, order.id, order.price)
             href_url = settings.LMS_ROOT_URL + \
                 reverse("vip_pay_wechat_qrcode_paying") + para_str
-            return Response({'result': 'success', 'code': '200', 'href_url': href_url})
+            return Response({'result': 'success', 'code': '200', 'href_url': href_url, 'order_id': order.id})
         else:
             return Response({'result': 'failed', 'code': '500'})

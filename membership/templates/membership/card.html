@@ -118,11 +118,11 @@ from student.models import CourseEnrollment
             <p>学费：<span class="h5-pay-money"></span><span>.00</span></p>
         </div>
         <div class="popup-pay">
-            <div class="payway-ali">
+            <div class="payway payway-ali">
                 <div><span></span><span>支付宝支付</span></div>
                 <div class="round"></div>
             </div>
-            <div class="payway-we">
+            <div class="payway payway-we">
                 <div><span></span><span>微信支付</span></div>
                 <div class="round"></div>
             </div>
@@ -130,6 +130,7 @@ from student.models import CourseEnrollment
         <div class="h5btn-pay">交学费</div>
     </div>
 </div>
+<script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
 <script type="text/javascript" src="${static.url('membership/js/card.js')}"></script>
 <script>
     var isMoblie = function () {
