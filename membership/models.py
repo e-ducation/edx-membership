@@ -270,3 +270,4 @@ class VIPCoursePrice(models.Model):
 
     class Meta(object):
         app_label = 'membership'
+
