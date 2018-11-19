@@ -118,7 +118,7 @@ class VIPAlipayPaying(APIView):
     """
     VIP alipay paying
     参数：package_id 套餐ID
-    返回: 跳转到支付宝支付页面 
+    返回: 跳转到支付宝支付页面
     """
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
@@ -208,7 +208,7 @@ class VIPPurchase(APIView):
 
 class VIPWechatPaying(APIView):
     """
-    vip wechat paying 
+    vip wechat paying
     """
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
