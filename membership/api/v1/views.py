@@ -118,7 +118,7 @@ class VIPAlipayPaying(APIView):
     """
     VIP alipay paying
     参数：package_id 套餐ID
-    返回: 跳转到支付宝支付页面 
+    返回: 跳转到支付宝支付页面
     """
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
@@ -136,7 +136,8 @@ class VIPAlipayPaying(APIView):
 
         :return:
         |参数|类型|说明|
-        返回: 跳转到支付宝支付页面
+        |alipay_url|string|跳转到支付宝支付页面|
+        |order_id|int|订单id|
         """
         package_id = request.GET.get('package_id')
         order = VIPOrder.create_order(request.user, package_id)
@@ -152,6 +153,7 @@ class VIPAlipayPaying(APIView):
 
         data = {
             'alipay_url': pay_html,
+            'order_id': order.id
         }
         return Response(xresult(data=data))
 
@@ -208,7 +210,7 @@ class VIPPurchase(APIView):
 
 class VIPWechatPaying(APIView):
     """
-    vip wechat paying 
+    vip wechat paying
     """
     permission_classes = (IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
