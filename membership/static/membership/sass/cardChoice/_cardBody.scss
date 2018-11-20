@@ -6,6 +6,9 @@
   .choice-padding{  
     max-width: 995px;
     margin: 0 auto;
+    .jq-card{  
+      overflow: inherit;
+    }
     ul{ 
       list-style: none;
       overflow: hidden;
@@ -71,6 +74,8 @@
       }
       li.current{ 
         border: 1px solid rgb(255,228,209);
+        box-shadow: 0 0 3px rgb(255,228,209);
+        transition: all .3s;
         .vip-card-header{  
           border-bottom:1px solid rgb(255,228,209);
           
