@@ -20,6 +20,8 @@
         margin:0 14px; 
         border-radius: 3px;
         border: 1px solid rgb(182,220,254);
+        position: relative;
+        cursor: pointer;
         .vip-card-header{  
           border-bottom:1px solid rgb(182,220,254);
           height: 60px;
@@ -169,6 +171,9 @@
           border: solid 1px #e6e9ed;
 
         }
+        li.current{ 
+          border-color: $buleFont
+        }
         .alipay{ 
           margin-right:  26px;
           background: url('../images/ALIPAY.png') no-repeat center;
@@ -189,8 +194,22 @@
         text-align: center;
         line-height: $btnHeight;
         font-size: 14px;
+        cursor: pointer;  
       }
     }
 
   }
 }
+
+
+// 推荐
+.recommend{
+  width: 45px;
+  height: 41px;
+  background: url('../images/recommend.png') no-repeat top;
+  position: absolute; 
+  left: -2px;
+  top: -2px;
+  background-size: 45px 41px;
+}
+

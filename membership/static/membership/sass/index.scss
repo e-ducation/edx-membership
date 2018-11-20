@@ -1,0 +1,96 @@
+
+
+
+.wxpay-container{
+    width: 995px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background-color: rgb(255, 255, 255);
+	box-shadow: 0px 2px 4px 0px 
+		#aab2bd;
+	border-radius: 3px;
+    border: solid 0px #e6e9ed;
+    height: 437px;
+    padding-top: 20px;
+    .wxpay-header{
+        margin-left: 20px;
+        line-height: 36px;
+        .wxpay-logo{
+            height: 36px;
+        }
+        .wxpay-title{
+            font-size: 16px;
+            color: #2e313c;
+        }
+        span{
+            vertical-align: middle;
+            cursor: default;
+        }
+    }
+    .wxpay-content{
+        text-align: center;
+        .wxpay-scanner{
+            width: 141px;
+            margin: 0 auto;
+            img{
+                width: 100%;
+            }
+            margin-bottom: 20px;
+            margin-top: 25px;
+        }
+        div.wxpay-number{
+            margin-top: 38px;
+            margin-bottom: 15px;
+            color: #2e313c;
+        }
+        div{
+            font-size: 14px;
+            color: #656d78;
+            // line-height: 26px;
+        }
+        .wxpay-success-log{
+            height: 64px;
+            margin-top: 68px;
+            img{
+                height: 100%;
+            }
+        }
+        .wxpay-success-title{
+            color: #2e313c;
+            font-size: 16px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+        .wxpay-tips{
+            font-size: 14px;
+            color: #656d78;
+        }
+        .wxpay-button{
+            width: 91px;
+            height: 35px;
+            background-color: #95cd5b;
+            border-radius: 3px;
+            border: solid 1px #57aa01;
+            line-height: 35px;
+            color: #fff;
+            font-size: 14px;
+            margin: 0 auto;
+            margin-top: 30px;
+            a{
+                display: block;
+                width: 100%;
+                text-decoration: none;
+                color: #fff;
+            }
+        }
+    }
+}
+@media screen and (max-width: 995px) {
+    .wxpay-container{
+        width: 100%;
+    }
+}
+#qrcode{
+    display: inline-block;
+    width: 146px;
+}

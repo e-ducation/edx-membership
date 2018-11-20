@@ -21,49 +21,29 @@ from student.models import CourseEnrollment
 %>
 
 <link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
-
-<div class="card-box">
-    <div class="vip-box">
-        <div class="vip-message">
-            <p class="vip-name">英荔商学院VIP会员</p>
-            <span class="vip-line"></span>
-            <div>
-                <ul class="vip-basic-inf">
-                    <li class="has-vip-time">已开通<span>1</span>天 剩余<span class="has-time">365</span>天</li>
-                    <li>开通日期:<span></span></li>
-                    <li>到期日期:<span></span></li>
-                </ul>
-                <a class="vip-instro" href="#">查看介绍</a>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+<meta content="telephone=no,email=no" name="format-detection" />
+<div id="card-box-pc" class="card-box">
+    <div class="home">
+        <header>
+            <div class="vip-box">
+                <div class="vip-message outer-wrapper">
+                    <p class="vip-name">英荔商学院VIP会员</p>
+                    <span class="vip-line"></span>
+                    <div class="jq-vip-message">
+                        <!--  -->
+                        <a class="vip-instro" href="#">查看介绍</a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </header>
     </div>
 </div>
 
 <div class="card-choice">
     <div class="choice-padding">
-        <ul>
-            <li class="current">
-                <div class="vip-card-header">
-                    <p>半年会员</p>
-                </div>
-                <div class="vip-card-body">
-                    <p class="now-money"><span>$500</span>.00</p>
-                    <p class="old-money">600</p>
-                    <div class="become-vip">续费</div>
-                </div>
-            </li>
-            <li>
-                <div class="vip-card-header">
-                    <p>半年会员</p>
-                </div>
-                <div class="vip-card-body">
-                    <p class="now-money"><span>$500</span>.00</p>
-                    <p class="old-money">600</p>
-                    <div class="become-vip">续费</div>
-                </div>
-            </li>
-            <li></li>
-            <li></li>
+        <ul class="jq-card">
+            <!-- 选择会员 -->
         </ul>
 
         <div class="pay-way">
@@ -75,11 +55,11 @@ from student.models import CourseEnrollment
             <div class="pay-box">
                 <div>
                     <p class="pay-left">选择支付方式</p>
-                    <p class="pay-right"><span>订阅会员有效期一年</span>学费：<span>$199999</span><span>.00</span></p>
+                    <p class="pay-right"><span>订阅会员有效期一年</span>学费：<span class="pay-money-card"></span><span>.00</span></p>
                 </div>
 
                 <ul class="pay">
-                    <li class="alipay">
+                    <li class="alipay current">
 
                     </li>
                     <li class="wehatpay">
@@ -88,37 +68,91 @@ from student.models import CourseEnrollment
                 </ul>
 
                 <div class="paybtn">交学费</div>
+
             </div>
         </div>
     </div>
 </div>
 
+<!-- 遮罩层 -->
+<div class="eliteu-popup">
+    <div class="e-popup-box">
+        <div class="e-popup-colse"></div>
+        <p class="popup-top-title">请在新页面完成支付</p>
+        <p class="popup-dec"><span>请不要关闭页面</span>，完成支付后请根据情况点击下面按钮</p>
+        <div class="popup-btnGrounp">
+            <a href="">重选支付方式</a>
+            <a href="">支付完成</a>
+            <a href="">遇到问题?</a>
+        </div>
+    </div>
+</div>
+
+<div id="card-box-phone" class="card-box">
+    <div class="home">
+        <header>
+            <div class="vip-box">
+                <div class="vip-message outer-wrapper">
+                    <p class="phone-vip-name">英荔商学院VIP会员</p>
+
+                    <div class="jq-vip-message">
+
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+</div>
+
+<!-- h5 -->
+<div class="h5-card">
+
+</div>
 
 
-
+<!-- h5遮罩层 -->
+<div class="h5-popup" style="display: none">
+    <div class="content-popup">
+        <div class="popup-top">
+            <p>选择支付方式</p>
+            <p>学费：<span class="h5-pay-money"></span><span>.00</span></p>
+        </div>
+        <div class="popup-pay">
+            <div class="payway payway-ali">
+                <div><span></span><span>支付宝支付</span></div>
+                <div class="round"></div>
+            </div>
+            <div class="payway payway-we">
+                <div><span></span><span>微信支付</span></div>
+                <div class="round"></div>
+            </div>
+        </div>
+        <div class="h5btn-pay">交学费</div>
+    </div>
+</div>
+<script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
+<script type="text/javascript" src="${static.url('membership/js/card.js')}"></script>
 <script>
+    var isMoblie = function () {
+        return navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i);
+    }
 
-    $.ajax({
-        type: "get",
-        url: "/api/v1/vip/order/1",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
+    if (isMoblie()) {
+        //手机
+        $(".card-choice").hide();
+        $("#card-box-pc").hide()
+        $(".h5-card").show();
+        $("#card-box-phone").show();
+        console.log(1);
+    }
+    else {
+        //pc
+        $(".card-choice").show();
+        $("#card-box-pc").show()
+        $(".h5-card").hide();
+        $("#card-box-phone").hide();
+    }
 
-    //api/v1/vip/info/{user}
 
-    $.ajax({
-        type: "get",
-        url: "/api/v1/vip/packages",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
+
 </script>
