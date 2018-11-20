@@ -23,7 +23,7 @@ $.ajax({
     // var data = data.data01;
     console.log(res);
     // 临界值需要跟产品确认
-    console.log(moment());
+
     var aredyTime = Math.ceil((moment() - moment(res.start_at)) / 3600 / 1000 / 24);
     var hasTime = Math.floor(Math.abs((moment(res.expired_at) - moment()) / 3600 / 1000 / 24));
 
@@ -43,23 +43,21 @@ $.ajax({
       if (data["isTimeout"] === false) {
 
         if (phone) {
-          var li01 = '<li>日期: <span>' + data["sTime"] + '</span></li>';
-          var li02 = '<li>日期: <span>' + data["eTime"] + '</span></li>';
+
           var vip =
             '<ul class="vip-basic-inf">' +
             '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-            li01 +
-            li02 +
+            '<li>日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>日期: <span>' + data["eTime"] + '</span></li>' +
             '</ul>';
         }
         else {
-          var li01 = '<li>开通日期: <span>' + data["sTime"] + '</span></li>';
-          var li02 = '<li>到期日期: <span>' + data["eTime"] + '</span></li>';
+
           var vip =
             '<ul class="vip-basic-inf">' +
             '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-            li01 +
-            li02 +
+            '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
             '</ul>';
         }
 
@@ -70,23 +68,21 @@ $.ajax({
       else {
 
         if (phone) {
-          var li01 = '<li>日期: <span>' + data["sTime"] + '</span></li>';
-          var li02 = '<li>日期: <span>' + data["eTime"] + '</span></li>';
+
           var vip =
             '<ul class="vip-basic-inf">' +
             '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
-            li01 +
-            li02 +
+            '<li>日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>日期: <span>' + data["eTime"] + '</span></li>' +
             '</ul>';
         }
         else {
-          var li01 = '<li>开通日期: <span>' + data["sTime"] + '</span></li>';
-          var li02 = '<li>到期日期: <span>' + data["eTime"] + '</span></li>';
+
           var vip =
             '<ul class="vip-basic-inf">' +
             '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
-            li01 +
-            li02 +
+            '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
             '</ul>';
         }
         $(".jq-vip-message").prepend(vip);
@@ -126,7 +122,6 @@ $.ajax({
     var card = '';
     vipCard = data;
 
-    console.log(data[0].price.split(".")[1])
     for (var i = 0; i < data.length; i++) {
 
       //PC端
@@ -201,7 +196,7 @@ $.ajax({
     $(".h5-card").prepend(h5Card);
 
     orderId = data[0].id;
-    console.log(orderId);
+
 
   },
   error: function (error) {
