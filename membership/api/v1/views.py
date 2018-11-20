@@ -98,8 +98,7 @@ class VIPOrderAPIView(generics.RetrieveAPIView):
                 id=pk, created_by=self.request.user)
             serializer = self.get_serializer(order)
 
-            # if order.status == VIPOrder.STATUS_WAIT:
-            if 1:
+            if order.status == VIPOrder.STATUS_WAIT:
                 if order.pay_type == VIPOrder.PAY_TYPE_BY_WECHAT:
                     serializer.data['status'] = self.wechatpay_query(order)
 
