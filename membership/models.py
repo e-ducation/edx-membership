@@ -17,10 +17,12 @@ from django.db import transaction
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from lms.djangoapps.certificates.models import certificate_status_for_student
 from course_modes.models import CourseMode
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
 from opaque_keys.edx.keys import CourseKey
+from student.models import CourseEnrollment
 
 log = logging.getLogger(__name__)
 
@@ -43,15 +45,24 @@ class VIPInfo(models.Model):
         """
         get vip info for user
         """
-        log.error(user)
         vip_info = cls.objects.filter(user=user).order_by('-id').first()
-        log.error(vip_info)
         return vip_info
 
     @classmethod
     def is_vip(cls, user):
         vip_info = cls.objects.filter(user=user).order_by('-id').first()
         return vip_info and vip_info.expired_at > timezone.now()
+
+    @classmethod
+    def can_view_course(cls, user, course_id):
+        is_vip = cls.objects.filter(user=user).exists()
+        cert_status = certificate_status_for_student(user, course_id)['status']
+        
+        paid_enroll = CourseEnrollment.get_enrollment(user, course_id)
+        subscribe_enroll = VIPCourseEnrollment.objects.filter(user=user, course_id=course_id, is_active=True)
+        enroll = paid_enroll and not subscribe_enroll
+
+        return not (not is_vip and cert_status == 'downloadable' and not enroll)
 
     def __unicode__(self):
         return self.user.username
