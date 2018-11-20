@@ -23,7 +23,7 @@ $.ajax({
     // var data = data.data01;
     console.log(res);
     // 临界值需要跟产品确认
-
+    var res = res.data;
     var data = {
       isVip: res.status,
       isTimeout: moment(res.expired_at) < moment(),
@@ -118,7 +118,7 @@ $.ajax({
   url: "/api/v1/vip/packages",
   success: function (data) {
 
-    var data = data.results;
+    var data = data.data.results;
     var card = '';
     vipCard = data;
 
@@ -165,7 +165,7 @@ $.ajax({
     $(".pay-box .pay-money-card").html('￥' + data[0].price.split(".")[0]);
     $(".pay-box .pay-money-card01").html('.' + data[0].price.split(".")[1]);
     money = data[0].price;
-
+    $(".vip-name-pay").text(data[0].name)
 
 
     //手机端
@@ -218,6 +218,9 @@ $(".jq-card").on('click', 'li', function () {
 
   $(".pay-box .pay-money-card").html('￥' + vipCard[i].price.split(".")[0]);
   $(".pay-box .pay-money-card01").html('.' + vipCard[i].price.split(".")[1]);
+
+  $(".vip-name-pay").text(vipCard[i].name);
+
   // 三角形移动
   $(".triangle_border_up").stop().animate({
     left: (164 + (left * i)) + 'px'
@@ -303,7 +306,16 @@ $(".h5btn-pay").click(function () {
 })
 
 //弹窗关闭
-$(".e-popup-colse").click(function () {
-  $(".eliteu-popup").hide();
-})
+function hide(item) {
+  $(item).click(function () {
+    $(".eliteu-popup").hide();
+  });
+
+}
+
+hide(".e-popup-colse");
+hide(".popup-btnGrounp a:nth-of-type(1)");
+hide(".popup-btnGrounp a:nth-of-type(2)");
+
+
 
