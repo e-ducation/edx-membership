@@ -24,14 +24,11 @@ $.ajax({
     console.log(res);
     // 临界值需要跟产品确认
 
-    var aredyTime = Math.ceil((moment() - moment(res.start_at)) / 3600 / 1000 / 24);
-    var hasTime = Math.floor(Math.abs((moment(res.expired_at) - moment()) / 3600 / 1000 / 24));
-
     var data = {
       isVip: res.status,
       isTimeout: moment(res.expired_at) < moment(),
-      aredyTime: aredyTime,
-      hasTime: hasTime,
+      aredyTime: res.opened,
+      hasTime: res.remain,
       sTime: moment(res.start_at).format("YYYY年MM月DD日"),
       eTime: moment(res.expired_at).format("YYYY年MM月DD日")
     }
@@ -100,12 +97,15 @@ $.ajax({
 
   },
   error: function (error) {
-
+    var vip = '<p class="no-vip">开通vip会员，可免费观看英荔商学院全部课程</p>';
     if (error.status === 403) {
       isBtnVip = '<div class="become-vip">开通</div>';
+
+      $(".jq-vip-message").prepend(vip);
     }
     else {
       isBtnVip = '<div class="become-vip">开通</div>';
+      $(".jq-vip-message").prepend(vip);
     }
 
   }
@@ -233,11 +233,10 @@ $(".h5-card").on('click', 'div', function () {
 
   var i = $(this).index();
 
-  money = parseInt(vipCard[i].price);
+  money = vipCard[i].price;
 
-  orderId = vipCard[i].id;
-
-  $(".h5-popup .h5-pay-money").text(money);
+  $(".h5-popup .h5-pay-money").text(money.split(".")[0]);
+  $(".h5-popup .h5-pay-money01").text('.' + money.split(".")[1]);
   // 增加ua判断是微信浏览器打开屏蔽阿里支付
   // 咨询产品意见
   // if (/MicroMessenger/i.test(navigator.userAgent)){
@@ -305,6 +304,6 @@ $(".h5btn-pay").click(function () {
 
 //弹窗关闭
 $(".e-popup-colse").click(function () {
-  $(".eliteu-popup").hide(300);
+  $(".eliteu-popup").hide();
 })
 
