@@ -55,14 +55,14 @@ class VIPInfo(models.Model):
 
     @classmethod
     def can_view_course(cls, user, course_id):
-        is_vip = cls.objects.filter(user=user).exists()
+        is_vip = cls.is_vip(user)
         cert_status = certificate_status_for_student(user, course_id)['status']
         
-        paid_enroll = CourseEnrollment.get_enrollment(user, course_id)
-        subscribe_enroll = VIPCourseEnrollment.objects.filter(user=user, course_id=course_id, is_active=True)
-        enroll = paid_enroll and not subscribe_enroll
+        normal_enroll = CourseEnrollment.get_enrollment(user, course_id)
+        vip_enroll = VIPCourseEnrollment.objects.filter(user=user, course_id=course_id, is_active=True).exists()
+        is_buyed = normal_enroll and vip_enroll
 
-        return not (not is_vip and cert_status == 'downloadable' and not enroll)
+        return not (is_vip == False and cert_status != 'downloadable' and is_buyed != False)
 
     def __unicode__(self):
         return self.user.username
