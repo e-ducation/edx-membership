@@ -6,6 +6,9 @@ import decimal
 import random
 
 from pytz import UTC
+from rest_framework import exceptions
+from rest_framework.response import Response
+from rest_framework.views import exception_handler
 
 
 def create_trade_id(pid):
@@ -52,10 +55,19 @@ def str_to_specify_digits(str, digits_length=2):
 def xresult(code=0, msg='', data=None):
     # TODO 异常错误补充
     ERROR_CODES = {}
-    msg = ERROR_CODES.get(code) if ERROR_CODES.has_key(code) else msg
+    msg = ERROR_CODES.get(code) if code in ERROR_CODES else msg
 
     return {
         'code': code,
         'data': data,
         'msg': msg
     }
+
+
+def customer_exception_handler(exc, context):
+    '''
+    drf 异常处理
+    '''
+    if isinstance(exc, exceptions.NotAuthenticated):
+        return Response(xresult(code=-1, msg=exc.detail))
+    return exception_handler(exc)

@@ -162,6 +162,7 @@ class VIPOrder(models.Model):
                     created_by=user, status=cls.STATUS_WAIT).order_by('-id')[:1].get()
                 order.start_at = start_at
                 order.expired_at = expired_at
+                order.name = vip_package.name
                 order.month = vip_package.month
                 order.price = vip_package.price
                 order.trans_at = datetime.now(pytz.utc)

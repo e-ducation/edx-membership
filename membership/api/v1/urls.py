@@ -13,7 +13,7 @@ from .views import (
     VIPPayOrderView,
     VIPPurchase,
     VIPAlipayPaying,
-    VIPWechatPaying
+    VIPWechatPaying,
 )
 
 
