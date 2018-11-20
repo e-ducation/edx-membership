@@ -9,13 +9,15 @@ import pytz
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from django.utils import timezone
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db import transaction
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from course_modes.models import CourseMode
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.xmodule_django.models import CourseKeyField
 from opaque_keys.edx.keys import CourseKey
@@ -222,9 +224,17 @@ class VIPCourseEnrollment(models.Model):
     course_id = CourseKeyField(max_length=255, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True)
+    mode = models.CharField(default=CourseMode.DEFAULT_MODE_SLUG, max_length=100)
 
     class Meta(object):
         app_label = 'membership'
+
+    def __init__(self, *args, **kwargs):
+        super(VIPCourseEnrollment, self).__init__(*args, **kwargs)
+
+        # Private variable for storing course_overview to minimize calls to the database.
+        # When the property .course_overview is accessed for the first time, this variable will be set.
+        self._course_overview = None
 
     @classmethod
     def enroll(cls, user, course_key, is_active=True):
@@ -258,6 +268,24 @@ class VIPCourseEnrollment(models.Model):
         )
 
         return enrollment
+
+    @property
+    def course_overview(self):
+        """
+        Returns a CourseOverview of the course to which this enrollment refers.
+        Returns None if an error occurred while trying to load the course.
+
+        Note:
+            If the course is re-published within the lifetime of this
+            CourseEnrollment object, then the value of this property will
+            become stale.
+        """
+        if not self._course_overview:
+            try:
+                self._course_overview = CourseOverview.get_from_id(self.course_id)
+            except CourseOverview.DoesNotExist:
+                self._course_overview = None
+        return self._course_overview
 
 
 class VIPCoursePrice(models.Model):
