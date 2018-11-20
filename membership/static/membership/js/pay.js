@@ -73,9 +73,9 @@ var wxPayer = function(id){
         xhrFields: { withCredentials: true},
         success: function(res){
             console.log('success',res);
-            if (res.code == 200) {
+            if (res.code == 0) {
                 var tempwindow = window.open("",'_blank');
-                tempwindow.location = res.href_url;
+                tempwindow.location = res.data.href_url;
                 // window.location.href = res.href_url;
             }
             // if (res.code == 0){
