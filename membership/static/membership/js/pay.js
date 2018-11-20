@@ -38,9 +38,7 @@ var checkStatus = function () {
         }
     }
 }
-var aliPayer = function() {
-    var id = 1;
-   
+var aliPayer = function(id) {
     $.ajax({
         url: '/api/v1/vip/pay/alipay/paying/?package_id='+id,
         xhrFields: { withCredentials: true},
@@ -69,8 +67,7 @@ var aliPayer = function() {
         async: false
     })
 }
-var wxPayer = function(){
-    var id = 1;
+var wxPayer = function(id){
     $.ajax({
         url: '/api/v1/vip/pay/wechat/paying/?package_id='+id,
         xhrFields: { withCredentials: true},
@@ -79,6 +76,7 @@ var wxPayer = function(){
             if (res.code == 200) {
                 var tempwindow = window.open("",'_blank');
                 tempwindow.location = res.href_url;
+                // window.location.href = res.href_url;
             }
             // if (res.code == 0){
             //     var tempwindow = window.open("",'_blank');

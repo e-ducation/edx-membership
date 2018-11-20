@@ -37,6 +37,7 @@
             }
             margin-bottom: 20px;
             margin-top: 25px;
+            position: relative;
         }
         div.wxpay-number{
             margin-top: 38px;
@@ -92,5 +93,8 @@
 }
 #qrcode{
     display: inline-block;
-    width: 146px;
+    width: 119px;
+    position: absolute;
+    left: 11px;
+    top: 11px;
 }
