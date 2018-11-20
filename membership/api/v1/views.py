@@ -48,6 +48,13 @@ class PackageListAPIView(generics.ListAPIView):
     def get_queryset(self):
         return VIPPackage.objects.filter(is_active=True)
 
+    def get(self, request, *args, **kwargs):
+        '''
+        套餐列表
+        '''
+        result = super(PackageListAPIView, self).get(request, *args, **kwargs)
+        return Response(xresult(data=result.data))
+
 
 class VIPInfoAPIView(generics.RetrieveAPIView):
     """ 个人VIP信息 """
@@ -60,9 +67,9 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
         try:
             instance = VIPInfo.objects.get(user=self.request.user)
             serializer = self.get_serializer(instance)
-            return Response(serializer.data)
+            return Response(xresult(data=serializer.data))
         except Exception as ex:
-            return Response(json.dumps({'status': False}))
+            return Response(xresult(data={'status': False}))
 
 
 class VIPOrderAPIView(generics.RetrieveAPIView):
@@ -139,7 +146,7 @@ class VIPPayOrderView(APIView):
 
         package_id = request.POST.get('package_id')
         order = VIPOrder.create_order(request.user, package_id)
-        return Response(json.dumps({'order_id': order.id}))
+        return Response(xresult(data={'order_id': order.id}))
 
 
 class VIPAlipayPaying(APIView):
@@ -291,7 +298,11 @@ class VIPWechatPaying(APIView):
                 code_url, order.id, order.price)
             href_url = settings.LMS_ROOT_URL + \
                 reverse("vip_pay_wechat_qrcode_paying") + para_str
-            return Response({'result': 'success', 'code': '200', 'href_url': href_url, 'order_id': order.id})
-        else:
-            return Response({'result': 'failed', 'code': '500'})
 
+            data = {
+                'href_url': href_url,
+                'order_id': order.id,
+            }
+            return Response(xresult(data=data))
+        else:
+            return Response(xresult(msg='fail', code=-1))
