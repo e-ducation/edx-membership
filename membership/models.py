@@ -9,7 +9,7 @@ import pytz
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -45,6 +45,11 @@ class VIPInfo(models.Model):
         vip_info = cls.objects.filter(user=user).order_by('-id').first()
         log.error(vip_info)
         return vip_info
+
+    @classmethod
+    def is_vip(cls, user):
+        vip_info = cls.objects.filter(user=user).order_by('-id').first()
+        return vip_info and vip_info.expired_at > timezone.now()
 
     def __unicode__(self):
         return self.user.username
@@ -271,3 +276,31 @@ class VIPCoursePrice(models.Model):
     class Meta(object):
         app_label = 'membership'
 
+    @classmethod
+    def get_course_subscribe_type(cls):
+        """
+        订阅期内课程类型（是否还需收费）
+        """
+        subscribe_type = {}
+        for course in cls.objects.all():
+            subscribe_type.setdefault(course.subscribe, []).append(course.course_id)
+
+        return subscribe_type
+
+    @classmethod
+    def get_vip_course_price_data(cls):
+        '''
+        vip订阅课程类型数据
+        '''
+        course_prices = cls.objects.filter()
+        course_price_dict = {}
+        for c in course_prices:
+            course_price_dict[str(c.course_id)] = int(c.subscribe)
+        return course_price_dict
+
+    @classmethod
+    def is_subscribe_pay(cls, course_id):
+        """
+        订阅期内该课程类型，是否收费
+        """
+        return cls.objects.filter(course_id=course_id, subscribe=cls.SUBSCRIBE_PAY).exists()
