@@ -30,7 +30,7 @@ from student.models import CourseEnrollment
             <div class="wxpay-number">实付金额：${price}</div>
             <div>请在2小时内完成支付，否则可能导致购买失败</div>
             <div class="wxpay-scanner">
-                <!-- <img src="${static.url('membership/images/scanner.png')}" /> -->
+                <img src="${static.url('membership/images/scanner.png')}" />
                 <div id="qrcode" src="${code_url}"></div>
             </div>
             <div>请使用微信扫描二维码</div>
@@ -61,13 +61,10 @@ from student.models import CourseEnrollment
         var checker =  new checkStatus()
         var id = $('#input').val();
         checker.start(function(){
-            alert('支付成功')
+            // alert('支付成功')
             // $('#paying').hide();
             // $('#result').show();
-            // window.location.href = "/vip/pay/result"
-            setTimeout(function(){
-                // window.location.href = "/vip/card"
-            },3000)
+            window.location.href = "/vip/pay/result"
         },id);
     }
 </script>

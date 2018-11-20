@@ -42,9 +42,20 @@ from student.models import CourseEnrollment
 <script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
 <script>
     window.onload = function(){
+        var time = 3;
+        var odd = function () {
+            if (time <= 0){
+                clearInterval(timer);
+                return ;
+            }
+            time --;
+            $('.wxpay-tips')[0].innerHTML = time + '秒后返回英荔商学院';
+        }
+        var timer = setInterval(odd,1000)
         setTimeout(function(){
-                // window.location.href = "/vip/card"
-            },3000)
+                window.location.href = "/vip/card"
+                // console.log('return')
+            },3500)
     }
 </script>
 <input type="hidden" value="${order_id}" id="order_id">
