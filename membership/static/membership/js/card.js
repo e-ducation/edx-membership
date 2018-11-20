@@ -5,7 +5,17 @@ var vipCard = ""
 //1代表微信
 var payWay = 0;
 var money = 0;
+//订单id
+var orderId;
 // vip会员信息
+
+//续费or开通
+var isBtnVip = '<div class="become-vip">开通</div>';
+
+//是否是手机
+var phone = isMoblie();
+
+
 $.ajax({
   type: "get",
   url: "/api/v1/vip/info",
@@ -13,8 +23,10 @@ $.ajax({
     // var data = data.data01;
     console.log(res);
     // 临界值需要跟产品确认
+
     var aredyTime = Math.ceil((moment() - moment(res.start_at)) / 3600 / 1000 / 24);
-    var hasTime = Math.floor(Math.abs(( moment(res.expired_at) - moment())/3600/1000/24));
+    var hasTime = Math.floor(Math.abs((moment(res.expired_at) - moment()) / 3600 / 1000 / 24));
+
     var data = {
       isVip: res.status,
       isTimeout: moment(res.expired_at) < moment(),
@@ -25,28 +37,59 @@ $.ajax({
     }
     // return;
     //是会员
+
     if (data["isVip"] === true) {
       //会员未过期
       if (data["isTimeout"] === false) {
-        var vip =
-          '<ul class="vip-basic-inf">' +
-          '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-          '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
-          '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
-          '</ul>';
+
+        if (phone) {
+
+          var vip =
+            '<ul class="vip-basic-inf">' +
+            '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
+            '<li>日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>日期: <span>' + data["eTime"] + '</span></li>' +
+            '</ul>';
+        }
+        else {
+
+          var vip =
+            '<ul class="vip-basic-inf">' +
+            '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
+            '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
+            '</ul>';
+        }
+
         $(".jq-vip-message").prepend(vip);
 
       }
       //会员已过期
       else {
-        var vip =
-          '<ul class="vip-basic-inf">' +
-          '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
-          '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
-          '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
-          '</ul>';
+
+        if (phone) {
+
+          var vip =
+            '<ul class="vip-basic-inf">' +
+            '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
+            '<li>日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>日期: <span>' + data["eTime"] + '</span></li>' +
+            '</ul>';
+        }
+        else {
+
+          var vip =
+            '<ul class="vip-basic-inf">' +
+            '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
+            '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
+            '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
+            '</ul>';
+        }
         $(".jq-vip-message").prepend(vip);
+
       }
+
+      isBtnVip = '<div class="become-vip">续费</div>';
     }
     //不是会员
     else {
@@ -57,7 +100,14 @@ $.ajax({
 
   },
   error: function (error) {
-    console.log(error);
+
+    if (error.status === 403) {
+      isBtnVip = '<div class="become-vip">开通</div>';
+    }
+    else {
+      isBtnVip = '<div class="become-vip">开通</div>';
+    }
+
   }
 })
 
@@ -71,6 +121,7 @@ $.ajax({
     var data = data.results;
     var card = '';
     vipCard = data;
+
     for (var i = 0; i < data.length; i++) {
 
       //PC端
@@ -87,9 +138,9 @@ $.ajax({
           '<p>' + data[i].name + '</p>' +
           '</div>' +
           '<div class="vip-card-body">' +
-          '<p class="now-money"><span>￥' + parseInt(data[i].price) + '</span>.00</p>' +
+          '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
           '<p class="old-money">￥' + data[i].suggested_price + '</p>' +
-          '<div class="become-vip">续费</div>' +
+          isBtnVip +
           '</div>' +
           '<div class="recommend"></div>' +
           '</li>'
@@ -100,9 +151,9 @@ $.ajax({
           '<p>' + data[i].name + '</p>' +
           '</div>' +
           '<div class="vip-card-body">' +
-          '<p class="now-money"><span>￥' + parseInt(data[i].price) + '</span>.00</p>' +
+          '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
           '<p class="old-money">￥' + data[i].suggested_price + '</p>' +
-          '<div class="become-vip">续费</div>' +
+          isBtnVip +
           '</div>' +
           '</li>'
       }
@@ -111,8 +162,9 @@ $.ajax({
 
     $(".jq-card").prepend(card);
 
-    $(".pay-box .pay-money-card").html('￥' + parseInt(data[0].price));
-    money = parseInt(data[0].price);
+    $(".pay-box .pay-money-card").html('￥' + data[0].price.split(".")[0]);
+    $(".pay-box .pay-money-card01").html('.' + data[0].price.split(".")[1]);
+    money = data[0].price;
 
 
 
@@ -126,7 +178,7 @@ $.ajax({
           '<p>' + data[i].name + '</p>' +
           '<p>' + data[i].suggested_price + '</p>' +
           '</div>' +
-          '<div class="card-h5-money"><span>' + parseInt(data[i].price) + '</span>.00</div>' +
+          '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
           '<div class="h5-recommend"></div>' +
           '</div>'
       }
@@ -136,12 +188,15 @@ $.ajax({
           '<p>' + data[i].name + '</p>' +
           '<p>' + data[i].suggested_price + '</p>' +
           '</div>' +
-          '<div class="card-h5-money"><span>' + parseInt(data[i].price) + '</span>.00</div>' +
+          '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
           '</div>'
       }
     }
 
     $(".h5-card").prepend(h5Card);
+
+    orderId = data[0].id;
+
 
   },
   error: function (error) {
@@ -154,11 +209,15 @@ $.ajax({
 $(".jq-card").on('click', 'li', function () {
   var i = $(this).index();
   var left = 208;
-  money = parseInt(vipCard[i].price);
+  money = vipCard[i].price;
+
+  orderId = vipCard[i].id;
+
 
   $(this).addClass("current").siblings("li").removeClass("current");
 
-  $(".pay-box .pay-money-card").html('￥' + parseInt(vipCard[i].price));
+  $(".pay-box .pay-money-card").html('￥' + vipCard[i].price.split(".")[0]);
+  $(".pay-box .pay-money-card01").html('.' + vipCard[i].price.split(".")[1]);
   // 三角形移动
   $(".triangle_border_up").stop().animate({
     left: (164 + (left * i)) + 'px'
@@ -175,6 +234,8 @@ $(".h5-card").on('click', 'div', function () {
   var i = $(this).index();
 
   money = parseInt(vipCard[i].price);
+
+  orderId = vipCard[i].id;
 
   $(".h5-popup .h5-pay-money").text(money);
   // 增加ua判断是微信浏览器打开屏蔽阿里支付
@@ -212,6 +273,8 @@ $(".pay li").click(function () {
 
   $(this).addClass("current").siblings("li").removeClass("current");
 
+  $(this).prepend('<img src="../static/membership/images/Group.png" alt="" class="imgCurrent"></img>').siblings("li").children('img').remove();
+
 })
 
 // $(".popup-pay .payway").click(function(){
@@ -222,14 +285,14 @@ $(".paybtn").click(function () {
   console.log(money);
   console.log("支付中...");
   if (payWay == 0) {
-    aliPayer();
+    aliPayer(orderId);
   } else {
-    wxPayer();
+    wxPayer(orderId);
   }
   $(".eliteu-popup").show();
 })
 
-$(".h5btn-pay").click(function(){
+$(".h5btn-pay").click(function () {
   console.log(payWay);
   console.log(money);
   console.log("支付中...");

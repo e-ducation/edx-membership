@@ -55,12 +55,12 @@ from student.models import CourseEnrollment
             <div class="pay-box">
                 <div>
                     <p class="pay-left">选择支付方式</p>
-                    <p class="pay-right"><span>订阅会员有效期一年</span>学费：<span class="pay-money-card"></span><span>.00</span></p>
+                    <p class="pay-right"><span>订阅会员有效期一年</span>学费：<span class="pay-money-card"></span><span class="pay-money-card01"></span></p>
                 </div>
 
                 <ul class="pay">
                     <li class="alipay current">
-
+                        <img src="../static/membership/images/Group.png" alt="" class="imgCurrent">
                     </li>
                     <li class="wehatpay">
 
@@ -130,8 +130,7 @@ from student.models import CourseEnrollment
         <div class="h5btn-pay">交学费</div>
     </div>
 </div>
-<script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
-<script type="text/javascript" src="${static.url('membership/js/card.js')}"></script>
+
 <script>
     var isMoblie = function () {
         return navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i);
@@ -143,7 +142,7 @@ from student.models import CourseEnrollment
         $("#card-box-pc").hide()
         $(".h5-card").show();
         $("#card-box-phone").show();
-        console.log(1);
+
     }
     else {
         //pc
@@ -153,6 +152,7 @@ from student.models import CourseEnrollment
         $("#card-box-phone").hide();
     }
 
-
-
 </script>
+
+<script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
+<script type="text/javascript" src="${static.url('membership/js/card.js')}"></script>
