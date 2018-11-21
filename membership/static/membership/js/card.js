@@ -233,6 +233,8 @@ $(".h5-card").on('click', 'div', function () {
 
   money = vipCard[i].price;
 
+  orderId = vipCard[i].id;
+
   $(".h5-popup .h5-pay-money").text(money.split(".")[0]);
   $(".h5-popup .h5-pay-money01").text('.' + money.split(".")[1]);
 
@@ -285,9 +287,9 @@ $(".paybtn").click(function () {
 $(".h5btn-pay").click(function () {
 
   if (payWay == 0) {
-    aliPayer();
+    aliPayer(orderId);
   } else {
-    wxPayer();
+    wxPayer(orderId);
   }
 
 })
