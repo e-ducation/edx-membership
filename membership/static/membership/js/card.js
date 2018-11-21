@@ -285,9 +285,9 @@ $(".paybtn").click(function () {
 $(".h5btn-pay").click(function () {
 
   if (payWay == 0) {
-    aliPayer();
+    aliPayer(orderId);
   } else {
-    wxPayer();
+    wxPayer(orderId);
   }
 
 })
