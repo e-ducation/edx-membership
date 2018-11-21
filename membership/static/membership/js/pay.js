@@ -47,18 +47,11 @@ var aliPayer = function(id) {
             if (res.code == 0){
                 var tempwindow = window.open("",'_blank');
                 tempwindow.location = res.data.alipay_url;
-                var checker =  new checkStatus()
-                checker.start(function(){
-                    alert('支付成功')
-                    // $('#paying').hide();
-                    // $('#result').show();
-                    // window.location.href = "/vip/pay/result"
-                    $(".eliteu-popup").hide(300);
-                    // window.location.reload();
-                    setTimeout(function(){
-                        // window.location.href = "/vip/card"
-                    },3000)
-                },res.data.order_id);
+                // var checker =  new checkStatus()
+                // checker.start(function(){
+                //     alert('支付成功')
+                //     $(".eliteu-popup").hide(300);
+                // },res.data.order_id);
             }
         },
         error: function(){
@@ -76,13 +69,7 @@ var wxPayer = function(id){
             if (res.code == 0) {
                 var tempwindow = window.open("",'_blank');
                 tempwindow.location = res.data.href_url;
-                // window.location.href = res.href_url;
             }
-            // if (res.code == 0){
-            //     var tempwindow = window.open("",'_blank');
-            //     tempwindow.location = res.data.alipay_url;
-            // }
-            // window.location.href = res.href_url;
         },
         error: function(){
             console.log('error')
