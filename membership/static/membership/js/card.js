@@ -35,12 +35,12 @@ $.ajax({
         sTime: moment(res.start_at).format("YYYY年MM月DD日"),
         eTime: moment(res.expired_at).format("YYYY年MM月DD日")
       }
-      if (data["isVip"] === true) {
+
+      if (res.start_at != undefined) {
         //会员未过期
-        if (data["isTimeout"] === false) {
+        if (data["isVip"] === true) {
 
           if (phone) {
-
             var vip =
               '<ul class="vip-basic-inf">' +
               '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
@@ -74,7 +74,6 @@ $.ajax({
               '</ul>';
           }
           else {
-
             var vip =
               '<ul class="vip-basic-inf">' +
               '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
