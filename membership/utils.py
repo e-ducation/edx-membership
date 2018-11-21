@@ -70,4 +70,4 @@ def customer_exception_handler(exc, context):
     '''
     if isinstance(exc, exceptions.NotAuthenticated):
         return Response(xresult(code=-1, msg=exc.detail))
-    return exception_handler(exc)
+    return exception_handler(exc, context)
