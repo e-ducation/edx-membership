@@ -14,98 +14,95 @@ var isBtnVip = '<div class="become-vip">开通</div>';
 
 //是否是手机
 var phone = isMoblie();
-
+//不是会员
+var novip = '<p class="no-vip">开通vip会员，可免费观看英荔商学院全部课程</p>';
 
 $.ajax({
   type: "get",
   url: "/api/v1/vip/info",
   success: function (res) {
-    // var data = data.data01;
-    console.log(res);
-    // 临界值需要跟产品确认
+
     var res = res.data;
-    var data = {
-      isVip: res.status,
-      isTimeout: moment(res.expired_at) < moment(),
-      aredyTime: res.opened,
-      hasTime: res.remain,
-      sTime: moment(res.start_at).format("YYYY年MM月DD日"),
-      eTime: moment(res.expired_at).format("YYYY年MM月DD日")
+    if (res === null) {
+      $(".jq-vip-message").prepend(novip);
     }
-    // return;
-    //是会员
-
-    if (data["isVip"] === true) {
-      //会员未过期
-      if (data["isTimeout"] === false) {
-
-        if (phone) {
-
-          var vip =
-            '<ul class="vip-basic-inf">' +
-            '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-            '<li>日期: <span>' + data["sTime"] + '</span></li>' +
-            '<li>日期: <span>' + data["eTime"] + '</span></li>' +
-            '</ul>';
-        }
-        else {
-
-          var vip =
-            '<ul class="vip-basic-inf">' +
-            '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-            '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
-            '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
-            '</ul>';
-        }
-
-        $(".jq-vip-message").prepend(vip);
-
-      }
-      //会员已过期
-      else {
-
-        if (phone) {
-
-          var vip =
-            '<ul class="vip-basic-inf">' +
-            '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
-            '<li>日期: <span>' + data["sTime"] + '</span></li>' +
-            '<li>日期: <span>' + data["eTime"] + '</span></li>' +
-            '</ul>';
-        }
-        else {
-
-          var vip =
-            '<ul class="vip-basic-inf">' +
-            '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
-            '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
-            '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
-            '</ul>';
-        }
-        $(".jq-vip-message").prepend(vip);
-
-      }
-
-      isBtnVip = '<div class="become-vip">续费</div>';
-    }
-    //不是会员
     else {
-      var vip = '<p class="no-vip">开通vip会员，可免费观看英荔商学院全部课程</p>';
-      $(".jq-vip-message").prepend(vip);
-    }
+      var data = {
+        isVip: res.status,
+        isTimeout: moment(res.expired_at) < moment(),
+        aredyTime: res.opened,
+        hasTime: res.remain,
+        sTime: moment(res.start_at).format("YYYY年MM月DD日"),
+        eTime: moment(res.expired_at).format("YYYY年MM月DD日")
+      }
+      if (data["isVip"] === true) {
+        //会员未过期
+        if (data["isTimeout"] === false) {
 
+          if (phone) {
+
+            var vip =
+              '<ul class="vip-basic-inf">' +
+              '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
+              '<li>日期: <span>' + data["sTime"] + '</span></li>' +
+              '<li>日期: <span>' + data["eTime"] + '</span></li>' +
+              '</ul>';
+          }
+          else {
+
+            var vip =
+              '<ul class="vip-basic-inf">' +
+              '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
+              '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
+              '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
+              '</ul>';
+          }
+
+          $(".jq-vip-message").prepend(vip);
+
+        }
+        //会员已过期
+        else {
+
+          if (phone) {
+
+            var vip =
+              '<ul class="vip-basic-inf">' +
+              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
+              '<li>日期: <span>' + data["sTime"] + '</span></li>' +
+              '<li>日期: <span>' + data["eTime"] + '</span></li>' +
+              '</ul>';
+          }
+          else {
+
+            var vip =
+              '<ul class="vip-basic-inf">' +
+              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
+              '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
+              '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
+              '</ul>';
+          }
+          $(".jq-vip-message").prepend(vip);
+
+        }
+
+        isBtnVip = '<div class="become-vip">续费</div>';
+      }
+      //不是会员
+      else {
+        $(".jq-vip-message").prepend(novip);
+      }
+    }
 
   },
   error: function (error) {
-    var vip = '<p class="no-vip">开通vip会员，可免费观看英荔商学院全部课程</p>';
+    //获取出错的情况下
+    isBtnVip = '<div class="become-vip">开通</div>';
     if (error.status === 403) {
-      isBtnVip = '<div class="become-vip">开通</div>';
-
-      $(".jq-vip-message").prepend(vip);
+      $(".jq-vip-message").prepend(novip);
     }
     else {
-      isBtnVip = '<div class="become-vip">开通</div>';
-      $(".jq-vip-message").prepend(vip);
+      $(".jq-vip-message").prepend(novip);
     }
 
   }
@@ -167,7 +164,6 @@ $.ajax({
     money = data[0].price;
     $(".vip-name-pay").text(data[0].name)
 
-
     //手机端
     var h5Card = "";
     for (var i = 0; i < data.length; i++) {
@@ -196,7 +192,6 @@ $.ajax({
     $(".h5-card").prepend(h5Card);
 
     orderId = data[0].id;
-
 
   },
   error: function (error) {
@@ -238,13 +233,11 @@ $(".h5-card").on('click', 'div', function () {
 
   money = vipCard[i].price;
 
+  orderId = vipCard[i].id;
+
   $(".h5-popup .h5-pay-money").text(money.split(".")[0]);
   $(".h5-popup .h5-pay-money01").text('.' + money.split(".")[1]);
-  // 增加ua判断是微信浏览器打开屏蔽阿里支付
-  // 咨询产品意见
-  // if (/MicroMessenger/i.test(navigator.userAgent)){
-  //   $('.payway-we').hide();
-  // }
+
   $(".h5-popup").show();
 
 })
@@ -279,34 +272,31 @@ $(".pay li").click(function () {
 
 })
 
-// $(".popup-pay .payway").click(function(){
-
-// })
 $(".paybtn").click(function () {
-  console.log(payWay);
-  console.log(money);
-  console.log("支付中...");
+
   if (payWay == 0) {
     aliPayer(orderId);
   } else {
     wxPayer(orderId);
   }
+
   $(".eliteu-popup").show();
+
 })
 
 $(".h5btn-pay").click(function () {
-  console.log(payWay);
-  console.log(money);
-  console.log("支付中...");
+
   if (payWay == 0) {
-    aliPayer();
+    aliPayer(orderId);
   } else {
-    wxPayer();
+    wxPayer(orderId);
   }
+
 })
 
 //弹窗关闭
 function hide(item) {
+
   $(item).click(function () {
     $(".eliteu-popup").hide();
   });
