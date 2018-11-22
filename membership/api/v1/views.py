@@ -74,7 +74,7 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
             if expired.days > 0:
                 data = {
                     'status': False,
-                    'expired': expired.days,
+                    'expired': -expired.days,
                     'start_at': instance.start_at,
                     'expired_at': instance.expired_at
                 }
@@ -169,8 +169,6 @@ class VIPAlipayPaying(APIView):
     参数：package_id 套餐ID
     返回: 跳转到支付宝支付页面
     """
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
 
     def get(self, request, *args, **kwargs):
         """
@@ -188,6 +186,13 @@ class VIPAlipayPaying(APIView):
         |alipay_url|string|跳转到支付宝支付页面|
         |order_id|int|订单id|
         """
+        if request.user.is_anonymous or request.user is None:
+            href_url = settings.LMS_ROOT_URL + '/login?next=' + reverse('membership_card')
+            data = {
+                'href_url': href_url,
+            }
+            return Response(xresult(data=data, msg='fail', code=-1))
+
         package_id = request.GET.get('package_id')
         order = VIPOrder.create_order(request.user, package_id)
         order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY
@@ -262,8 +267,6 @@ class VIPWechatPaying(APIView):
     """
     vip wechat paying
     """
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
 
     def get(self, request, *args, **kwargs):
         """
@@ -279,8 +282,14 @@ class VIPWechatPaying(APIView):
 
         :return:
         |参数|类型|说明|
-        |href_url|string|跳转微信支付页面链接|
+        |href_url|string|跳转微信支付页面链接|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
         """
+        if request.user.is_anonymous or request.user is None:
+            href_url = settings.LMS_ROOT_URL + '/login?next=' + reverse('membership_card')
+            data = {
+                'href_url': href_url,
+            }
+            return Response(xresult(data=data, msg='fail', code=-1))
 
         package_id = request.GET.get('package_id')
         order = VIPOrder.create_order(request.user, package_id)
