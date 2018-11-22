@@ -2,6 +2,7 @@
 <%inherit file="../main.html" />
 <%namespace name='static' file='../static_content.html'/>
 
+
 <%!
 import pytz
 from datetime import datetime, timedelta
@@ -19,7 +20,7 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-
+<%block name="title"><title>VIP会员 | 英荔教育</title></%block>
 <link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
@@ -68,7 +69,7 @@ from student.models import CourseEnrollment
                     </li>
                 </ul>
 
-                <div class="paybtn">交学费</div>
+                <div class="paybtn">去支付</div>
 
             </div>
         </div>
@@ -128,7 +129,7 @@ from student.models import CourseEnrollment
                 <div class="round"></div>
             </div>
         </div>
-        <div class="h5btn-pay">交学费</div>
+        <div class="h5btn-pay">去支付</div>
     </div>
 </div>
 
