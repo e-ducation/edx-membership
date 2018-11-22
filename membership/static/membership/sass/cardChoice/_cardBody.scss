@@ -112,9 +112,9 @@
     .triangle_border_up{
       width:0;
       height:0;
-      border-left:24px solid transparent;
-      border-right:24px solid transparent;
-      border-bottom:24px solid rgb(226,230,236);
+      border-left:19px solid transparent;
+      border-right:19px solid transparent;
+      border-bottom:19px solid rgb(226,230,236);
       position: absolute;
       left: 164px;
       div{ 
@@ -134,7 +134,7 @@
       width: 100%;
       background: #fff;
       border: 1px solid rgb(226,230,236);
-      margin-top: 24px;
+      margin-top: 18px;
       box-sizing: border-box;
       padding: 28px;
       div{  
@@ -169,7 +169,7 @@
         margin-bottom:  20px;
         li{ 
           width: 186px;
-          height: 62px;
+          height: 60px;
           margin-left: 0px;
           background-color: #ffffff;
           border-radius: 4px;
@@ -194,8 +194,8 @@
           height: 16px;
           display: block;
           position: absolute;
-          right: 10px;
-          top: 10px;
+          right: 6px;
+          top: 6px;
         }
       }
       .paybtn{  
