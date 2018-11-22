@@ -57,7 +57,7 @@ class VIPInfo(models.Model):
     def can_view_course(cls, user, course_id):
         is_vip = cls.is_vip(user)
         cert_status = certificate_status_for_student(user, course_id)['status']
-        
+
         normal_enroll = CourseEnrollment.get_enrollment(user, course_id)
         vip_enroll = VIPCourseEnrollment.objects.filter(user=user, course_id=course_id, is_active=True).exists()
         is_buyed = normal_enroll and vip_enroll
@@ -178,6 +178,7 @@ class VIPOrder(models.Model):
                 order.name = vip_package.name
                 order.month = vip_package.month
                 order.price = vip_package.price
+                order.suggested_price = vip_package.suggested_price
                 order.trans_at = datetime.now(pytz.utc)
                 order.save()
             except ObjectDoesNotExist:
@@ -189,7 +190,8 @@ class VIPOrder(models.Model):
                     start_at=start_at,
                     expired_at=expired_at,
                     pay_type=cls.PAY_TYPE_NONE,
-                    price=vip_package.price
+                    price=vip_package.price,
+                    suggested_price=vip_package.suggested_price
                 )
             except Exception as ex:
                 log.error(ex)
