@@ -320,3 +320,4 @@ class VIPWechatPaying(APIView):
             return Response(xresult(data=data))
         else:
             return Response(xresult(msg='fail', code=-1))
+            

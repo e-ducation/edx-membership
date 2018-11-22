@@ -19,11 +19,14 @@ from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_str
 from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
+from membership.models import VIPInfo
 %>
 <%block name="title"><title>VIP会员 | 英荔教育</title></%block>
 <link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
+<a id="card_url" href="${settings.LMS_ROOT_URL + '/login?next=' + reverse('membership_card')}" hidden="hidden"></a>
+<a id="vip_status" hidden="hidden">${VIPInfo.is_vip(request.user)}</a>
 <div id="card-box-pc" class="card-box">
     <div class="home">
         <header>
