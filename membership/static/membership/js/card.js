@@ -272,7 +272,9 @@ $(".pay li").click(function () {
 })
 
 $(".paybtn").click(function () {
-
+  if(!checkLogin()){
+    return;
+  }
   if (payWay == 0) {
     aliPayer(orderId);
   } else {
@@ -284,7 +286,9 @@ $(".paybtn").click(function () {
 })
 
 $(".h5btn-pay").click(function () {
-
+  if(!checkLogin()){
+    return;
+  }
   if (payWay == 0) {
     aliPayer(orderId);
   } else {
@@ -301,7 +305,15 @@ function hide(item) {
   });
 
 }
-
+function checkLogin(){
+  var vip_status = $('#vip_status').html();
+  var card_url = $('#card_url').attr('href');
+  if (vip_status == 'False'){
+    window.location.href = card_url;
+    return false;
+  }
+  return true;
+}
 hide(".e-popup-colse");
 hide(".popup-btnGrounp a:nth-of-type(1)");
 hide(".popup-btnGrounp a:nth-of-type(2)");
