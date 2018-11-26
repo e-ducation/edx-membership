@@ -15,7 +15,7 @@ var isBtnVip = '<div class="become-vip">开通</div>';
 //是否是手机
 var phone = isMoblie();
 //不是会员
-var novip = '<p class="no-vip">开通vip会员，可免费观看英荔商学院全部课程</p>';
+var novip = '<p class="no-vip">开通VIP会员，可免费观看英荔商学院全部课程</p>';
 
 $.ajax({
   type: "get",
