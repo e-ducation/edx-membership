@@ -34,7 +34,8 @@ from student.models import CourseEnrollment
         <div class="banner">
             <div class="banner-content">
                 <a href="javascript:;">
-                    <img src="${static.url('membership/images/banner-content.png')}" />
+                    <img class="banner-pc-img" src="${static.url('membership/images/banner-content.png')}" />
+                    <img class="banner-mobile-img" src="${static.url('membership/images/banner-mobile.png')}" />
                 </a>
             </div>
         </div>
@@ -43,33 +44,68 @@ from student.models import CourseEnrollment
                 <h1 class="section-title">英荔商学院六大课程方向</h1>
                 <h5 class="slogo">激活全能商业基因，你就是一个团队！</h5>
             </div>
-            <ul class="course-list">
-                <li>
-                    <img src="${static.url('membership/images/course/icons8-business.png')}" />
-                    <span>商业管理</span>
-                </li>
-                <li>
-                    <img src="${static.url('membership/images/course/icons8-innovation.png')}" />
-                    <span>创新创业</span>
-                </li>
-                <li>
-                    <img src="${static.url('membership/images/course/icons8-statistics.png')}" />
-                    <span>统计分析</span>
-                </li>
-                <li>
-                    <img src="${static.url('membership/images/course/icons8-informatics.png')}" />
-                    <span>信息技术</span>
-                </li>
-                <li>
-                    <img src="${static.url('membership/images/course/icons8-neutral_trading.png')}" />
-                    <span>市场销售</span>
-                </li>
-                <li>
-                    <img src="${static.url('membership/images/course/icons8-shopping_basket_2.png')}" />
-                    <span>零售管理</span>
-                </li>
+            <ul class="course-list pc clearfix">
+                
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-business.png')}" />
+                        <span>商业管理</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-innovation.png')}" />
+                        <span>创新创业</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-statistics.png')}" />
+                        <span>统计分析</span>
+                    </li>
+                
+                
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-informatics.png')}" />
+                        <span>信息技术</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-neutral_trading.png')}" />
+                        <span>市场销售</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-shopping_basket_2.png')}" />
+                        <span>零售管理</span>
+                    </li>
+                
             </ul>
-            <a class="find-new-course" href="javascript:;">
+            <ul class="course-list mobile clearfix">
+                <div class="course-group">
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-business.png')}" />
+                        <span>商业管理</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-innovation.png')}" />
+                        <span>创新创业</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-statistics.png')}" />
+                        <span>统计分析</span>
+                    </li>
+                </div>
+                <div class="course-group">
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-informatics.png')}" />
+                        <span>信息技术</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-neutral_trading.png')}" />
+                        <span>市场销售</span>
+                    </li>
+                    <li>
+                        <img src="${static.url('membership/images/course/icons8-shopping_basket_2.png')}" />
+                        <span>零售管理</span>
+                    </li>
+                </div>
+            </ul>
+
+            <a class="find-new-course" href="javascript:void(0)">
                 发现课程
             </a>
         </div>
@@ -103,7 +139,7 @@ from student.models import CourseEnrollment
                 *英荔教育保留所有课程的更新和最终解释权。
             </h5>
         </div>
-        <div class="section vip-list-wrap">
+        <div class="section pc vip-list-wrap">
             <h1 class="vip-list-title">成为英荔会员</h1>
             <h5 class="vip-list-tips">
                 根据您的需求选择合适的学习时长，
@@ -182,6 +218,7 @@ from student.models import CourseEnrollment
                         构建全方位的商科知识矩阵，从0到1，系统学习 
                 </p>
             </div>
+
             <div id="slider1" class="jSlider" data-navigation="always" data-indicator="always"  data-delay="0">
                 <div class=" selected ">
                     <div class="section-block block1">
@@ -279,6 +316,119 @@ from student.models import CourseEnrollment
                     </div>
                 </div>
             </div>
+            <div class="professor-mobile">
+                <ul>
+                    <li class="clearfix">
+                        <div class="user-img">
+                            <img src="${static.url('membership/images/professor/professor01.png')}" />
+                        </div>
+                        <div class="user-info">
+                            <h1 class="professor-name">萧柏春 博士</h1>
+                            <p class="professor-info">美国长岛大学Post分校商学院管理系终身教授、系主任</p>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="user-img">
+                            <img src="${static.url('membership/images/professor/professor02.png')}" />
+                        </div>
+                        <div class="user-info">
+                            <h1 class="professor-name">谢洛德 博士</h1>
+                            <p class="professor-info">原美国西北大学凯洛格商学院家族企业中心创始人，创业专业教授</p>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="user-img">
+                            <img src="${static.url('membership/images/professor/professor03.png')}" />
+                        </div>
+                        <div class="user-info">
+                                <h1 class="professor-name">蒂姆·塞米特 教授</h1>
+                                <p class="professor-info">国际金融教育协会副会长及  首席营销官</p>
+                        </div>
+                    </li>
+                    <div class="extend-professor hidden">
+                        <li class="clearfix">
+                            <div class="user-img">
+                                <img src="${static.url('membership/images/professor/professor04.png')}" />
+                            </div>
+                            <div class="user-info">
+                                    <h1 class="professor-name">朱灵 博士</h1>
+                                    <p class="professor-info">美国长岛大学Post分校管理信息系统专业终身教授</p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="user-img">
+                                <img src="${static.url('membership/images/professor/professor05.png')}" />
+                            </div>
+                            <div class="user-info">
+                                    <h1 class="professor-name">李天宁 博士</h1>
+                                <p class="professor-info">美国胡德学院金融财务副教授</p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="user-img">
+                                <img src="${static.url('membership/images/professor/professor06.png')}" />
+                            </div>
+                            <div class="user-info">
+                                    <h1 class="professor-name">施建军 博士</h1>
+                                <p class="professor-info">原对外经济贸易大学校长、  教授 </p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="user-img">
+                                <img src="${static.url('membership/images/professor/professor07.png')}" />
+                            </div>
+                            <div class="user-info">
+                                    <h1 class="professor-name">克拉克·罗斯 博士</h1>
+                                <p class="professor-info">美国戴维森学院经济学教授</p>
+                           </div>
+                        </li>
+                    </div>
+                    <div class="find-more-professor">
+                        查看更多 
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="section mobile vip-list-wrap">
+            <h1 class="vip-list-title">成为英荔会员</h1>
+            <h5 class="vip-list-tips">
+                根据您的需求选择合适的学习时长，
+                <br>
+                学习期内享有英荔商学院所有课程的学习权益
+                <br>
+                新课上线亦可马上加入学习！
+            </h5>
+            <div class="h5-card">
+                <div class="pay-item current">
+                    <div class="card-h5-message">
+                        <p>一年</p><p>2400</p>
+                    </div>
+                    <div class="card-h5-money"><span>1199</span><span class="decimal">.00</span><br><span class="month">月均¥99.9</span></div>
+                    <!-- 推荐图标 -->
+                    <div class="h5-recommend"></div>
+                </div>
+                <div class="pay-item">
+                    <div class=" card-h5-message">
+                        <p>半年会员</p><p>1200</p>
+                    </div>
+                    <div class="card-h5-money"><span>899</span><span class="decimal">.00</span><br><span class="month">月均¥149.8</span></div>
+                </div>
+                <div class="pay-item">
+                    <div class="card-h5-message">
+                        <p>三个月会员</p><p>600</p>
+                    </div>
+                    <div class="card-h5-money"><span>499</span><span class="decimal">.00</span><br><span class="month">月均¥166.3</span></div>
+                </div>
+                <div class="pay-item">
+                    <div class="card-h5-message">
+                        <p>一个月会员</p><p>200</p>
+                    </div>
+                    <div class="card-h5-money"><span>199</span><span class="decimal">.00</span></div>
+                </div>
+            </div>
+            <div class="ad-tips">
+                *现在报名可享以上优惠，具体详情请前往购买页。
+            </div>
         </div>
         <div class="section vip-characteristic-wrap">
             <h1 class="vip-characteristic-title">学习特色</h1>
@@ -299,14 +449,56 @@ from student.models import CourseEnrollment
                     <p>结课证书</p>
                 </li>
             </ul>
+            <div class="characteristic-list-mobile">
+                <img src="${static.url('membership/images/characteristic.png')}" />
+            </div>
             <div>
                 <a class="add-vip-btn" href="javascript:;">加入会员</a>
             </div>
             <div class="characteristic-dialog">
-                有一种差距，叫8小时以外的自律，和英荔一起出发，成为自律的全栈职场人！
+                <span class="dialog-text">有一种差距，叫8小时以外的自律，和英荔一起出发，成为自律的全栈职场人！</span>
                 <span class="characteristic-dialog-icon"></span>
                 <span class="characteristic-from-who">——英荔说</span>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="${static.url('membership/js/index.js')}"></script>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+            var r = window.location.search.substr(1).match(reg); 
+            if (r != null) return unescape(r[2]); return null; 
+        }
+        // window.onload = function () {
+        //     $('.find-more-professor').click(function () {
+        //         $('.extend-professor').removeClass('hidden');
+        //         $('.find-more-professor').hide();
+        //     });
+        //     var device = getQueryString('device');
+        //     console.log(device);
+        //     if(device != undefined){
+        //         $('.global-header').hide();
+        //         $('.my-footer').hide();
+        //     }
+        //     if (device != undefined){
+        //         var default_pay = function() {
+    
+        //         }
+        //         var order_pay = function(){
+    
+        //         }
+        //         var goto_course_list = function(){
+    
+        //         }
+        //         // $('.find-new-course').click(function(){
+        //         //     alert('js find new course')
+        //         // });
+        //         $('.pay-item').click(function(){
+        //             alert(('pay-item'))
+        //         });
+
+
+        //     }
+        // }
+    </script>
 </body>

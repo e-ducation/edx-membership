@@ -1,3 +1,5 @@
+
+@import './var';
 .member-ship-wrap{
     .banner{
         width: 100%;
@@ -5,6 +7,16 @@
         height: 332px;
         background: url('../images/bg.png') no-repeat;
         position: relative;
+        background-position: center;
+    }
+    .banner-content{
+
+        .banner-pc-img{
+            display: block;
+        }
+        .banner-mobile-img{
+            display: none;
+        }
     }
     .banner-content{
         max-width: 1200px;
@@ -30,7 +42,7 @@
     }
     .courses-list-wrap{
         max-width: 1200px;
-        min-width: 1024px;
+        // min-width: 1024px;
         text-align: center;
         padding-bottom: 30px;
         margin: 0 auto;
@@ -46,13 +58,20 @@
             color: #656d78;
             font-size: 14px;
         }
+        .course-list.mobile{
+            display: none;
+        }
         .course-list{
             padding: 0;
+            .course-group{
+                display: inline-block;
+            }
             li{
                 list-style: none;
                 padding: 10px;
                 margin-right: 74px;
                 display: inline-block;
+                vertical-align: bottom;
                 img{
                     width: 62px;
                     // width: 100%;
@@ -104,6 +123,7 @@
                 margin: 0;
                 color: #2e313c;
                 margin-top: 12px;
+                font-weight: bold;
             }
             h5{
                 font-size: 14px;
@@ -141,6 +161,9 @@
         text-align: center;
         padding-top: 20px;
         padding-bottom: 50px;
+    }
+    .section.mobile{
+        display: none;
     }
     .vip-list-wrap{
         background: #e9f4ff;
@@ -337,6 +360,11 @@
             position: relative;
             font-size: 16px;
             border: solid 1px #b6dcfe;
+
+            .dialog-text{
+                display: inline-block;
+                vertical-align: middle;
+            }
             .characteristic-dialog-icon{
                 position: absolute;
                 display: block;
@@ -357,10 +385,16 @@
             }
         }
     }
+    .characteristic-list-mobile{
+        display: none;
+    }
     .slider-wrap{
         // height: 300px;
         background: #fff;
         padding-bottom: 60px;
+        .professor-mobile{
+            display: none;
+        }
         .slider-wrap-header{
             text-align: center;
             h1{
@@ -458,6 +492,7 @@
             line-height: 24px;
             font-size: 14px;
             color: #656d78;
+            
         }
     }
     .jSlider .indicator span{
@@ -469,7 +504,265 @@
 	    border: solid 1px #4788c7;
     }
 }
+@media screen and (max-width: 768px){
+    .member-ship-wrap{
+        .banner{
+            width: 100%;
+            min-width: 100vw;
+            // height: 146px;
+            min-height: 146px;
+            height: 39vw;
+            // min-width: 1024px;
+            // height: 332px;
+            background: url('../images/bg.png') no-repeat;
+            position: relative;
+        }
+        .banner-content{
+            img.banner-pc-img{
+                display: none;
+            }
+            img.banner-mobile-img{
+                display: block;
+            }
+        }
+        .banner-content{
+            max-width: 95%;
+            min-width: 95%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            display: table;
+            img{
+                width: 100%;
+                display: table-cell;
+                vertical-align:middle;
+                text-align:center;
+            }
+        }
+        .courses-list-wrap{
+            h1{
+                padding-top: 25px;
+            }
+            .course-list.mobile{
+                display: block;
+            }
+            .course-list.pc{
+                display: none;
+            }
+            .course-list{
+                overflow: hidden;
+                .course-group{
+                    display: block;
+                }
+                li{
+                  margin-right: 20px;  
+                //   display: block;
+                //   float: left;
+                }
 
+            }
+        }
+        .featrue-container{
+            min-width: 100vw;
+            max-width: 100vw;
+            .course-cell{
+               display: block;
+               padding-bottom: 10px; 
+            }
+        }
+        .slider-wrap{
+            padding-bottom: 30px;
+            .professor-mobile{
+                display: block;
+            }
+            .professor-mobile{
+                ul{
+                    padding: 0;
+                    margin: 0;
+                  li{
+                      list-style: none;
+                      padding: 5vw 8vw;
+                      border-bottom: dashed 1px #b6dcfe;
+                  }
+                }
+                .user-img{
+                    float: left;
+                    img{
+                        width: 25vw;
+                        height: 25vw;
+                    }
+                }
+                .user-info{
+                    float: left;
+                    width: 50vw;
+                    margin-left: 8vw;
+                    .professor-name{
+                        text-align: left;
+                        font-size: 16px;
+                        margin-bottom: 15px;
+                    }
+                    .professor-info{
+                        line-height: 24px;
+                        font-size: 12px;
+                    }
+                }
+                
+
+            } 
+            #slider1{
+                display: none;
+            }
+        }
+        .extend-professor.hidden{
+            display: none;
+        }
+        .find-more-professor{
+            margin: 0 auto;
+            width: 143px;
+            height: 34px;
+            background-color: #ffffff;
+            border-radius: 17px;
+            border: solid 1px #b6dcfe;
+            text-align: center;
+            line-height: 34px;
+            margin-top: 20px;
+            color: #4788c7;
+            font-size: 14px;
+        }
+        .vip-characteristic-wrap{
+
+            .characteristic-dialog{
+                width: 90%;
+                margin:  0 5%;
+                .characteristic-dialog-icon{
+                    left: 15px;
+                }
+                .dialog-text{
+                    display: inline-block;
+                    vertical-align: middle;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 50%;
+                    bottom: 0;
+                    margin-top: -30px;
+                    height: 30px;
+                    text-align: left;
+                    padding: 15px;
+                    line-height: 24px;
+                }
+            }
+        }
+        
+        .section.mobile{
+            display: block;
+            .h5-card{  
+                width: 100%;
+                padding: 10px 4%;
+                height: auto;
+                // background:#fff;
+                box-sizing:border-box;
+                >div{ 
+                  margin-bottom: 4%;
+                  height: 82px;
+                  background-color: #ffffff;
+                  box-shadow: 0px 0px 2px 0px #99cfff;
+                  border-radius: 3px;
+                  position: relative;
+                }
+                >div.current{ 
+                    background-color: #fffaf6;
+                    box-shadow: 0px 1px 4px 0px 
+                        #ffd6ba;
+                    border-radius: 3px;
+                    border: solid 1px #ffe4d1;
+                  .card-h5-money{ 
+                    color:$orangeFont;
+                  }
+                }
+                .h5-recommend{ 
+                   width: 45px;
+                   height: 41px;
+                   background: url('../images/recommend.png') no-repeat top;
+                   background-size: 45px 41px;
+                   position: absolute;
+                   left: -2px;
+                   top: -2px;
+                }
+                .card-h5-message{  
+                  float: left;
+                  margin-left: 28px;
+                  p:nth-of-type(1){  
+                    color: $blackFont;
+                    font-size: 18px;
+                    margin-top: 18px;
+                  }
+                  p:nth-of-type(2){  
+                    color: $normalFont;
+                    font-size: 14px;
+                    margin-top: 10px;
+                    text-decoration: line-through;
+                  }
+                }
+                .card-h5-money{ 
+                  float: right;
+                  margin-right: 28px;
+                  font-size: 14px;
+                  color:$buleFont;
+                  margin-top:  18px;
+                  span{ 
+                    font-size: 24px;
+                  }
+                  span.decimal{
+                    font-size: 12px;
+                    font-weight: bold;
+                  }
+                  .month{
+                      font-size: 14px;
+                      color: #656d78;
+                      display: inline-block;
+                      padding-top: 8px;
+                  }
+                }
+            }
+            .ad-tips{
+                padding: 0;
+                padding-bottom: 20px;
+                margin:  0 auto;
+                text-align: center;
+                color: #656d78;
+                font-size: 12px;
+            }
+        }
+        .section.pc{
+            display: none;
+        }
+        .characteristic-list{
+            display: none;
+        }
+        .vip-characteristic-wrap {
+            .vip-characteristic-title{
+                padding-top: 45px;
+                padding-bottom: 20px;
+            }
+            .add-vip-btn{
+                margin-top: 22px;
+                margin-bottom: 30px;
+            }
+        }
+        .characteristic-list-mobile{
+            display: block;
+            width: 80%;
+            margin:  0 auto;
+            img{
+                width: 100%;
+            }
+        }
+    }
+}
 
 .wxpay-container{
     width: 995px;
@@ -568,3 +861,5 @@
     left: 11px;
     top: 11px;
 }
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+// .clearfix{ *+height:1%; }
