@@ -5,6 +5,7 @@ URLs for membership api.
 from __future__ import unicode_literals
 
 from django.conf.urls import url
+from django.conf import settings
 
 from .views import (
     PackageListAPIView,
@@ -17,6 +18,7 @@ from .views import (
     MobilePackageListAPIView,
     MobilePackageListWithVIPInfoAPIView,
     MobileVIPInfoAPIView,
+    MobileUserCourseEnrollmentsList
 )
 
 
@@ -71,4 +73,9 @@ urlpatterns = [
         MobileVIPInfoAPIView.as_view(),
         name='mobile_vip_info'
     ),
+    url(
+        r'mobile/' + settings.USERNAME_PATTERN + '/enrollments/$',
+        MobileUserCourseEnrollmentsList.as_view(),
+        name='mobil_enrollment'
+    )
 ]
