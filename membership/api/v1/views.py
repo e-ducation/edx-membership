@@ -2,12 +2,15 @@
 from __future__ import unicode_literals
 
 import logging
-import json
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
+from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser
+
+from openedx.core.lib.api.authentication import OAuth2AuthenticationAllowInactiveUser
 
 from rest_framework import filters
 from rest_framework import generics
@@ -16,6 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from membership.api.pagination import PageDataPagination
 from membership.models import VIPOrder, VIPInfo, VIPPackage
 from membership.api.v1.serializers import (
     PackageListSerializer,
@@ -62,13 +66,16 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
 
     serializer_class = VIPInfoSerializer
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
 
     def get(self, request, *args, **kwargs):
         try:
             instance = VIPInfo.objects.get(user=self.request.user)
             serializer = self.get_serializer(instance)
-            
             expired = timezone.now() - instance.expired_at
             # 已过期
             if expired.days > 0:
@@ -320,4 +327,82 @@ class VIPWechatPaying(APIView):
             return Response(xresult(data=data))
         else:
             return Response(xresult(msg='fail', code=-1))
-            
+
+
+class MobilePackageListAPIView(generics.ListAPIView):
+    """
+    套餐列表
+    """
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = PackageListSerializer
+
+    pagination_class = PageDataPagination
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('month',)
+    ordering = ('-month',)
+
+    def get_queryset(self):
+        return VIPPackage.objects.filter(is_active=True)
+
+
+class MobilePackageListWithVIPInfoAPIView(generics.ListAPIView):
+    """
+    会员信息和套餐列表
+    """
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = PackageListSerializer
+
+    pagination_class = PageDataPagination
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('month',)
+    ordering = ('-month',)
+
+    def get_queryset(self):
+        return VIPPackage.objects.filter(is_active=True)
+
+    def get_paginated_response(self, data, extra=None):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data, extra=extra)
+
+    def list(self, request, *args, **kwargs):
+        vip_info = VIPInfo.get_vip_info_for_mobile(self.request.user)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data, extra=vip_info)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class MobileVIPInfoAPIView(APIView):
+    """
+    会员信息
+    """
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = PackageListSerializer
+
+    def get(self, request, *args, **kwargs):
+        vip_info = VIPInfo.get_vip_info_for_mobile(self.request.user)
+
+        return Response(vip_info)
+
