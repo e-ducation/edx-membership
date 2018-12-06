@@ -12,7 +12,6 @@ var getPackages = function (){
             if(data.code == 0){
                 vipListRender(data.data.results);
             }
-            // console.log(data)
         },
         error: function (error) {
       
@@ -20,7 +19,6 @@ var getPackages = function (){
     });
 }
 var vipListRender = function(data){
-    console.log(data);
     // mobile 
     var $payItem = $('.pay-item');
     var $header = $('.vip-header');
@@ -61,7 +59,6 @@ var eventHandler = function() {
     });
     // 获取设备类型
     var device = getQueryString('device');
-    console.log(device);
     if(device != undefined){
         $('.global-header').hide();
         $('.my-footer').hide();
@@ -112,6 +109,7 @@ var eventHandler = function() {
         // pc h5 
         $('.find-new-course').click(function(){
             // 跳转课程
+            window.location.href = '/courses/';
         });
         $('.vip-list li').click(function(){
             var id = $(this).attr('data-id');
@@ -124,7 +122,6 @@ var eventHandler = function() {
     }
 }
 $('document').ready(function(){
-    console.log(12323);
     var $payItem = $('.pay-item');
     $payItem.hide();
     $('.find-more-professor').click(function () {

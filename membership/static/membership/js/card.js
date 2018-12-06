@@ -123,7 +123,6 @@ $.ajax({
     var card = '';
     vipCard = data;
     var target = getQueryString('id');
-    console.log(target)
     for (var i = 0; i < data.length; i++) {
 
       //PC端
@@ -207,7 +206,6 @@ $.ajax({
     }
     orderId = data[_index].id;
     // 初始化信息
-    console.log(_index)
     $(".vip-name-pay").text(data[_index].name)
     $(".pay-box .pay-money-card").html('￥' + data[_index].price.split(".")[0]);
     $(".pay-box .pay-money-card01").html('.' + data[_index].price.split(".")[1]);
