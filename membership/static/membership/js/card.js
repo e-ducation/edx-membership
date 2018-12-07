@@ -1,3 +1,8 @@
+var getQueryString = function(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+  var r = window.location.search.substr(1).match(reg); 
+  if (r != null) return unescape(r[2]); return null; 
+}
 var vipCard = ""
 //暴露付款方式以及会员价格提供到支付接口
 
@@ -118,12 +123,14 @@ $.ajax({
     var data = data.data.results;
     var card = '';
     vipCard = data;
-
+    var target = getQueryString('id');
     for (var i = 0; i < data.length; i++) {
 
       //PC端
       var d1;
-      if (i == 0) {
+      if (target !=undefined && target == data[i].id){
+        d1 = '<li class="current" data-id="pay' + data[i].id + '">'
+      }else if (target ==undefined && i == 0) {
         d1 = '<li class="current" data-id="pay' + data[i].id + '">'
       } else {
         d1 = '<li data-id="pay' + data[i].id + '">'
@@ -159,10 +166,9 @@ $.ajax({
 
     $(".jq-card").prepend(card);
 
-    $(".pay-box .pay-money-card").html('￥' + data[0].price.split(".")[0]);
-    $(".pay-box .pay-money-card01").html('.' + data[0].price.split(".")[1]);
+    
     money = data[0].price;
-    $(".vip-name-pay").text(data[0].name)
+   
 
     //手机端
     var h5Card = "";
@@ -188,11 +194,22 @@ $.ajax({
           '</div>'
       }
     }
-
     $(".h5-card").prepend(h5Card);
 
-    orderId = data[0].id;
-
+    // target init 
+    var _index = 0;
+    if (target != undefined){
+      for(var i = 0,len =data.length;i <len;i++){
+        if (data[i].id == target){
+          _index = i
+        }
+      }
+    }
+    orderId = data[_index].id;
+    // 初始化信息
+    $(".vip-name-pay").text(data[_index].name)
+    $(".pay-box .pay-money-card").html('￥' + data[_index].price.split(".")[0]);
+    $(".pay-box .pay-money-card01").html('.' + data[_index].price.split(".")[1]);
   },
   error: function (error) {
 
