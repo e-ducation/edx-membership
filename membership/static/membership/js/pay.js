@@ -1,5 +1,19 @@
-
-
+window.onload = function(){
+    var time = 3;
+    var odd = function () {
+        if (time <= 0){
+            clearInterval(timer);
+            return ;
+        }
+        time --;
+        $('.wxpay-tips')[0].innerHTML = time + gettext('秒后返回英荔商学院');
+    }
+    var timer = setInterval(odd,1000)
+    setTimeout(function(){
+            window.location.href = "/vip/card"
+            // console.log('return')
+        },3500)
+}
 
 var checkStatus = function () {
     this.start = function(cb,id) {

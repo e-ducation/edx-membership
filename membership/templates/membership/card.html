@@ -21,7 +21,7 @@ from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
 from membership.models import VIPInfo
 %>
-<%block name="title"><title>VIP会员 | 英荔教育</title></%block>
+<%block name="title"><title>${_("VIP会员")} | ${_("英荔教育")}</title></%block>
 <link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
@@ -32,11 +32,11 @@ from membership.models import VIPInfo
         <header>
             <div class="vip-box">
                 <div class="vip-message outer-wrapper">
-                    <p class="vip-name">英荔商学院VIP会员</p>
+                    <p class="vip-name">${_("英荔商学院VIP会员")}</p>
                     <span class="vip-line"></span>
                     <div class="jq-vip-message">
                         <!--  -->
-                        <a class="vip-instro" href="${reverse('membership')}">查看介绍</a>
+                        <a class="vip-instro" href="${reverse('membership')}">${_("查看介绍")}</a>
                     </div>
                 </div>
             </div>
@@ -83,12 +83,17 @@ from membership.models import VIPInfo
 <div class="eliteu-popup">
     <div class="e-popup-box">
         <div class="e-popup-colse"></div>
-        <p class="popup-top-title">请在新页面完成支付</p>
-        <p class="popup-dec"><span>请不要关闭页面</span>，完成支付后请根据情况点击下面按钮</p>
+        <p class="popup-top-title">${_("请在新页面完成支付")}</p>
+        <p class="popup-dec">
+            ${Text(_("{span_start}请不要关闭页面{span_end}，完成支付后请根据情况点击下面按钮")).format(
+                link_start=HTML('<span>'),
+                link_end=HTML('</span>'),
+            )}
+        </p>
         <div class="popup-btnGrounp">
-            <a href="JavaScript:void(0);">重选支付方式</a>
-            <a href="JavaScript:void(0);">支付完成</a>
-            <a href="JavaScript:void(0);">遇到问题?</a>
+            <a href="JavaScript:void(0);">${_("重选支付方式")}</a>
+            <a href="JavaScript:void(0);">${_("支付完成")}</a>
+            <a href="JavaScript:void(0);">${_("遇到问题?")}</a>
         </div>
     </div>
 </div>
@@ -98,7 +103,7 @@ from membership.models import VIPInfo
         <header>
             <div class="vip-box">
                 <div class="vip-message outer-wrapper">
-                    <p class="phone-vip-name">英荔商学院VIP会员</p>
+                    <p class="phone-vip-name">${_("英荔商学院VIP会员")}</p>
 
                     <div class="jq-vip-message">
 
@@ -119,20 +124,20 @@ from membership.models import VIPInfo
 <div class="h5-popup" style="display: none">
     <div class="content-popup">
         <div class="popup-top">
-            <p>选择支付方式</p>
-            <p>学费：<span class="h5-pay-money"></span><span class="h5-pay-money01"></span></p>
+            <p>${_("选择支付方式")}</p>
+            <p>${_("学费：")}<span class="h5-pay-money"></span><span class="h5-pay-money01"></span></p>
         </div>
         <div class="popup-pay">
             <div class="payway payway-ali">
-                <div><span></span><span>支付宝支付</span></div>
+                <div><span></span><span>${_("支付宝支付")}</span></div>
                 <div class="round"></div>
             </div>
             <div class="payway payway-we">
-                <div><span></span><span>微信支付</span></div>
+                <div><span></span><span>${_("微信支付")}</span></div>
                 <div class="round"></div>
             </div>
         </div>
-        <div class="h5btn-pay">去支付</div>
+        <div class="h5btn-pay">${_("去支付")}</div>
     </div>
 </div>
 

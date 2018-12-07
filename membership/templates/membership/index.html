@@ -19,11 +19,11 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<%block name="title"><title>EliteMBA 美国名校EMAB精华课程</title></%block>
+<%block name="title"><title>${_("EliteMBA")} ${_("美国名校EMAB精华课程")}</title></%block>
 <%block name="head_extra">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
 </%block>
 <link rel="stylesheet" href="${static.url('membership/css/index.css')}" />
 <h1>hello membership</h1>
-<a href="${reverse('membership_card')}">马上加入</button>
+<a href="${reverse('membership_card')}">${_("马上加入")}</button>

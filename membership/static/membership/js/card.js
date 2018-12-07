@@ -10,12 +10,13 @@ var orderId;
 // vip会员信息
 
 //续费or开通
-var isBtnVip = '<div class="become-vip">开通</div>';
+// var isBtnVip = '<div class="become-vip">开通</div>';
+var isBtnVip = `<div class="become-vip">${gettext('开通')}</div>`
 
 //是否是手机
 var phone = isMoblie();
 //不是会员
-var novip = '<p class="no-vip">开通VIP会员，可免费观看英荔商学院全部课程</p>';
+var novip = `<p class="no-vip">${gettext('开通VIP会员，可免费观看英荔商学院全部课程')}</p>`;
 
 $.ajax({
   type: "get",
@@ -33,8 +34,8 @@ $.ajax({
         aredyTime: res.opened,
         hasTime: res.remain,
         expiredTime:res.expired,
-        sTime: moment(res.start_at).format("YYYY年MM月DD日"),
-        eTime: moment(res.expired_at).format("YYYY年MM月DD日")
+        sTime: moment(res.start_at).format(gettext("YYYY年MM月DD日")),
+        eTime: moment(res.expired_at).format(gettext("YYYY年MM月DD日"))
       }
 
       if (res.start_at != undefined) {
