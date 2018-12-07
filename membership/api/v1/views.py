@@ -105,7 +105,11 @@ class VIPOrderAPIView(generics.RetrieveAPIView):
     """
     serializer_class = VIPOrderSerializer
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
 
     WECHAT_PAY_STATUS = {
         'NOTPAY': VIPOrder.STATUS_WAIT,
