@@ -561,7 +561,11 @@ class MobileVIPAlipayPaying(APIView):
     参数：package_id 套餐ID
     """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
 
     def post(self, request, *args, **kwargs):
         try:
