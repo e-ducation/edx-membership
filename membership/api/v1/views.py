@@ -2,12 +2,15 @@
 from __future__ import unicode_literals
 
 import logging
-import json
 
 from django.conf import settings
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
+from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser
+
+from openedx.core.lib.api.authentication import OAuth2AuthenticationAllowInactiveUser
 
 from rest_framework import filters
 from rest_framework import generics
@@ -16,11 +19,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from courseware.access import is_mobile_available_for_user
+from experiments.models import ExperimentData, ExperimentKeyValue
+from student.models import CourseEnrollment
+
+from membership.api.pagination import PageDataPagination
 from membership.models import VIPOrder, VIPInfo, VIPPackage
 from membership.api.v1.serializers import (
     PackageListSerializer,
     VIPOrderSerializer,
-    VIPInfoSerializer
+    VIPInfoSerializer,
+    MobileCourseEnrollmentSerializer
 )
 from payments.alipay.alipay import create_direct_pay_by_user
 from payments.wechatpay.wxpay import (
@@ -62,13 +71,16 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
 
     serializer_class = VIPInfoSerializer
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
 
     def get(self, request, *args, **kwargs):
         try:
             instance = VIPInfo.objects.get(user=self.request.user)
             serializer = self.get_serializer(instance)
-            
             expired = timezone.now() - instance.expired_at
             # 已过期
             if expired.days > 0:
@@ -320,4 +332,223 @@ class VIPWechatPaying(APIView):
             return Response(xresult(data=data))
         else:
             return Response(xresult(msg='fail', code=-1))
-            
+
+
+class MobilePackageListAPIView(generics.ListAPIView):
+    """
+    套餐列表
+    """
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = PackageListSerializer
+
+    pagination_class = PageDataPagination
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('month',)
+    ordering = ('-month',)
+
+    def get_queryset(self):
+        return VIPPackage.objects.filter(is_active=True)
+
+
+class MobilePackageListWithVIPInfoAPIView(generics.ListAPIView):
+    """
+    会员信息和套餐列表
+    """
+
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = PackageListSerializer
+
+    pagination_class = PageDataPagination
+
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('month',)
+    ordering = ('-month',)
+
+    def get_queryset(self):
+        return VIPPackage.objects.filter(is_active=True)
+
+    def get_paginated_response(self, data, extra=None):
+        """
+        Return a paginated style `Response` object for the given output data.
+        """
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data, extra=extra)
+
+    def list(self, request, *args, **kwargs):
+        vip_info = VIPInfo.get_vip_info_for_mobile(self.request.user)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data, extra=vip_info)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class MobileVIPInfoAPIView(APIView):
+    """
+    会员信息
+    """
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = PackageListSerializer
+
+    def get(self, request, *args, **kwargs):
+        vip_info = VIPInfo.get_vip_info_for_mobile(self.request.user)
+
+        return Response(vip_info)
+
+
+class MobileUserCourseEnrollmentsList(generics.ListAPIView):
+    """
+    **Use Case**
+
+        Get information about the courses that the currently signed in user is
+        enrolled in.
+
+    **Example Request**
+
+        GET /api/mobile/v0.5/users/{username}/course_enrollments/
+
+    **Response Values**
+
+        If the request for information about the user is successful, the
+        request returns an HTTP 200 "OK" response.
+
+        The HTTP 200 response has the following values.
+
+        * certificate: Information about the user's earned certificate in the
+          course.
+        * course: A collection of the following data about the course.
+
+        * courseware_access: A JSON representation with access information for the course,
+          including any access errors.
+
+          * course_about: The URL to the course about page.
+          * course_sharing_utm_parameters: Encoded UTM parameters to be included in course sharing url
+          * course_handouts: The URI to get data for course handouts.
+          * course_image: The path to the course image.
+          * course_updates: The URI to get data for course updates.
+          * discussion_url: The URI to access data for course discussions if
+            it is enabled, otherwise null.
+          * end: The end date of the course.
+          * id: The unique ID of the course.
+          * name: The name of the course.
+          * number: The course number.
+          * org: The organization that created the course.
+          * start: The date and time when the course starts.
+          * start_display:
+            If start_type is a string, then the advertised_start date for the course.
+            If start_type is a timestamp, then a formatted date for the start of the course.
+            If start_type is empty, then the value is None and it indicates that the course has not yet started.
+          * start_type: One of either "string", "timestamp", or "empty"
+          * subscription_id: A unique "clean" (alphanumeric with '_') ID of
+            the course.
+          * video_outline: The URI to get the list of all videos that the user
+            can access in the course.
+
+        * created: The date the course was created.
+        * is_active: Whether the course is currently active. Possible values
+          are true or false.
+        * mode: The type of certificate registration for this course (honor or
+          certified).
+        * url: URL to the downloadable version of the certificate, if exists.
+    """
+    queryset = CourseEnrollment.objects.all()
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = MobileCourseEnrollmentSerializer
+    lookup_field = 'username'
+
+    # In Django Rest Framework v3, there is a default pagination
+    # class that transmutes the response data into a dictionary
+    # with pagination information.  The original response data (a list)
+    # is stored in a "results" value of the dictionary.
+    # For backwards compatibility with the existing API, we disable
+    # the default behavior by setting the pagination_class to None.
+    pagination_class = None
+
+    def is_org(self, check_org, course_org):
+        """
+        Check course org matches request org param or no param provided
+        """
+        return check_org is None or (check_org.lower() == course_org.lower())
+
+    def hide_course_for_enrollment_fee_experiment(self, user, enrollment, experiment_id=9):
+        """
+        Hide enrolled courses from mobile app as part of REV-73/REV-19
+        """
+        course_key = enrollment.course_overview.id
+        try:
+            courses_excluded_from_mobile = ExperimentKeyValue.objects.get(
+                experiment_id=10,
+                key="mobile_app_exclusion"
+            ).value
+            courses_excluded_from_mobile = json.loads(courses_excluded_from_mobile.replace('\r', '').replace('\n', ''))
+            if enrollment.mode == 'audit' and str(course_key) in courses_excluded_from_mobile.keys():
+                activationTime = dateparse.parse_datetime(courses_excluded_from_mobile[str(course_key)])
+                if activationTime and enrollment.created and enrollment.created > activationTime:
+                    return True
+        except (ExperimentKeyValue.DoesNotExist, AttributeError):
+            pass
+
+        try:
+            ExperimentData.objects.get(
+                user=user,
+                experiment_id=experiment_id,
+                key='enrolled_{0}'.format(course_key),
+            )
+        except ExperimentData.DoesNotExist:
+            return False
+
+        try:
+            ExperimentData.objects.get(
+                user=user,
+                experiment_id=experiment_id,
+                key='paid_{0}'.format(course_key),
+            )
+        except ExperimentData.DoesNotExist:
+            return True
+
+        return False
+
+    def get_queryset(self):
+        enrollments = self.queryset.filter(
+            user__username=self.kwargs['username'],
+            is_active=True
+        ).order_by('created').reverse()
+        org = self.request.query_params.get('org', None)
+
+        e = []
+        for enrollment in enrollments:
+            is_org = self.is_org(org, enrollment.course_overview.org)
+            is_mobile_available = is_mobile_available_for_user(self.request.user, enrollment.course_overview)
+            not_hide_course = not self.hide_course_for_enrollment_fee_experiment(self.request.user, enrollment)
+            if enrollment.course_overview \
+                    and is_org \
+                    and is_mobile_available \
+                    and not_hide_course:
+                e.append(enrollment)
+
+        return e
