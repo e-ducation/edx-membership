@@ -32,6 +32,7 @@ from membership.api.v1.serializers import (
     MobileCourseEnrollmentSerializer
 )
 from payments.alipay.alipay import create_direct_pay_by_user
+from payments.alipay.app_alipay import create_app_pay_by_user
 from payments.wechatpay.wxpay import (
     WxPayConf_pub,
     UnifiedOrder_pub,
@@ -552,3 +553,36 @@ class MobileUserCourseEnrollmentsList(generics.ListAPIView):
                 e.append(enrollment)
 
         return e
+
+
+class MobileVIPAlipayPaying(APIView):
+    """
+    mobile VIP alipay paying
+    参数：package_id 套餐ID
+    """
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            package_id = request.POST.get('package_id')
+            order = VIPOrder.create_order(request.user, int(package_id))
+            order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY
+            order.save()
+
+            extra_common_param = settings.LMS_ROOT_URL + reverse("vip_purchase")
+            total_fee = str_to_specify_digits(str(order.price))
+            trade_id = create_trade_id(order.id)
+
+            result = {'order_id': order.id}
+            if order:
+                body = "BUY {amount} RMB ".format(amount=order.price)
+                subject = "BUY VIP"
+                total_fee = order.price
+                result['data_url'] = create_app_pay_by_user(trade_id, subject, body, str(total_fee), extra_common_param)
+
+            return Response(data=result)
+        except Exception, e:
+            log.exception(e)
+        return Response({})
+
