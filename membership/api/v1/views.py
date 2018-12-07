@@ -20,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from courseware.access import is_mobile_available_for_user
-from course_api.views import CourseListView
+from course_api.views import CourseListView, CourseDetailView
 from experiments.models import ExperimentData, ExperimentKeyValue
 from student.models import CourseEnrollment
 
@@ -31,8 +31,8 @@ from membership.api.v1.serializers import (
     VIPOrderSerializer,
     VIPInfoSerializer,
     MobileCourseEnrollmentSerializer,
-    MobileCourseSerializer
-)
+    MobileCourseSerializer,
+    MobileCourseDetailSerializer)
 from payments.alipay.alipay import create_direct_pay_by_user
 from payments.wechatpay.wxpay import (
     WxPayConf_pub,
@@ -558,5 +558,20 @@ class MobileUserCourseEnrollmentsList(generics.ListAPIView):
 
 
 class MobileCourseListView(CourseListView):
-
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
     serializer_class = MobileCourseSerializer
+
+
+class MobileCourseDetailView(CourseDetailView):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+    serializer_class = MobileCourseDetailSerializer
