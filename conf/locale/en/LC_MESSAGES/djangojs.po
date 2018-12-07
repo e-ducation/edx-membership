@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2018-12-07 19:40+0800\n"
-"PO-Revision-Date: 2018-12-07 11:40:22.041820\n"
+"POT-Creation-Date: 2018-12-07 20:16+0800\n"
+"PO-Revision-Date: 2018-12-07 12:16:58.452465\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -51,6 +51,10 @@ msgstr ""
 
 #: membership/static/membership/js/card.js
 msgid "会员已过期"
+msgstr ""
+
+#: membership/static/membership/js/index.js
+msgid "月均"
 msgstr ""
 
 #: membership/static/membership/js/pay.js

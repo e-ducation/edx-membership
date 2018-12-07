@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2018-12-07 19:40+0800\n"
-"PO-Revision-Date: 2018-12-07 11:40:22.034419\n"
+"POT-Creation-Date: 2018-12-07 20:16+0800\n"
+"PO-Revision-Date: 2018-12-07 12:16:58.440355\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -140,7 +140,287 @@ msgid "美国名校EMAB精华课程"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "马上加入"
+msgid "英荔商学院六大课程方向"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "激活全能商业基因，你就是一个团队！"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "商业管理"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "创新创业"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "统计分析"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "信息技术"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "市场销售"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "零售管理"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "发现课程"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "更多重磅课程即将上线"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "国际商法"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "朱灵 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国亚利桑那大学管理信息系统博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国福特汉姆大学法律博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "营销管理与应用"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "张东隆 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国乔治·华盛顿大学国际商务/市场营销博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "台湾政治大学管理学博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "宏观经济学"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "（美国戴维森学院）"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "克拉克·罗斯 (Clark Ross)  博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国波士顿学院经济学博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "*英荔教育保留所有课程的更新和最终解释权。"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "成为英荔会员"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "根据您的需求选择合适的学习时长，"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "学习期内享有英荔商学院所有课程的学习权益，新课上线亦可马上加入学习！"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "全年会员"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "月均"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "全栈职场修炼"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "半年会员"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "能力高效提升"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "三个月会员"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "系列课程畅学"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "一个月会员"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "多门课程体验"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "*现在报名可享以上优惠，具体详情请前往购买页。"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "超强师资——精英式教学"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国名校商学院教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "构建全方位的商科知识矩阵，从0到1，系统学习 "
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "萧柏春 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国长岛大学Post分校商学院管理系终身教授、系主任"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "谢洛德 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "原美国西北大学凯洛格商学院家族企业中心创始人，创业专业教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "蒂姆·塞米特 教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "国际金融教育协会副会长及  首席营销官"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "杨威 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国长岛大学Post分校商学院终身教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "朱伟春 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "宾夕法尼亚州立大学劳动力研究与雇佣关系学院助理教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "汪嘉旻 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国长岛大学Post分校管理系终身教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国长岛大学Post分校管理信息系统专业终身教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "李天宁 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国胡德学院金融财务副教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "施建军 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "原对外经济贸易大学校长、  教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "克拉克·罗斯 博士"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "美国戴维森学院经济学教授"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "查看更多"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "学习期内享有英荔商学院所有课程的学习权益"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "新课上线亦可马上加入学习！"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "一年"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "学习特色"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "视频学习"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "群内互动"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "直播讲座"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "习题测试"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "结课证书"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "加入会员"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "有一种差距，叫8小时以外的自律，和英荔一起出发，成为自律的全栈职场人！"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "英荔说"
 msgstr ""
 
 #: membership/templates/membership/result.html
