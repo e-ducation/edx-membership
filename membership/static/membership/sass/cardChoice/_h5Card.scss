@@ -106,7 +106,8 @@
   left: 0;
   top: 0;
   position: fixed;
-  z-index:99;
+  overflow: hidden;
+  z-index:1000;
   background: rgba(0,0,0,0.3);
   .content-popup{  
     height: 230px;

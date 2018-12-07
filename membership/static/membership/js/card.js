@@ -20,7 +20,7 @@ var isBtnVip = '<div class="become-vip">开通</div>';
 //是否是手机
 var phone = isMoblie();
 //不是会员
-var novip = '<p class="no-vip">开通vip会员，可免费观看英荔商学院全部课程</p>';
+var novip = '<p class="no-vip">开通VIP会员，可免费观看英荔商学院全部课程</p>';
 
 $.ajax({
   type: "get",
@@ -37,6 +37,7 @@ $.ajax({
         isTimeout: moment(res.expired_at) < moment(),
         aredyTime: res.opened,
         hasTime: res.remain,
+        expiredTime:res.expired,
         sTime: moment(res.start_at).format("YYYY年MM月DD日"),
         eTime: moment(res.expired_at).format("YYYY年MM月DD日")
       }
@@ -73,7 +74,7 @@ $.ajax({
 
             var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
+              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["expiredTime"] + '</span>天</li>' +
               '<li>日期: <span>' + data["sTime"] + '</span></li>' +
               '<li>日期: <span>' + data["eTime"] + '</span></li>' +
               '</ul>';
@@ -81,7 +82,7 @@ $.ajax({
           else {
             var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["hasTime"] + '</span>天</li>' +
+              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["expiredTime"] + '</span>天</li>' +
               '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
               '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
               '</ul>';
