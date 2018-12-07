@@ -68,9 +68,9 @@ class VIPInfo(models.Model):
             'start_at': start_at,
             'expired_at': expired_at,
             'is_vip': cls.is_vip(user),
-            'vip_pass_days': vip_pass.days,
-            'vip_remain_days': vip_remain.days,
-            'vip_expired_days': vip_expired.days
+            'vip_pass_days': vip_pass and vip_pass.days or 0,
+            'vip_remain_days': vip_remain and vip_remain.days or 0,
+            'vip_expired_days': vip_expired and vip_expired.days or 0
         }
         return vip_info
 
