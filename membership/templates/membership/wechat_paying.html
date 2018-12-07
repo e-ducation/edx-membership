@@ -19,34 +19,34 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<%block name="title"><title>${_("微信支付")}</title></%block>
+<%block name="title"><title>${_(u"微信支付")}</title></%block>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
 
 <div class="wxpay-wrap">
     <div class="wxpay-container">
         <div class="wxpay-header">
-            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">${_("英荔商学院收银台")}</span>
+            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">${_(u"英荔商学院收银台")}</span>
         </div>
         <div id="paying" class="wxpay-content" >
-            <div class="wxpay-number">${_("实付金额：")}${price}</div>
-            <div>${_("请在2小时内完成支付，否则可能导致购买失败")}</div>
+            <div class="wxpay-number">${_(u"实付金额：")}${price}</div>
+            <div>${_(u"请在2小时内完成支付，否则可能导致购买失败")}</div>
             <div class="wxpay-scanner">
                 <img src="${static.url('membership/images/scanner.png')}" />
                 <div id="qrcode" src="${code_url}"></div>
             </div>
-            <div>${_("请使用微信扫描二维码")}</div>
-            <div style="margin-top:5px">${_("以完成支付")}</div>
+            <div>${_(u"请使用微信扫描二维码")}</div>
+            <div style="margin-top:5px">${_(u"以完成支付")}</div>
         </div>
         <div id="result" class="wxpay-content" style="display:none">
             <div class="wxpay-success-log">
                 <img src="${static.url('membership/images/wxsuccess.png')}" />
             </div>
             <div class="wxpay-success-title">
-                    ${_("支付成功")}
+                    ${_(u"支付成功")}
             </div>
-            <div class="wxpay-tips">${_("3秒后返回英荔商学院")}</div>
+            <div class="wxpay-tips">${_(u"3秒后返回英荔商学院")}</div>
             <div class="wxpay-button">
-                <a href="/vip/card">${_("立即返回")}</a>
+                <a href="/vip/card">${_(u"立即返回")}</a>
             </div>
         </div>
     </div>
