@@ -49,12 +49,35 @@ class VIPInfo(models.Model):
         return vip_info
 
     @classmethod
-    def is_vip(cls, user):
+    def get_vip_info_for_mobile(cls, user):
         try:
-            vip_info = cls.objects.filter(user=user).order_by('-id').first()
-            return vip_info and vip_info.expired_at > timezone.now()
-        except:
-            return False
+            info = VIPInfo.objects.get(user=user.id)
+            start_at = info.start_at
+            expired_at = info.expired_at
+            vip_pass = timezone.now() - info.start_at
+            vip_remain = info.expired_at - timezone.now()
+            vip_expired = timezone.now() - info.expired_at
+        except VIPInfo.DoesNotExist:
+            start_at = ''
+            expired_at = ''
+            vip_pass = None
+            vip_remain = None
+            vip_expired = None
+
+        vip_info = {
+            'start_at': start_at,
+            'expired_at': expired_at,
+            'is_vip': cls.is_vip(user),
+            'vip_pass_days': vip_pass and vip_pass.days or 0,
+            'vip_remain_days': vip_remain and vip_remain.days or 0,
+            'vip_expired_days': vip_expired and vip_expired.days or 0
+        }
+        return vip_info
+
+    @classmethod
+    def is_vip(cls, user):
+        vip_info = cls.objects.filter(user=user).order_by('-id').first()
+        return vip_info and vip_info.expired_at > timezone.now()
 
     @classmethod
     def can_view_course(cls, user, course_id):
@@ -88,6 +111,10 @@ class VIPPackage(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @classmethod
+    def recommended_package(cls):
+        return VIPPackage.objects.filter(is_active=True, is_recommended=True).first()
 
 
 class VIPOrder(models.Model):

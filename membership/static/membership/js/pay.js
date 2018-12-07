@@ -21,7 +21,6 @@ var checkStatus = function () {
         var that = this;
         this.auto = setInterval(function(){
             // if this.flag == true
-            console.log('checking',that.flag)
             if (that.flag){
                 $.ajax({
                     url: '/api/v1/vip/order/'+ id,
@@ -57,7 +56,6 @@ var aliPayer = function(id) {
         url: '/api/v1/vip/pay/alipay/paying/?package_id='+id,
         xhrFields: { withCredentials: true},
         success: function(res){
-            console.log('success')
             if (res.code == 0){
                 var tempwindow = window.open("",'_blank');
                 tempwindow.location = res.data.alipay_url;
@@ -79,7 +77,6 @@ var wxPayer = function(id){
         url: '/api/v1/vip/pay/wechat/paying/?package_id='+id,
         xhrFields: { withCredentials: true},
         success: function(res){
-            console.log('success',res);
             if (res.code == 0) {
                 var tempwindow = window.open("",'_blank');
                 tempwindow.location = res.data.href_url;
