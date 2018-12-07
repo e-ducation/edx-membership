@@ -112,6 +112,10 @@ class VIPPackage(models.Model):
     def __unicode__(self):
         return self.name
 
+    @classmethod
+    def recommended_package(cls):
+        return VIPPackage.objects.filter(is_active=True, is_recommended=True).first()
+
 
 class VIPOrder(models.Model):
     """ VIP order """
