@@ -18,7 +18,8 @@ from .views import (
     MobilePackageListAPIView,
     MobilePackageListWithVIPInfoAPIView,
     MobileVIPInfoAPIView,
-    MobileUserCourseEnrollmentsList
+    MobileUserCourseEnrollmentsList,
+    MobileVIPAlipayPaying,
 )
 
 
@@ -44,9 +45,14 @@ urlpatterns = [
         name='vip_pay_order'
     ),
     url(
-        r'vip/pay/alipay/paying/$',
+        r'^vip/pay/alipay/paying/$',
         VIPAlipayPaying.as_view(),
         name='vip_alipay_paying'
+    ),
+    url(
+        r'^mobile/vip/pay/alipay/paying/$',
+        MobileVIPAlipayPaying.as_view(),
+        name='mobile_vip_alipay_paying'
     ),
     url(
         r'vip/purchase/$',
