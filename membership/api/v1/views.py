@@ -338,6 +338,7 @@ class MobilePackageListAPIView(generics.ListAPIView):
     """
     套餐列表
     """
+    permission_classes = (IsAuthenticated,)
     authentication_classes = (
         JwtAuthentication,
         OAuth2AuthenticationAllowInactiveUser,
@@ -359,6 +360,8 @@ class MobilePackageListWithVIPInfoAPIView(generics.ListAPIView):
     """
     会员信息和套餐列表
     """
+
+    permission_classes = (IsAuthenticated,)
     authentication_classes = (
         JwtAuthentication,
         OAuth2AuthenticationAllowInactiveUser,
@@ -399,6 +402,7 @@ class MobileVIPInfoAPIView(APIView):
     """
     会员信息
     """
+    permission_classes = (IsAuthenticated,)
     authentication_classes = (
         JwtAuthentication,
         OAuth2AuthenticationAllowInactiveUser,
@@ -468,6 +472,7 @@ class MobileUserCourseEnrollmentsList(generics.ListAPIView):
         * url: URL to the downloadable version of the certificate, if exists.
     """
     queryset = CourseEnrollment.objects.all()
+    permission_classes = (IsAuthenticated,)
     authentication_classes = (
         JwtAuthentication,
         OAuth2AuthenticationAllowInactiveUser,
