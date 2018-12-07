@@ -1,0 +1,58 @@
+# edX translation file.
+# Copyright (C) 2018 EdX
+# This file is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+# EdX Team <info@edx.org>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1a\n"
+"Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
+"POT-Creation-Date: 2018-12-07 19:40+0800\n"
+"PO-Revision-Date: 2018-12-07 11:40:22.041820\n"
+"Last-Translator: \n"
+"Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: membership/static/membership/js/card.js
+msgid "开通"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "YYYY年MM月DD日"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "已开通"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "天"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "剩余"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "日期:"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "开通日期:"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "到期日期:"
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "会员已过期"
+msgstr ""
+
+#: membership/static/membership/js/pay.js
+msgid "秒后返回英荔商学院"
+msgstr ""
