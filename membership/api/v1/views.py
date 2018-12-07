@@ -20,6 +20,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from courseware.access import is_mobile_available_for_user
+from course_api.views import CourseListView
 from experiments.models import ExperimentData, ExperimentKeyValue
 from student.models import CourseEnrollment
 
@@ -29,7 +30,8 @@ from membership.api.v1.serializers import (
     PackageListSerializer,
     VIPOrderSerializer,
     VIPInfoSerializer,
-    MobileCourseEnrollmentSerializer
+    MobileCourseEnrollmentSerializer,
+    MobileCourseSerializer
 )
 from payments.alipay.alipay import create_direct_pay_by_user
 from payments.wechatpay.wxpay import (
@@ -41,6 +43,7 @@ from membership.utils import (
     create_trade_id, recovery_order_id, str_to_specify_digits,
     xresult
 )
+
 
 log = logging.getLogger(__name__)
 
@@ -552,3 +555,8 @@ class MobileUserCourseEnrollmentsList(generics.ListAPIView):
                 e.append(enrollment)
 
         return e
+
+
+class MobileCourseListView(CourseListView):
+
+    serializer_class = MobileCourseSerializer

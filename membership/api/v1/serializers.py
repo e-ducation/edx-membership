@@ -5,17 +5,17 @@ Membership Serializers
 from __future__ import unicode_literals
 
 from django.utils import timezone
+
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
 from lms.djangoapps.certificates.api import certificate_downloadable_status
-from student.models import CourseEnrollment, User
-
 from courseware.access import has_access
+from course_api.serializers import CourseSerializer
+from student.models import CourseEnrollment, User
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
 
-
-from membership.models import VIPPackage, VIPOrder, VIPInfo
+from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice
 
 
 class PackageListSerializer(serializers.ModelSerializer):
@@ -36,7 +36,7 @@ class VIPOrderSerializer(serializers.ModelSerializer):
 class VIPInfoSerializer(serializers.ModelSerializer):
 
     status = serializers.SerializerMethodField()
-    opened =  serializers.SerializerMethodField()
+    opened = serializers.SerializerMethodField()
     remain = serializers.SerializerMethodField()
 
     def get_opened(self, info):
@@ -159,3 +159,15 @@ class MobileCourseEnrollmentSerializer(serializers.ModelSerializer):
         fields = ('created', 'mode', 'is_active', 'course',
                   'certificate', 'is_vip', 'can_view_course')
         lookup_field = 'username'
+
+
+class MobileCourseSerializer(CourseSerializer):
+    """
+    Serializer for Course objects providing minimal data about the course.
+    Compare this with CourseDetailSerializer.
+    """
+
+    is_subscribe_pay = serializers.SerializerMethodField()
+
+    def get_is_subscribe_pay(self, model):
+        return VIPCoursePrice.is_subscribe_pay(model.id)

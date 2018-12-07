@@ -18,7 +18,8 @@ from .views import (
     MobilePackageListAPIView,
     MobilePackageListWithVIPInfoAPIView,
     MobileVIPInfoAPIView,
-    MobileUserCourseEnrollmentsList
+    MobileUserCourseEnrollmentsList,
+    MobileCourseListView
 )
 
 
@@ -77,5 +78,10 @@ urlpatterns = [
         r'mobile/' + settings.USERNAME_PATTERN + '/enrollments/$',
         MobileUserCourseEnrollmentsList.as_view(),
         name='mobil_enrollment'
+    ),
+    url(
+        r'mobile/courses',
+        MobileCourseListView.as_view(),
+        name='mobil_courses'
     )
 ]
