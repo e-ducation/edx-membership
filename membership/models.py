@@ -77,7 +77,7 @@ class VIPInfo(models.Model):
     @classmethod
     def is_vip(cls, user):
         vip_info = cls.objects.filter(user=user).order_by('-id').first()
-        return vip_info and vip_info.expired_at > timezone.now()
+        return vip_info and vip_info.expired_at > timezone.now() or False
 
     @classmethod
     def can_view_course(cls, user, course_id):
