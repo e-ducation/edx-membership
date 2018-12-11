@@ -57,7 +57,7 @@ msgstr "微信"
 
 #: membership/models.py membership/templates/membership/card.html
 msgid "Alipay"
-msgstr ""
+msgstr "支付宝"
 
 #: membership/models.py
 msgid "Union pay"
