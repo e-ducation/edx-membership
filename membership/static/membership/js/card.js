@@ -16,12 +16,12 @@ var orderId;
 
 //续费or开通
 // var isBtnVip = '<div class="become-vip">开通</div>';
-var isBtnVip = `<div class="become-vip">${gettext('Open membership')}</div>`
+var isBtnVip = '<div class="become-vip">' + gettext('Open membership') + '</div>'
 
 //是否是手机
 var phone = isMoblie();
 //不是会员
-var novip = `<p class="no-vip">${gettext('Become a VIP member and watch all EliteMBA courses for free')}</p>`;
+var novip = '<p class="no-vip">' + gettext('Become a VIP member and watch all EliteMBA courses for free') + '</p>';
 
 $.ajax({
   type: "get",
