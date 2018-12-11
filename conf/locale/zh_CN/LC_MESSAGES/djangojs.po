@@ -1,0 +1,47 @@
+#
+msgid ""
+msgstr ""
+
+#: membership/static/membership/js/card.js
+msgid "Register to be a member/Open membership"
+msgstr "开通"
+
+#: membership/static/membership/js/card.js
+msgid "DD/MM/YYYY"
+msgstr "YYYY年MM月DD日"
+
+#: membership/static/membership/js/card.js
+msgid "Membership opened"
+msgstr "已开通"
+
+#: membership/static/membership/js/card.js
+msgid "day"
+msgstr "天"
+
+#: membership/static/membership/js/card.js
+msgid "Remaining days/Expire in _ days"
+msgstr "剩余"
+
+#: membership/static/membership/js/card.js
+msgid "Date:"
+msgstr "日期:"
+
+#: membership/static/membership/js/card.js
+msgid "Opening date/Opened on:"
+msgstr "开通日期:"
+
+#: membership/static/membership/js/card.js
+msgid "Due date/Expire on:"
+msgstr "到期日期:"
+
+#: membership/static/membership/js/card.js
+msgid "Membership expired"
+msgstr "会员已过期"
+
+#: membership/static/membership/js/index.js
+msgid "Average per month"
+msgstr "月均"
+
+#: membership/static/membership/js/pay.js
+msgid "Return to EliteMBA in _ seconds"
+msgstr "秒后返回英荔商学院"

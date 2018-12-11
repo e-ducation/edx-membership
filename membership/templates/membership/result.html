@@ -19,23 +19,23 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<%block name="title"><title>${_(u"微信支付")}</title></%block>
+<%block name="title"><title>${_(u"WeChat")}</title></%block>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
 <div class="wxpay-wrap">
     <div class="wxpay-container">
         <div class="wxpay-header">
-            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">${_(u"英荔商学院收银台")}</span>
+            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">${_(u"Eliteu MBA school cashier")}</span>
         </div>
         <div id="result" class="wxpay-content">
             <div class="wxpay-success-log">
                 <img src="${static.url('membership/images/wxsuccess.png')}" />
             </div>
             <div class="wxpay-success-title">
-                ${_(u"英荔商学院收银台支付成功")}
+                ${_(u"Eliteu MBA school cashier payment success")}
             </div>
-            <div class="wxpay-tips">${_(u"3秒后返回英荔商学院")}</div>
+            <div class="wxpay-tips">${_(u"Return to Eliteu MBA school in 3 seconds")}</div>
             <div class="wxpay-button">
-                <a href="/vip/card">${_(u"立即返回")}</a>
+                <a href="/vip/card">${_(u"Return Now")}</a>
             </div>
         </div>
     </div>
