@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2018-12-07 20:16+0800\n"
-"PO-Revision-Date: 2018-12-07 12:16:58.440355\n"
+"POT-Creation-Date: 2018-12-11 15:25+0800\n"
+"PO-Revision-Date: 2018-12-11 07:25:06.132319\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -49,11 +49,13 @@ msgstr ""
 msgid "Offline"
 msgstr ""
 
-#: membership/models.py
+#: membership/models.py membership/templates/membership/card.html
+#: membership/templates/membership/result.html
+#: membership/templates/membership/wechat_paying.html
 msgid "WeChat"
 msgstr ""
 
-#: membership/models.py
+#: membership/models.py membership/templates/membership/card.html
 msgid "Alipay"
 msgstr ""
 
@@ -74,61 +76,57 @@ msgid "subscribe pay"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "VIP会员"
+msgid "VIP membership"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "英荔教育"
+msgid "Elite Education"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "英荔商学院VIP会员"
+msgid "Elite MBA VIP membership"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "查看介绍"
+msgid "View Introduction"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "请在新页面完成支付"
+msgid "Choose a payment method"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "{span_start}请不要关闭页面{span_end}，完成支付后请根据情况点击下面按钮"
+msgid "Membership Subscription Period"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "重选支付方式"
+msgid "Tuition:"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "支付完成"
+msgid "Go to payment"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "遇到问题?"
+msgid "Complete payment in a new page"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "选择支付方式"
+msgid ""
+"{span_start}Please do not close the page {span_end}. Please click the button"
+" below accordingly after completing the payment."
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "学费："
+msgid "Choose another payment method"
 msgstr ""
 
 #: membership/templates/membership/card.html
-msgid "支付宝支付"
+msgid "payment completed"
 msgstr ""
 
 #: membership/templates/membership/card.html
-#: membership/templates/membership/result.html
-#: membership/templates/membership/wechat_paying.html
-msgid "微信支付"
-msgstr ""
-
-#: membership/templates/membership/card.html
-msgid "去支付"
+msgid "Encounter a problem？"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -136,328 +134,352 @@ msgid "EliteMBA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国名校EMAB精华课程"
+msgid "Prestige EMBA courses in America"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "英荔商学院六大课程方向"
+msgid "Six Course Specializations of Elite MBA School"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "激活全能商业基因，你就是一个团队！"
+msgid "Activate your all-round business gene, you alone are a team!"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "商业管理"
+msgid "Business Administration"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "创新创业"
+msgid "Innovation and Entrepreneurship"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "统计分析"
+msgid "Statistic Analysis"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "信息技术"
+msgid "Information Technology"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "市场销售"
+msgid "Marketing and Sales"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "零售管理"
+msgid "Retail Management"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "发现课程"
+msgid "Explore Courses"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "更多重磅课程即将上线"
+msgid "More courses coming soon"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "国际商法"
+msgid "International Business Law"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "朱灵 博士"
+msgid "Dr. Ling Zhu"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国亚利桑那大学管理信息系统博士"
+msgid "PhD in Management Information Systems, the University of Arizona, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国福特汉姆大学法律博士"
+msgid "J.D., Fordham University"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "营销管理与应用"
+msgid "Marketing Management and Applications"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "张东隆 博士"
+msgid "Dr. Tung-lung Steven Chang"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国乔治·华盛顿大学国际商务/市场营销博士"
+msgid ""
+"PhD. in International Business/Marketing, the George Washington University, "
+"USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "台湾政治大学管理学博士"
+msgid "PhD. in Management, National Chengchi University, Taiwan"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "宏观经济学"
+msgid "Macroeconomics"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "（美国戴维森学院）"
+msgid "(Davidson College)"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "克拉克·罗斯 (Clark Ross)  博士"
+msgid "Dr. Clark Ross"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国波士顿学院经济学博士"
+msgid "PhD. in Economics, Boston College, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "*英荔教育保留所有课程的更新和最终解释权。"
+msgid ""
+"*All course updates reserved to Eliteu and Eliteu has the final "
+"interpretation."
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "成为英荔会员"
+msgid "Become Eliteu Member"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "根据您的需求选择合适的学习时长，"
+msgid "Choose appropriate learning duration according to your needs,"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "学习期内享有英荔商学院所有课程的学习权益，新课上线亦可马上加入学习！"
+msgid ""
+"During the study period, you will enjoy the learning of all the courses of "
+"Elite MBA School. You can join the new class online now!"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "全年会员"
+msgid "Full-Year Membership"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "月均"
+msgid "average per month"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "全栈职场修炼"
+msgid "Full-stack workplace practice"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "半年会员"
+msgid "Half-Year Membership"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "能力高效提升"
+msgid "Improve Ability Efficiently"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "三个月会员"
+msgid "Three-Month Membership"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "系列课程畅学"
+msgid "A series of courses for learning"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "一个月会员"
+msgid "One-Month Membership"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "多门课程体验"
+msgid "Multiple-Course Experience"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "*现在报名可享以上优惠，具体详情请前往购买页。"
+msgid ""
+"*Now sign up to enjoy the above offers. Please go to the purchase page for "
+"details."
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "超强师资——精英式教学"
+msgid "Best faculties ---- Elite Education"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国名校商学院教授"
+msgid "Professor of American Famous Business Schools"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "构建全方位的商科知识矩阵，从0到1，系统学习 "
+msgid ""
+"To build the all-around business knowledge matrix, and systematic learning "
+"from zero to one"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "萧柏春 博士"
+msgid "Dr. Bochun Xiao"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国长岛大学Post分校商学院管理系终身教授、系主任"
+msgid ""
+"Lifetime Professor and Dean of Management Major in School of Business, Long "
+"Island University - C. W. Post, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "谢洛德 博士"
+msgid "Dr. Lloyd E. Shefsky"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "原美国西北大学凯洛格商学院家族企业中心创始人，创业专业教授"
+msgid ""
+"Clinical Professor, Founder and Co-director of the Center for Family "
+"Enterprises in Kellogg School of Management at Northwestern University, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "蒂姆·塞米特 教授"
+msgid "Prof. Tim Smithe"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "国际金融教育协会副会长及  首席营销官"
+msgid ""
+"Vice President & Chief Management Officer of International Finance Education"
+" Association (IFEA)"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "杨威 博士"
+msgid "Dr. Wei Yang"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国长岛大学Post分校商学院终身教授"
+msgid ""
+"Lifetime Professor in School of Business,  Long Island University - C. W. "
+"Post, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "朱伟春 博士"
+msgid "Dr. Weichun Zhu"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "宾夕法尼亚州立大学劳动力研究与雇佣关系学院助理教授"
+msgid ""
+"Assistant Professor of School of Labor and Employment Relations, Penn State "
+"University Park, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "汪嘉旻 博士"
+msgid "Dr. Jiamin Wang"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国长岛大学Post分校管理系终身教授"
+msgid ""
+"Lifetime Professor in Management, Long Island University-C. W. Post, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国长岛大学Post分校管理信息系统专业终身教授"
+msgid ""
+"Lifetime Professor of Information Management & Technology, Long Island "
+"University - C. W. Post, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "李天宁 博士"
+msgid "Dr. Tianning Li"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国胡德学院金融财务副教授"
+msgid "Associate Professor of Finance and Finance, Hood College, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "施建军 博士"
+msgid "Dr. Jianjun Shi"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "原对外经济贸易大学校长、  教授"
+msgid ""
+"Prior President and Professor of the University of International Business "
+"and Economics"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "克拉克·罗斯 博士"
+msgid "Professor of Economics in Davidson College"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "美国戴维森学院经济学教授"
+msgid "View More"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "查看更多"
+msgid ""
+"Enjoy learning all courses in the Eliteu MBA school during the study period"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "学习期内享有英荔商学院所有课程的学习权益"
+msgid "You can join the new class once online!"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "新课上线亦可马上加入学习！"
+msgid "One Year"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "一年"
+msgid "Learning Feature"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "学习特色"
+msgid "Video Lesson"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "视频学习"
+msgid "Interaction within Groups"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "群内互动"
+msgid "Live Lecture"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "直播讲座"
+msgid "Exercise Test"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "习题测试"
+msgid "Certificate"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "结课证书"
+msgid "Become a Member"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "加入会员"
+msgid ""
+"There is a gap called self-discipline outside of 8 hours. Start with the "
+"Eliteu and become a self-disciplined full-stack workplace!"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "有一种差距，叫8小时以外的自律，和英荔一起出发，成为自律的全栈职场人！"
-msgstr ""
-
-#: membership/templates/membership/index.html
-msgid "英荔说"
+msgid "Eliteu Theory"
 msgstr ""
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
-msgid "英荔商学院收银台"
+msgid "Eliteu MBA school cashier"
 msgstr ""
 
 #: membership/templates/membership/result.html
-msgid "英荔商学院收银台支付成功"
-msgstr ""
-
-#: membership/templates/membership/result.html
-#: membership/templates/membership/wechat_paying.html
-msgid "3秒后返回英荔商学院"
+msgid "Eliteu MBA school cashier payment success"
 msgstr ""
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
-msgid "立即返回"
+msgid "Return to Eliteu MBA school in 3 seconds"
+msgstr ""
+
+#: membership/templates/membership/result.html
+#: membership/templates/membership/wechat_paying.html
+msgid "Return Now"
 msgstr ""
 
 #: membership/templates/membership/wechat_paying.html
-msgid "实付金额："
+msgid "Amount paid: "
 msgstr ""
 
 #: membership/templates/membership/wechat_paying.html
-msgid "请在2小时内完成支付，否则可能导致购买失败"
+msgid "Please complete the  payment within 2 hours, or the purchase may fail"
 msgstr ""
 
 #: membership/templates/membership/wechat_paying.html
-msgid "请使用微信扫描二维码"
+msgid "Scan QR code with WeChat"
 msgstr ""
 
 #: membership/templates/membership/wechat_paying.html
-msgid "以完成支付"
+msgid "to complete payment"
 msgstr ""
 
 #: membership/templates/membership/wechat_paying.html
-msgid "支付成功"
+msgid "Payment Success"
 msgstr ""

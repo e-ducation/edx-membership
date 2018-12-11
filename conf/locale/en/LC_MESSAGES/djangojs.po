@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2018-12-07 20:16+0800\n"
-"PO-Revision-Date: 2018-12-07 12:16:58.452465\n"
+"POT-Creation-Date: 2018-12-11 15:25+0800\n"
+"PO-Revision-Date: 2018-12-11 07:25:06.142862\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -18,45 +18,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: membership/static/membership/js/card.js
-msgid "开通"
+msgid "Open membership"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "YYYY年MM月DD日"
+msgid "DD/MM/YYYY"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "已开通"
+msgid "Membership opened"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "天"
+msgid "day"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "剩余"
+msgid "Remaining days"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "日期:"
+msgid "Date:"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "开通日期:"
+msgid "Opened on:"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "到期日期:"
+msgid "Expire on:"
 msgstr ""
 
 #: membership/static/membership/js/card.js
-msgid "会员已过期"
+msgid "Membership expired"
 msgstr ""
 
 #: membership/static/membership/js/index.js
-msgid "月均"
+msgid "Average per month"
 msgstr ""
 
 #: membership/static/membership/js/pay.js
-msgid "秒后返回英荔商学院"
+msgid "Return to EliteMBA in _ seconds"
 msgstr ""
