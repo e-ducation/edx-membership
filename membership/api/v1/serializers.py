@@ -9,11 +9,11 @@ from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from lms.djangoapps.certificates.api import certificate_downloadable_status
 from course_api.serializers import CourseSerializer, CourseDetailSerializer
 from course_modes.models import get_course_prices
 from courseware.access import has_access
-from student.models import CourseEnrollment, User
+from mobile_api.users.serializers import CourseEnrollmentSerializer
+from student.models import CourseEnrollment
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
 
 from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice
@@ -125,26 +125,12 @@ class CourseOverviewField(serializers.RelatedField):
         }
 
 
-class MobileCourseEnrollmentSerializer(serializers.ModelSerializer):
+class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     """
     Serializes CourseEnrollment models
     """
-    course = CourseOverviewField(source="course_overview", read_only=True)
-    certificate = serializers.SerializerMethodField()
     is_vip = serializers.SerializerMethodField()
     can_view_course = serializers.SerializerMethodField()
-
-    def get_certificate(self, model):
-        """Returns the information about the user's certificate in the course."""
-        certificate_info = certificate_downloadable_status(model.user, model.course_id)
-        if certificate_info['is_downloadable']:
-            return {
-                'url': self.context['request'].build_absolute_uri(
-                    certificate_info['download_url']
-                ),
-            }
-        else:
-            return {}
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)

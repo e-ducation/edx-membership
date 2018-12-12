@@ -19,10 +19,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from courseware.access import is_mobile_available_for_user
 from course_api.views import CourseListView, CourseDetailView
-from experiments.models import ExperimentData, ExperimentKeyValue
-from student.models import CourseEnrollment
+from mobile_api.users.views import UserCourseEnrollmentsList
 
 from membership.api.pagination import PageDataPagination
 from membership.models import VIPOrder, VIPInfo, VIPPackage
@@ -424,7 +422,7 @@ class MobileVIPInfoAPIView(APIView):
         return Response(vip_info)
 
 
-class MobileUserCourseEnrollmentsList(generics.ListAPIView):
+class MobileUserCourseEnrollmentsList(UserCourseEnrollmentsList):
     """
     **Use Case**
 
@@ -479,7 +477,6 @@ class MobileUserCourseEnrollmentsList(generics.ListAPIView):
           certified).
         * url: URL to the downloadable version of the certificate, if exists.
     """
-    queryset = CourseEnrollment.objects.all()
     permission_classes = (IsAuthenticated,)
     authentication_classes = (
         JwtAuthentication,
@@ -487,79 +484,6 @@ class MobileUserCourseEnrollmentsList(generics.ListAPIView):
         SessionAuthenticationAllowInactiveUser
     )
     serializer_class = MobileCourseEnrollmentSerializer
-    lookup_field = 'username'
-
-    # In Django Rest Framework v3, there is a default pagination
-    # class that transmutes the response data into a dictionary
-    # with pagination information.  The original response data (a list)
-    # is stored in a "results" value of the dictionary.
-    # For backwards compatibility with the existing API, we disable
-    # the default behavior by setting the pagination_class to None.
-    pagination_class = None
-
-    def is_org(self, check_org, course_org):
-        """
-        Check course org matches request org param or no param provided
-        """
-        return check_org is None or (check_org.lower() == course_org.lower())
-
-    def hide_course_for_enrollment_fee_experiment(self, user, enrollment, experiment_id=9):
-        """
-        Hide enrolled courses from mobile app as part of REV-73/REV-19
-        """
-        course_key = enrollment.course_overview.id
-        try:
-            courses_excluded_from_mobile = ExperimentKeyValue.objects.get(
-                experiment_id=10,
-                key="mobile_app_exclusion"
-            ).value
-            courses_excluded_from_mobile = json.loads(courses_excluded_from_mobile.replace('\r', '').replace('\n', ''))
-            if enrollment.mode == 'audit' and str(course_key) in courses_excluded_from_mobile.keys():
-                activationTime = dateparse.parse_datetime(courses_excluded_from_mobile[str(course_key)])
-                if activationTime and enrollment.created and enrollment.created > activationTime:
-                    return True
-        except (ExperimentKeyValue.DoesNotExist, AttributeError):
-            pass
-
-        try:
-            ExperimentData.objects.get(
-                user=user,
-                experiment_id=experiment_id,
-                key='enrolled_{0}'.format(course_key),
-            )
-        except ExperimentData.DoesNotExist:
-            return False
-
-        try:
-            ExperimentData.objects.get(
-                user=user,
-                experiment_id=experiment_id,
-                key='paid_{0}'.format(course_key),
-            )
-        except ExperimentData.DoesNotExist:
-            return True
-
-        return False
-
-    def get_queryset(self):
-        enrollments = self.queryset.filter(
-            user__username=self.kwargs['username'],
-            is_active=True
-        ).order_by('created').reverse()
-        org = self.request.query_params.get('org', None)
-
-        e = []
-        for enrollment in enrollments:
-            is_org = self.is_org(org, enrollment.course_overview.org)
-            is_mobile_available = is_mobile_available_for_user(self.request.user, enrollment.course_overview)
-            not_hide_course = not self.hide_course_for_enrollment_fee_experiment(self.request.user, enrollment)
-            if enrollment.course_overview \
-                    and is_org \
-                    and is_mobile_available \
-                    and not_hide_course:
-                e.append(enrollment)
-
-        return e
 
 
 class MobileCourseListView(CourseListView):
