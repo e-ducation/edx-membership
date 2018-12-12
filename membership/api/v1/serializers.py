@@ -16,7 +16,7 @@ from mobile_api.users.serializers import CourseEnrollmentSerializer
 from student.models import CourseEnrollment
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
 
-from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice
+from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice, VIPCourseEnrollment
 
 
 class PackageListSerializer(serializers.ModelSerializer):
@@ -130,21 +130,24 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     Serializes CourseEnrollment models
     """
     is_vip = serializers.SerializerMethodField()
-    can_view_course = serializers.SerializerMethodField()
+    is_normal_enroll = serializers.SerializerMethodField()
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)
 
-    def get_can_view_course(self, model):
-        return VIPInfo.can_view_course(
+    def get_is_normal_enroll(self, model):
+        vip_enroll = VIPCourseEnrollment.objects.filter(
             user=self.context['request'].user,
-            course_id=model.course_id
-        )
+            course_id=model.course_id,
+            is_active=True
+        ).exists()
+
+        return not vip_enroll
 
     class Meta(object):
         model = CourseEnrollment
-        fields = ('created', 'mode', 'is_active', 'course',
-                  'certificate', 'is_vip', 'can_view_course')
+        fields = ('created', 'mode', 'is_active', 'course', 'certificate',
+                  'is_vip', 'is_normal_enroll')
         lookup_field = 'username'
 
 
