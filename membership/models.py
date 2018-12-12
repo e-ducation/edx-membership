@@ -192,7 +192,7 @@ class VIPOrder(models.Model):
             id=package_id, is_active=1).first()
         if vip_package:
             user_info = VIPInfo.get_vipinfo_for_user(user)
-            if user_info:
+            if user_info and user_info.is_vip(user):
                 start_at = user_info.expired_at
                 expired_at = user_info.expired_at + \
                     relativedelta(months=+int(vip_package.month))
