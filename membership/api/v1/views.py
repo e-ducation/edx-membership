@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 from __future__ import unicode_literals
 
 import logging
@@ -25,9 +24,6 @@ from alipay.aop.api.DefaultAlipayClient import DefaultAlipayClient
 from alipay.aop.api.domain.AlipayTradeAppPayModel import AlipayTradeAppPayModel
 from alipay.aop.api.request.AlipayTradeAppPayRequest import AlipayTradeAppPayRequest
 
-from courseware.access import is_mobile_available_for_user
-from experiments.models import ExperimentData, ExperimentKeyValue
-from student.models import CourseEnrollment
 from course_api.views import CourseListView, CourseDetailView
 from mobile_api.users.views import (
     UserCourseEnrollmentsList,
