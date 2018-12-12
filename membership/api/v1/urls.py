@@ -84,7 +84,7 @@ urlpatterns = [
         name='mobile_vip_info'
     ),
     url(
-        r'mobile/users/' + settings.USERNAME_PATTERN + '/enrollments/$',
+        r'mobile/users/' + settings.USERNAME_PATTERN + '/course_enrollments/$',
         MobileUserCourseEnrollmentsList.as_view(),
         name='mobil_enrollment'
     ),
