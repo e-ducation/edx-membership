@@ -20,7 +20,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-<<<<<<< HEAD
 from alipay.aop.api.AlipayClientConfig import AlipayClientConfig
 from alipay.aop.api.DefaultAlipayClient import DefaultAlipayClient
 from alipay.aop.api.domain.AlipayTradeAppPayModel import AlipayTradeAppPayModel
@@ -29,14 +28,12 @@ from alipay.aop.api.request.AlipayTradeAppPayRequest import AlipayTradeAppPayReq
 from courseware.access import is_mobile_available_for_user
 from experiments.models import ExperimentData, ExperimentKeyValue
 from student.models import CourseEnrollment
-=======
 from course_api.views import CourseListView, CourseDetailView
 from mobile_api.users.views import (
     UserCourseEnrollmentsList,
     UserCourseStatus,
     UserDetail
 )
->>>>>>> a79db7d2463ddf5f016206ad61c9a12a9b45cfc6
 
 from membership.api.pagination import PageDataPagination
 from membership.models import VIPOrder, VIPInfo, VIPPackage
@@ -568,8 +565,6 @@ class MobileVIPAlipayPaying(APIView):
         except Exception, e:
             log.exception(e)
         return Response({})
-<<<<<<< HEAD
-=======
 
 
 class MobileUserDetail(UserDetail):
@@ -588,4 +583,3 @@ class MobileUserCourseStatus(UserCourseStatus):
         OAuth2AuthenticationAllowInactiveUser,
         SessionAuthenticationAllowInactiveUser
     )
->>>>>>> a79db7d2463ddf5f016206ad61c9a12a9b45cfc6
