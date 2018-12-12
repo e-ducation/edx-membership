@@ -15,12 +15,13 @@ var orderId;
 // vip会员信息
 
 //续费or开通
-var isBtnVip = '<div class="become-vip">开通</div>';
+// var isBtnVip = '<div class="become-vip">开通</div>';
+var isBtnVip = '<div class="become-vip">' + gettext('Open membership') + '</div>'
 
 //是否是手机
 var phone = isMoblie();
 //不是会员
-var novip = '<p class="no-vip">开通VIP会员，可免费观看英荔商学院全部课程</p>';
+var novip = '<p class="no-vip">' + gettext('Become a VIP member and watch all EliteMBA courses for free') + '</p>';
 
 $.ajax({
   type: "get",
@@ -38,8 +39,8 @@ $.ajax({
         aredyTime: res.opened,
         hasTime: res.remain,
         expiredTime:res.expired,
-        sTime: moment(res.start_at).format("YYYY年MM月DD日"),
-        eTime: moment(res.expired_at).format("YYYY年MM月DD日")
+        sTime: moment(res.start_at).format(gettext("DD/MM/YYYY")),
+        eTime: moment(res.expired_at).format(gettext("DD/MM/YYYY"))
       }
 
       if (res.start_at != undefined) {
@@ -49,18 +50,18 @@ $.ajax({
           if (phone) {
             var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-              '<li>日期: <span>' + data["sTime"] + '</span></li>' +
-              '<li>日期: <span>' + data["eTime"] + '</span></li>' +
+              '<li class="has-vip-time">' + gettext("Membership opened") + '<span>' + data["aredyTime"] + '</span>' + gettext("day") + gettext("Remaining days") + '<span class="has-time">' + data["hasTime"] + '</span>' + gettext("day") + '</li>' +
+              '<li>' + gettext("Date:") + '<span>' + data["sTime"] + '</span></li>' +
+              '<li>' + gettext("Date:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
           }
           else {
 
             var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">已开通<span>' + data["aredyTime"] + '</span>天 剩余<span class="has-time">' + data["hasTime"] + '</span>天</li>' +
-              '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
-              '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
+              '<li class="has-vip-time">' + gettext("Membership opened") + '<span>' + data["aredyTime"] + '</span>' + gettext("day") + gettext("Remaining days") + '<span class="has-time">' + data["hasTime"] + '</span>' + gettext("day") + '</li>' +
+              '<li>' + gettext("Opened on:") + '<span>' + data["sTime"] + '</span></li>' +
+              '<li>' + gettext("Expire on:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
           }
 
@@ -74,17 +75,17 @@ $.ajax({
 
             var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["expiredTime"] + '</span>天</li>' +
-              '<li>日期: <span>' + data["sTime"] + '</span></li>' +
-              '<li>日期: <span>' + data["eTime"] + '</span></li>' +
+              '<li class="has-vip-time">' + gettext("Membership expired") + '<span class="has-time orange">' + data["expiredTime"] + '</span>' + gettext("day") + '</li>' +
+              '<li>' + gettext("Date:") + '<span>' + data["sTime"] + '</span></li>' +
+              '<li>' + gettext("Date:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
           }
           else {
             var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">会员已过期<span class="has-time orange">' + data["expiredTime"] + '</span>天</li>' +
-              '<li>开通日期: <span>' + data["sTime"] + '</span></li>' +
-              '<li>到期日期: <span>' + data["eTime"] + '</span></li>' +
+              '<li class="has-vip-time">' + gettext("Membership expired") + '<span class="has-time orange">' + data["expiredTime"] + '</span>' + gettext("day") + '</li>' +
+              '<li>' + gettext("Date:") + '<span>' + data["sTime"] + '</span></li>' +
+              '<li>' + gettext("Date:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
           }
           $(".jq-vip-message").prepend(vip);
@@ -102,7 +103,7 @@ $.ajax({
   },
   error: function (error) {
     //获取出错的情况下
-    isBtnVip = '<div class="become-vip">开通</div>';
+    isBtnVip = '<div class="become-vip">' + gettext("Open membership") + '</div>';
     if (error.status === 403) {
       $(".jq-vip-message").prepend(novip);
     }

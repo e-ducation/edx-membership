@@ -338,8 +338,8 @@ class VIPCoursePrice(models.Model):
     SUBSCRIBE_PAY = 1
 
     SUBSCRIBE_TYPE_CHOICES = (
-        (SUBSCRIBE_NORMAL, u'subscribe normal'),
-        (SUBSCRIBE_PAY, u'subscribe pay'),
+        (SUBSCRIBE_NORMAL, _(u'subscribe normal')),
+        (SUBSCRIBE_PAY, _(u'subscribe pay')),
     )
     course_id = CourseKeyField(max_length=255, db_index=True)
     subscribe = models.IntegerField(
