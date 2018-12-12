@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[elitemba.membership]
+file_filter = conf/locale/<lang>/LC_MESSAGES/django.po
+source_file = conf/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[elitemba.membership-js]
+file_filter = conf/locale/<lang>/LC_MESSAGES/djangojs.po
+source_file = conf/locale/en/LC_MESSAGES/djangojs.po
+source_lang = en
+type = PO

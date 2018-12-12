@@ -19,34 +19,34 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<%block name="title"><title>微信支付</title></%block>
+<%block name="title"><title>${_(u"WeChat")}</title></%block>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
 
 <div class="wxpay-wrap">
     <div class="wxpay-container">
         <div class="wxpay-header">
-            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">英荔商学院收银台</span>
+            <img class="wxpay-logo" src="${static.url('membership/images/WECHATPAY.png')}" /> <span style="color:#d8d8d8;">|</span> <span class="wxpay-title">${_(u"Eliteu MBA school cashier")}</span>
         </div>
         <div id="paying" class="wxpay-content" >
-            <div class="wxpay-number">实付金额：${price}</div>
-            <div>请在2小时内完成支付，否则可能导致购买失败</div>
+            <div class="wxpay-number">${_(u"Amount paid: ")}${price}</div>
+            <div>${_(u"Please complete the  payment within 2 hours, or the purchase may fail")}</div>
             <div class="wxpay-scanner">
                 <img src="${static.url('membership/images/scanner.png')}" />
                 <div id="qrcode" src="${code_url}"></div>
             </div>
-            <div>请使用微信扫描二维码</div>
-            <div style="margin-top:5px">以完成支付</div>
+            <div>${_(u"Scan QR code with WeChat")}</div>
+            <div style="margin-top:5px">${_(u"to complete payment")}</div>
         </div>
         <div id="result" class="wxpay-content" style="display:none">
             <div class="wxpay-success-log">
                 <img src="${static.url('membership/images/wxsuccess.png')}" />
             </div>
             <div class="wxpay-success-title">
-                支付成功
+                    ${_(u"Payment Success")}
             </div>
-            <div class="wxpay-tips">3秒后返回英荔商学院</div>
+            <div class="wxpay-tips">${_(u"Return to Eliteu MBA school in 3 seconds")}</div>
             <div class="wxpay-button">
-                <a href="/vip/card">立即返回</a>
+                <a href="/vip/card">${_(u"Return Now")}</a>
             </div>
         </div>
     </div>

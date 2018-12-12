@@ -68,16 +68,16 @@ class VIPInfo(models.Model):
             'start_at': start_at,
             'expired_at': expired_at,
             'is_vip': cls.is_vip(user),
-            'vip_pass_days': vip_pass.days,
-            'vip_remain_days': vip_remain.days,
-            'vip_expired_days': vip_expired.days
+            'vip_pass_days': vip_pass and vip_pass.days or 0,
+            'vip_remain_days': vip_remain and vip_remain.days or 0,
+            'vip_expired_days': vip_expired and vip_expired.days or 0
         }
         return vip_info
 
     @classmethod
     def is_vip(cls, user):
         vip_info = cls.objects.filter(user=user).order_by('-id').first()
-        return vip_info and vip_info.expired_at > timezone.now()
+        return vip_info and vip_info.expired_at > timezone.now() or False
 
     @classmethod
     def can_view_course(cls, user, course_id):
@@ -111,6 +111,10 @@ class VIPPackage(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    @classmethod
+    def recommended_package(cls):
+        return VIPPackage.objects.filter(is_active=True, is_recommended=True).first()
 
 
 class VIPOrder(models.Model):
@@ -334,8 +338,8 @@ class VIPCoursePrice(models.Model):
     SUBSCRIBE_PAY = 1
 
     SUBSCRIBE_TYPE_CHOICES = (
-        (SUBSCRIBE_NORMAL, u'subscribe normal'),
-        (SUBSCRIBE_PAY, u'subscribe pay'),
+        (SUBSCRIBE_NORMAL, _(u'subscribe normal')),
+        (SUBSCRIBE_PAY, _(u'subscribe pay')),
     )
     course_id = CourseKeyField(max_length=255, db_index=True)
     subscribe = models.IntegerField(

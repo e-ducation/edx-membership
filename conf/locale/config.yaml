@@ -1,0 +1,93 @@
+# Configuration for i18n workflow.
+
+# This will copy each source language to a new directory at the end of the i18n generate step
+# which allows us to migrate to a new locale code without re-creating the Transifex project.
+edx_lang_map:
+    zh_CN: zh_HANS
+
+locales:
+    - en  # English - Source Language
+    - zh_CN  # Chinese (China)
+    # - zh_HK  # Chinese (Hong Kong)
+    # - zh_TW  # Chinese (Taiwan)
+
+
+# The locales used for fake-accented English, for testing.
+dummy_locales:
+    - eo
+    - fake2
+    - rtl  # Fake testing language for Arabic
+
+# Directories we don't search for strings.
+ignore_dirs:
+    - common/static/xmodule/modules
+    - common/static/xmodule/descriptors
+    # Directories with no user-facing code.
+    - '*/migrations'
+    # Directories that are not our code.
+    - node_modules
+    # Directories containing files that can't have strings in them.
+    - conf
+    - docs
+    - '*/fonts'
+    - '*/img'
+    - '*/images'
+    - '*/sass'
+    - '*/css'
+    # Directories that only contain tests.
+    - common/test
+    - test_root
+    - '*/terrain'
+    - '*/spec'
+    - '*/tests'
+    - '*/djangoapps/*/features'
+    # Directories full of auto-generated JS
+    - lms/static/js/i18n
+    - cms/static/js/i18n
+    # Directories with 3rd party apps.
+    - src/acid-xblock
+    - src/code-block-timer
+    - src/codejail
+    - src/django-wiki
+    - src/done-xblock
+    - src/edx-jsme
+    - src/parse-rest
+    - src/pygeoip
+    - src/pystache-custom
+    - src/rate-xblock
+    - src/xblock-google-drive
+
+
+# Third-party installed apps that we also extract strings from.  When adding a
+# file here, also add it to the django.po merge files below, and to the
+# .tx/config file so that it will be pushed to and pulled from transifex.
+# third_party:
+#     - wiki
+
+
+# How should .po files be segmented?  See i18n/segment.py for details. Strings
+# that are only found in a particular segment are segregated into that .po file
+# so that translators can focus on separate parts of the product.
+#
+# We segregate Studio so we can provide new languages for LMS without having to
+# also translate the Studio strings. LMS needs the strings from lms/* and
+# common/*, so those will stay in the main .po file.
+segment:
+    django-partial.po:          # This .po file..
+        django-studio.po:       #  produces this .po file..
+            - cms/*             #   by segregating strings from these files.
+        # Anything that doesn't match a pattern stays in the original file.
+    djangojs-partial.po:
+        djangojs-studio.po:
+            - cms/*
+    mako.po:
+        mako-studio.po:
+            - cms/*
+
+# How should the generate step merge files?
+generate_merge:
+    django.po:
+        - django-partial.po
+        - mako.po
+    djangojs.po:
+        - djangojs-partial.po

@@ -5,17 +5,18 @@ Membership Serializers
 from __future__ import unicode_literals
 
 from django.utils import timezone
+
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-from lms.djangoapps.certificates.api import certificate_downloadable_status
-from student.models import CourseEnrollment, User
-
+from course_api.serializers import CourseSerializer, CourseDetailSerializer
+from course_modes.models import get_course_prices
 from courseware.access import has_access
+from mobile_api.users.serializers import CourseEnrollmentSerializer
+from student.models import CourseEnrollment
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
 
-
-from membership.models import VIPPackage, VIPOrder, VIPInfo
+from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice, VIPCourseEnrollment
 
 
 class PackageListSerializer(serializers.ModelSerializer):
@@ -36,7 +37,7 @@ class VIPOrderSerializer(serializers.ModelSerializer):
 class VIPInfoSerializer(serializers.ModelSerializer):
 
     status = serializers.SerializerMethodField()
-    opened =  serializers.SerializerMethodField()
+    opened = serializers.SerializerMethodField()
     remain = serializers.SerializerMethodField()
 
     def get_opened(self, info):
@@ -124,38 +125,71 @@ class CourseOverviewField(serializers.RelatedField):
         }
 
 
-class MobileCourseEnrollmentSerializer(serializers.ModelSerializer):
+class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     """
     Serializes CourseEnrollment models
     """
-    course = CourseOverviewField(source="course_overview", read_only=True)
-    certificate = serializers.SerializerMethodField()
     is_vip = serializers.SerializerMethodField()
-    can_view_course = serializers.SerializerMethodField()
-
-    def get_certificate(self, model):
-        """Returns the information about the user's certificate in the course."""
-        certificate_info = certificate_downloadable_status(model.user, model.course_id)
-        if certificate_info['is_downloadable']:
-            return {
-                'url': self.context['request'].build_absolute_uri(
-                    certificate_info['download_url']
-                ),
-            }
-        else:
-            return {}
+    is_normal_enroll = serializers.SerializerMethodField()
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)
 
-    def get_can_view_course(self, model):
-        return VIPInfo.can_view_course(
+    def get_is_normal_enroll(self, model):
+        vip_enroll = VIPCourseEnrollment.objects.filter(
             user=self.context['request'].user,
-            course_id=model.course_id
-        )
+            course_id=model.course_id,
+            is_active=True
+        ).exists()
+
+        return not vip_enroll
 
     class Meta(object):
         model = CourseEnrollment
-        fields = ('created', 'mode', 'is_active', 'course',
-                  'certificate', 'is_vip', 'can_view_course')
+        fields = ('created', 'mode', 'is_active', 'course', 'certificate',
+                  'is_vip', 'is_normal_enroll')
         lookup_field = 'username'
+
+
+class MobileCourseSerializer(CourseSerializer):
+    """
+    Serializer for Course objects providing minimal data about the course.
+    Compare this with CourseDetailSerializer.
+    """
+
+    is_subscribe_pay = serializers.SerializerMethodField()
+
+    def get_is_subscribe_pay(self, model):
+        return VIPCoursePrice.is_subscribe_pay(model.id)
+
+
+class MobileCourseDetailSerializer(CourseDetailSerializer):
+    """
+    Serializer for Course objects providing additional details about the
+    course.
+
+    This serializer makes additional database accesses (to the modulestore) and
+    returns more data (including 'overview' text). Therefore, for performance
+    and bandwidth reasons, it is expected that this serializer is used only
+    when serializing a single course, and not for serializing a list of
+    courses.
+    """
+
+    is_vip = serializers.SerializerMethodField()
+    is_subscribe_pay = serializers.SerializerMethodField()
+    course_price = serializers.SerializerMethodField()
+    recommended_package = serializers.SerializerMethodField()
+
+    def get_is_vip(self, model):
+        return VIPInfo.is_vip(self.context['request'].user)
+
+    def get_is_subscribe_pay(self, model):
+        return VIPCoursePrice.is_subscribe_pay(model.id)
+
+    def get_course_price(self, model):
+        registration_price, course_price = get_course_prices(model)
+        return course_price
+
+    def get_recommended_package(self, model):
+        p = VIPPackage.recommended_package()
+        return p and PackageListSerializer(p).data or None

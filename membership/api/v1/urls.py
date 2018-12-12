@@ -19,7 +19,11 @@ from .views import (
     MobilePackageListWithVIPInfoAPIView,
     MobileVIPInfoAPIView,
     MobileUserCourseEnrollmentsList,
+    MobileCourseListView,
+    MobileCourseDetailView,
     MobileVIPAlipayPaying,
+    MobileUserDetail,
+    MobileUserCourseStatus
 )
 
 
@@ -80,8 +84,28 @@ urlpatterns = [
         name='mobile_vip_info'
     ),
     url(
-        r'mobile/' + settings.USERNAME_PATTERN + '/enrollments/$',
+        r'mobile/users/' + settings.USERNAME_PATTERN + '/course_enrollments/$',
         MobileUserCourseEnrollmentsList.as_view(),
         name='mobil_enrollment'
+    ),
+    url(
+        'mobile/users/' + settings.USERNAME_PATTERN + '$',
+        MobileUserDetail.as_view(),
+        name='user-detail'
+    ),
+    url(
+        '^{}/course_status_info/{}'.format(settings.USERNAME_PATTERN, settings.COURSE_ID_PATTERN),
+        MobileUserCourseStatus.as_view(),
+        name='user-course-status'
+    ),
+    url(
+        r'mobile/courses/$',
+        MobileCourseListView.as_view(),
+        name='mobil_courses'
+    ),
+    url(
+        r'mobile/courses/' + settings.COURSE_KEY_PATTERN + '/$',
+        MobileCourseDetailView.as_view(),
+        name='mobile_course_detail'
     )
 ]
