@@ -20,7 +20,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from course_api.views import CourseListView, CourseDetailView
-from mobile_api.users.views import UserCourseEnrollmentsList
+from mobile_api.users.views import (
+    UserCourseEnrollmentsList,
+    UserCourseStatus,
+    UserDetail
+)
 
 from membership.api.pagination import PageDataPagination
 from membership.models import VIPOrder, VIPInfo, VIPPackage
@@ -541,3 +545,20 @@ class MobileVIPAlipayPaying(APIView):
             log.exception(e)
         return Response({})
 
+
+class MobileUserDetail(UserDetail):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+
+
+class MobileUserCourseStatus(UserCourseStatus):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
