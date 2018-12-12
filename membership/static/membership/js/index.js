@@ -119,6 +119,10 @@ var eventHandler = function() {
             var id = $(this).attr('data-id');
             window.location.href = '/vip/card?id=' + id; 
         })
+        $('.banner-content,.add-vip-btn').click(function(){
+            var id = $('.pay-item').eq(0).attr('data-id');
+            window.location.href = '/vip/card?id=' + id; 
+        })
     }
 }
 $('document').ready(function(){
