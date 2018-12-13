@@ -47,6 +47,11 @@ from payments.wechatpay.wxpay import (
     UnifiedOrder_pub,
     OrderQuery_pub,
 )
+from payments.wechatpay.wxapp_pay import (
+    WxPayConf_pub as AppWxPayConf_pub,
+    UnifiedOrder_pub as AppUnifiedOrder_pub,
+    OrderQuery_pub as AppOrderQuery_pub,
+)
 from membership.utils import (
     create_trade_id, recovery_order_id, str_to_specify_digits,
     xresult
@@ -558,6 +563,61 @@ class MobileVIPAlipayPaying(APIView):
                 result['alipay_request'] = client.sdk_execute(request)
 
                 return Response(data=result)
+        except Exception, e:
+            log.exception(e)
+        return Response({})
+
+
+class MobileVIPWechatPaying(APIView):
+
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+
+    def post(self, request, *args, **kwargs):
+        """
+        mobile vip wechat paying
+        """
+        try:
+            package_id = request.POST.get('package_id')
+            order = VIPOrder.create_order(request.user, package_id)
+
+            if order:
+                # 获取二维码链接
+                wxpayconf_pub = AppWxPayConf_pub()
+                unifiedorder_pub = AppUnifiedOrder_pub()
+                # TODO
+                body = 'wechat vip'
+                total_fee = int(order.price * 100)
+
+                attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
+                unifiedorder_pub.setParameter("body", body)
+                out_trade_no = create_trade_id(order.id)
+                order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
+                order.outtradeno = out_trade_no
+                order.save()
+
+                unifiedorder_pub.setParameter("out_trade_no", out_trade_no)
+                unifiedorder_pub.setParameter("total_fee", str(total_fee))
+                unifiedorder_pub.setParameter("notify_url", wxpayconf_pub.NOTIFY_URL)
+                unifiedorder_pub.setParameter("trade_type", "APP")
+                unifiedorder_pub.setParameter("attach", attach_data)
+
+                prepay_id = unifiedorder_pub.getPrepayId()
+                data = unifiedorder_pub.getUndResult()
+                result = {
+                        'order_id': order.id,
+                        'prepay_id': prepay_id,
+                        'sign': data['sign'],
+                        'appid': data['appid'],
+                        'mch_id': data['mch_id'],
+                        'nonce_str': data['nonce_str'],
+                        'package': 'Sign=WXPay'
+                    }
+                return Response(result)
         except Exception, e:
             log.exception(e)
         return Response({})
