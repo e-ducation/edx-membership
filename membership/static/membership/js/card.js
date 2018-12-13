@@ -311,7 +311,7 @@ $(".h5btn-pay").click(function () {
   if (payWay == 0) {
     aliPayer(orderId);
   } else {
-    wxPayer(orderId);
+    wxH5Payer(orderId);
   }
 
 })

@@ -1,19 +1,4 @@
-window.onload = function(){
-    var time = 3;
-    var odd = function () {
-        if (time <= 0){
-            clearInterval(timer);
-            return ;
-        }
-        time --;
-        $('.wxpay-tips')[0].innerHTML = time + gettext('Return to EliteMBA in _ seconds');
-    }
-    var timer = setInterval(odd,1000)
-    setTimeout(function(){
-            window.location.href = "/vip/card"
-            // console.log('return')
-        },3500)
-}
+
 
 var checkStatus = function () {
     this.start = function(cb,id) {
@@ -87,6 +72,24 @@ var wxPayer = function(id){
         },
         async: false // 防止拦截
     }) 
+}
+
+var wxH5Payer = function(id){
+    $.ajax({
+        url: '/api/v1/vip/pay/wechat_h5/paying/?package_id='+id,
+        xhrFields: { withCredentials: true},
+        success: function(res){
+            console.log('success',res);
+            if (res.code == 0) {
+                var tempwindow = window.open("",'_blank');
+                tempwindow.location = res.data.mweb_url;
+            }
+        },
+        error: function(){
+            console.log('error')
+        },
+        async: false // 防止拦截
+    })
 }
 
 var isMoblie = function(){

@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 import logging
-
+import json
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils import dateparse
 
 from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
 from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser
@@ -40,6 +41,7 @@ from membership.api.v1.serializers import (
     MobileCourseEnrollmentSerializer,
     MobileCourseSerializer,
     MobileCourseDetailSerializer)
+
 from payments.alipay.alipay import create_direct_pay_by_user
 from payments.alipay.app_alipay import smart_str
 from payments.wechatpay.wxpay import (
@@ -47,15 +49,23 @@ from payments.wechatpay.wxpay import (
     UnifiedOrder_pub,
     OrderQuery_pub,
 )
+
 from payments.wechatpay.wxapp_pay import (
     WxPayConf_pub as AppWxPayConf_pub,
     UnifiedOrder_pub as AppUnifiedOrder_pub,
     OrderQuery_pub as AppOrderQuery_pub,
 )
+
+from payments.wechatpay.wxh5_pay import (
+    WxH5PayConf_pub,
+    UnifiedOrderH5_pub,
+    OrderQueryH5_pub,
+)
 from membership.utils import (
     create_trade_id, recovery_order_id, str_to_specify_digits,
     xresult
 )
+from urllib import quote_plus
 
 
 log = logging.getLogger(__name__)
@@ -640,3 +650,66 @@ class MobileUserCourseStatus(UserCourseStatus):
         OAuth2AuthenticationAllowInactiveUser,
         SessionAuthenticationAllowInactiveUser
     )
+
+
+class VIPWechatH5Paying(APIView):
+    """
+    vip wechat paying
+    """
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
+
+    def get(self, request, *args, **kwargs):
+        """
+        生成订单 调起H5支付
+        跳转到微信支付
+        :param request:
+        |参数|类型|是否必填|说明|：
+        |package_id|int|是|套餐ID|
+
+        ### 示例
+        GET /api/v1/vip/pay/wechat_h5/paying/?package_id=1
+
+        :return:
+        |参数|类型|说明|
+        |href_url|string|跳转微信支付页面链接|
+        """
+
+        package_id = request.GET.get('package_id')
+        order = VIPOrder.create_order(request.user, package_id)
+
+        if order:
+            # 获取二维码链接
+            wxh5payconf_pub = WxH5PayConf_pub()
+            unifiedorderh5_pub = UnifiedOrderH5_pub()
+            body = 'wechat vip'
+            total_fee = int(order.price * 100)
+
+            attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
+            unifiedorderh5_pub.setParameter("body", body)
+            out_trade_no = create_trade_id(order.id)
+            order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
+            order.outtradeno = out_trade_no
+            try:
+                order.save()
+                unifiedorderh5_pub.setParameter("out_trade_no", out_trade_no)
+                unifiedorderh5_pub.setParameter("total_fee", str(total_fee))
+                unifiedorderh5_pub.setParameter(
+                    "notify_url", wxh5payconf_pub.NOTIFY_URL)
+                unifiedorderh5_pub.setParameter("trade_type", "MWEB")
+                unifiedorderh5_pub.setParameter("attach", attach_data)
+
+                prepay_id = unifiedorderh5_pub.getPrepayId()
+                mweb_url = unifiedorderh5_pub.getMwebUrl()
+                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card")
+                mweb_url = mweb_url + "&redirect_url=" + quote_plus(redirect_url)
+                data = {
+                    'mweb_url': mweb_url
+                }
+                return Response(xresult(data=data))
+            except Exception as ex:
+                log.error(ex)
+                return Response(xresult(msg='fail', code=-1))
+
+        else:
+            return Response(xresult(msg='fail', code=-1))

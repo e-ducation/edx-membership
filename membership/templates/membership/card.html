@@ -26,7 +26,7 @@ from membership.models import VIPInfo
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
 <a id="card_url" href="${settings.LMS_ROOT_URL + '/login?next=' + reverse('membership_card')}" hidden="hidden"></a>
-<a id="vip_status" hidden="hidden">${VIPInfo.is_vip(request.user)}</a>
+<a id="vip_status" hidden="hidden">${request.user.is_authenticated()}</a>
 <div id="card-box-pc" class="card-box">
     <div class="home">
         <header>
