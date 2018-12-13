@@ -188,6 +188,10 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
     is_subscribe_pay = serializers.SerializerMethodField()
     course_price = serializers.SerializerMethodField()
     recommended_package = serializers.SerializerMethodField()
+    has_cert = serializers.SerializerMethodField()
+    is_enroll = serializers.SerializerMethodField()
+    is_normal_enroll = serializers.SerializerMethodField()
+    is_subscribe_pay = serializers.SerializerMethodField()
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)
@@ -202,3 +206,21 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
     def get_recommended_package(self, model):
         p = VIPPackage.recommended_package()
         return p and PackageListSerializer(p).data or None
+
+    def get_has_cert(self, model):
+        return certificate_status_for_student(self.context.get('request').user, model.id)['status'] == 'downloadable'
+
+    def get_is_enroll(self, model):
+        return True if CourseEnrollment.get_enrollment(self.context.get('request').user, model.id) else False
+
+    def get_is_normal_enroll(self, model):
+        vip_enroll = VIPCourseEnrollment.objects.filter(
+            user=self.context['request'].user,
+            course_id=model.id,
+            is_active=True
+        ).exists()
+
+        return not vip_enroll
+
+    def get_is_subscribe_pay(self, model):
+        return VIPCoursePrice.is_subscribe_pay(model.id)
