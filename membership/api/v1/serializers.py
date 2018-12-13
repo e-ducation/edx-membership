@@ -9,7 +9,6 @@ from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
-
 from course_api.serializers import CourseSerializer, CourseDetailSerializer
 from course_modes.models import get_course_prices
 from courseware.access import has_access
