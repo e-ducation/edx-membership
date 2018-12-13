@@ -89,6 +89,24 @@ var wxPayer = function(id){
     }) 
 }
 
+var wxH5Payer = function(id){
+    $.ajax({
+        url: '/api/v1/vip/pay/wechat_h5/paying/?package_id='+id,
+        xhrFields: { withCredentials: true},
+        success: function(res){
+            console.log('success',res);
+            if (res.code == 0) {
+                var tempwindow = window.open("",'_blank');
+                tempwindow.location = res.data.mweb_url;
+            }
+        },
+        error: function(){
+            console.log('error')
+        },
+        async: false // 防止拦截
+    })
+}
+
 var isMoblie = function(){
     return navigator.userAgent.match(/(iPhone|iPod|Android|ios|iPad)/i);
 }
