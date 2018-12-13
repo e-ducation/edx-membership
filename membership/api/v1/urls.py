@@ -24,7 +24,8 @@ from .views import (
     MobileVIPAlipayPaying,
     MobileVIPWechatPaying,
     MobileUserDetail,
-    MobileUserCourseStatus
+    MobileUserCourseStatus,
+    VIPWechatH5Paying
 )
 
 
@@ -113,5 +114,10 @@ urlpatterns = [
         r'mobile/courses/' + settings.COURSE_KEY_PATTERN + '/$',
         MobileCourseDetailView.as_view(),
         name='mobile_course_detail'
+    ),
+    url(
+        r'vip/pay/wechat_h5/paying/$',
+        VIPWechatH5Paying.as_view(),
+        name='vip_wechat_paying'
     )
 ]
