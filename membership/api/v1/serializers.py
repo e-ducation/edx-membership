@@ -9,10 +9,12 @@ from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
+
 from course_api.serializers import CourseSerializer, CourseDetailSerializer
 from course_modes.models import get_course_prices
 from courseware.access import has_access
 from mobile_api.users.serializers import CourseEnrollmentSerializer
+from lms.djangoapps.certificates.models import certificate_status_for_student
 from student.models import CourseEnrollment
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
 
@@ -122,6 +124,13 @@ class CourseOverviewField(serializers.RelatedField):
                 kwargs={'course_id': course_id},
                 request=request,
             ),
+            'is_vip': VIPInfo.is_vip(request.user),
+            'is_normal_enroll': not VIPCourseEnrollment.objects.filter(
+                user=request.user,
+                course_id=course_overview.id,
+                is_active=True
+            ).exists(),
+            'has_cert': certificate_status_for_student(request.user, course_overview.id)['status'] == 'downloadable',
         }
 
 
@@ -129,6 +138,7 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     """
     Serializes CourseEnrollment models
     """
+    course = CourseOverviewField(source="course_overview", read_only=True)
     is_vip = serializers.SerializerMethodField()
     is_normal_enroll = serializers.SerializerMethodField()
 
