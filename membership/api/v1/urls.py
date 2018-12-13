@@ -22,6 +22,7 @@ from .views import (
     MobileCourseListView,
     MobileCourseDetailView,
     MobileVIPAlipayPaying,
+    MobileVIPWechatPaying,
     MobileUserDetail,
     MobileUserCourseStatus
 )
@@ -64,9 +65,14 @@ urlpatterns = [
         name='vip_purchase'
     ),
     url(
-        r'vip/pay/wechat/paying/$',
+        r'^vip/pay/wechat/paying/$',
         VIPWechatPaying.as_view(),
         name='vip_wechat_paying'
+    ),
+    url(
+        r'^mobile/vip/pay/wechat/paying/$',
+        MobileVIPWechatPaying.as_view(),
+        name='mobile_vip_wechat_paying'
     ),
     url(
         r'mobile/vip/package/$',
