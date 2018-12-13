@@ -86,8 +86,8 @@ from membership.models import VIPInfo
         <p class="popup-top-title">${_(u"Complete payment in a new page")}</p>
         <p class="popup-dec">
             ${Text(_(u"{span_start}Please do not close the page {span_end}. Please click the button below accordingly after completing the payment.")).format(
-                link_start=HTML('<span>'),
-                link_end=HTML('</span>'),
+                span_start=HTML('<span>'),
+                span_end=HTML('</span>'),
             )}
         </p>
         <div class="popup-btnGrounp">
