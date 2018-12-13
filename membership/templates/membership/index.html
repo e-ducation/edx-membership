@@ -7,6 +7,7 @@ import pytz
 from datetime import datetime, timedelta
 from django.urls import reverse
 from django.utils.translation import ugettext as _
+from django.utils.translation import pgettext
 from django.template import RequestContext
 from entitlements.models import CourseEntitlement
 from third_party_auth import pipeline
@@ -19,7 +20,7 @@ from openedx.core.djangolib.markup import HTML, Text
 
 from student.models import CourseEnrollment
 %>
-<%block name="title"><title>${_(u"EliteMBA 美国名校EMAB精华课程")}</title></%block>
+<%block name="title"><title>${_(u"EliteMBA")} ${_(u"Prestige EMBA courses in America")}</title></%block>
 <%block name="head_extra">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
@@ -41,36 +42,36 @@ from student.models import CourseEnrollment
         </div>
         <div class="section  courses-list-wrap">
             <div class="course-list-top">
-                <h1 class="section-title">${_(u"英荔商学院六大课程方向")}</h1>
-                <h5 class="slogo">${_(u"激活全能商业基因，你就是一个团队")}</h5>
+                <h1 class="section-title">${_(u"Six Course Specializations of Elite MBA School")}</h1>
+                <h5 class="slogo">${_(u"Activate your all-round business gene, you alone are a team!")}</h5>
             </div>
             <ul class="course-list pc clearfix">
                 
                     <li>
                         <img src="${static.url('membership/images/course/icons8-business@2x.png')}" />
-                        <span>${_(u"商业管理")}</span>
+                        <span>${_(u"Business Administration")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-innovation@2x.png')}" />
-                        <span>${_(u"创新创业")}</span>
+                        <span>${_(u"Innovation and Entrepreneurship")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-statistics@2x.png')}" />
-                        <span>${_(u"统计分析")}</span>
+                        <span>${_(u"Statistic Analysis")}</span>
                     </li>
                 
                 
                     <li>
                         <img src="${static.url('membership/images/course/icons8-informatics@2x.png')}" />
-                        <span>${_(u"信息技术")}</span>
+                        <span>${_(u"Information Technology")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-neutral_trading@2x.png')}" />
-                        <span>${_(u"市场销售")}</span>
+                        <span>${_(u"Marketing and Sales")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-shopping_basket_2@2x.png')}" />
-                        <span>${_(u"零售管理")}</span>
+                        <span>${_(u"Retail Management")}</span>
                     </li>
                 
             </ul>
@@ -78,123 +79,123 @@ from student.models import CourseEnrollment
                 <div class="course-group">
                     <li>
                         <img src="${static.url('membership/images/course/icons8-business@2x.png')}" />
-                        <span>${_(u"商业管理")}</span>
+                        <span>${_(u"Business Administration")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-innovation@2x.png')}" />
-                        <span>${_(u"创新创业")}</span>
+                        <span>${_(u"Innovation and Entrepreneurship")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-statistics@2x.png')}" />
-                        <span>${_(u"统计分析")}</span>
+                        <span>${_(u"Statistic Analysis")}</span>
                     </li>
                 </div>
                 <div class="course-group">
                     <li>
                         <img src="${static.url('membership/images/course/icons8-informatics@2x.png')}" />
-                        <span>${_(u"信息技术")}</span>
+                        <span>${_(u"Information Technology")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-neutral_trading@2x.png')}" />
-                        <span>${_(u"市场销售")}</span>
+                        <span>${_(u"Marketing and Sales")}</span>
                     </li>
                     <li>
                         <img src="${static.url('membership/images/course/icons8-shopping_basket_2@2x.png')}" />
-                        <span>${_(u"零售管理")}</span>
+                        <span>${_(u"Retail Management")}</span>
                     </li>
                 </div>
             </ul>
 
             <a class="find-new-course" href="javascript:void(0)">
-                ${_(u"发现课程")}
+                ${_(u"Explore Courses")}
             </a>
         </div>
         <div class="section feature-courses-wrap">
             <h1 class="fetrue-courses-title">
-                ${_(u"更多重磅课程即将上线")}
+                ${_(u"More courses coming soon")}
             </h1>
             <div class="featrue-container">
                 <div class="course-cell">
                     <img src="${static.url('membership/images/fetrue-1.png')}" >
-                    <h1>${_(u"国际商法")}</h1>
-                    <h5>${_(u"朱灵 博士")}</h5>
-                    <p>${_(u"美国亚利桑那大学管理信息系统博士")}</p>
-                    <p>${_(u"美国福特汉姆大学法律博士")}</p>
+                    <h1>${_(u"International Business Law")}</h1>
+                    <h5>${_(u"Dr. Ling Zhu")}</h5>
+                    <p>${_(u"PhD in Management Information Systems, the University of Arizona, USA")}</p>
+                    <p>${_(u"J.D., Fordham University")}</p>
                 </div>
                 <div class="course-cell">
                     <img src="${static.url('membership/images/fetrue-2.png')}" >
-                    <h1>${_(u"营销管理与应用")}</h1>
-                    <h5>${_(u"张东隆 博士")}</h5>
-                    <p>${_(u"美国乔治·华盛顿大学国际商务/市场营销博士")}</p>
-                    <p>${_(u"台湾政治大学管理学博士")}</p>
+                    <h1>${_(u"Marketing Management and Applications")}</h1>
+                    <h5>${_(u"Dr. Tung-lung Steven Chang")}</h5>
+                    <p>${_(u"PhD. in International Business/Marketing, the George Washington University, USA")}</p>
+                    <p>${_(u"PhD. in Management, National Chengchi University, Taiwan")}</p>
                 </div>
                 <div class="course-cell">
                     <img src="${static.url('membership/images/fetrue-3.png')}" >
-                    <h1>${_(u"宏观经济学")} <br /> <span class="course-extend">${_(u"（美国戴维森学院）")}</span></h1>
-                    <h5>${_(u"克拉克·罗斯 (Clark Ross)  博士")}</h5>
-                    <p>${_(u"美国波士顿学院经济学博士")}</p>
+                    <h1>${_(u"Macroeconomics")} <br /> <span class="course-extend">${_(u"(Davidson College)")}</span></h1>
+                    <h5>${_(u"Dr. Clark Ross")}</h5>
+                    <p>${_(u"PhD. in Economics, Boston College, USA")}</p>
                 </div>
             </div>
             <h5 class="fetrue-container-extend">
-                ${_(u"*英荔教育保留所有课程的更新和最终解释权。")}
+                ${_(u"*All course updates reserved to Eliteu and Eliteu has the final interpretation.")}
             </h5>
         </div>
         <div class="section pc vip-list-wrap">
-            <h1 class="vip-list-title">${_(u"成为英荔会员")}</h1>
+            <h1 class="vip-list-title">${_(u"Become Eliteu Member")}</h1>
             <h5 class="vip-list-tips">
-                ${_(u"根据您的需求选择合适的学习时长")}
+                ${_(u"Choose appropriate learning duration according to your needs")}
                 <br>
-                ${_(u"学习期内享有英荔商学院所有课程的学习权益，新课上线亦可马上加入学习")}
+                ${_(u"Enjoy learning all courses in the Eliteu MBA school during the study period，You can join the new class online now!")}
             </h5>
             <ul class="vip-list">
                 <li class="current">
                     <div class="vip-header">
-                        ${_(u"全年会员")}
+                        ${pgettext("Membership", "Full Year")}
                     </div>
                     <div class="vip-body">
                         <div><span class="price-number">¥1199</span><span class="price-trail">.00</span></div>
                         <div class="delete-price">¥2400.00</div>
                         <div class="price-hint">
-                            月均¥99.9
+                            ${_(u"average per month")}¥99.9
                         </div>
                         <div class="item-title">
-                            ${_(u"全栈职场修炼")}
+                            ${_(u"Full-stack workplace practice")}
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="vip-header">
-                        ${_(u"半年会员")}
+                        ${pgettext(u"Membership", "Half-Year")}
                     </div>
                     <div class="vip-body">
                         <div><span class="price-number">¥1199</span><span class="price-trail">.00</span></div>
                         <div class="delete-price">¥2400.00</div>
                         <div class="price-hint">
-                            月均¥149.8
+                            ${_(u"average per month")}¥149.8
                         </div>
                         <div class="item-title">
-                            ${_(u"能力高效提升")}
+                            ${_(u"Improve Ability Efficiently")}
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="vip-header">
-                        ${_(u"三个月会员")}
+                        ${pgettext(u"Membership", "Three-Month")}
                     </div>
                     <div class="vip-body">
                         <div><span class="price-number">¥1199</span><span class="price-trail">.00</span></div>
                         <div class="delete-price">¥2400.00</div>
                         <div class="price-hint">
-                            月均¥166.3
+                            ${_(u"average per month")}¥166.3
                         </div>
                         <div class="item-title">
-                            ${_(u"系列课程畅学")}
+                            ${_(u"A series of courses for learning")}
                         </div>
                     </div>
                 </li>
                 <li>
                     <div class="vip-header">
-                        ${_(u"一个月会员")}
+                        ${pgettext(u"Membership", "One-Month")}
                     </div>
                     <div class="vip-body">
                         <div><span class="price-number">¥1199</span><span class="price-trail">.00</span></div>
@@ -203,19 +204,19 @@ from student.models import CourseEnrollment
                            
                         </div>
                         <div class="item-title">
-                            ${_(u"多门课程体验")}
+                            ${_(u"Multiple-Course Experience")}
                         </div>
                     </div>
                 </li>
             </ul>
-            <p class="vip-extend">${_(u"*现在报名可享以上优惠，具体详情请前往购买页。")}</p>
+            <p class="vip-extend">${_(u"*Now sign up to enjoy the above offers. Please go to the purchase page for details.")}</p>
         </div>
         <div class="section slider-wrap">
             <div class="slider-wrap-header">
-                <h1>${_(u"超强师资 —— 精英式教学")}</h1>
+                <h1>${_(u"Best faculties ---- Elite Education")}</h1>
                 <p>
-                    ${_(u"美国名校商学院教授")}<br>
-                    ${_(u"构建全方位的商科知识矩阵，从0到1，系统学习")} 
+                    ${_(u"Professor of American Famous Business Schools")}<br>
+                    ${_(u"To build the all-around business knowledge matrix, and systematic learning from zero to one")} 
                 </p>
             </div>
 
@@ -227,22 +228,22 @@ from student.models import CourseEnrollment
                                 <div class="professor-image">
                                     <img src="${static.url('membership/images/professor/professor01.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"萧柏春 博士")}</h1>
-                                <p class="professor-info">${_(u"美国长岛大学Post分校商学院管理系终身教授、系主任")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Bochun Xiao")}</h1>
+                                <p class="professor-info">${_(u"Lifetime Professor and Dean of Management Major in School of Business, Long Island University - C. W. Post, USA")}</p>
                             </li>
                             <li>
                                 <div class="professor-image">
                                      <img src="${static.url('membership/images/professor/professor02.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"谢洛德 博士")}</h1>
-                                <p class="professor-info">${_(u"原美国西北大学凯洛格商学院家族企业中心创始人，创业专业教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Lloyd E. Shefsky")}</h1>
+                                <p class="professor-info">${_(u"Clinical Professor, Founder and Co-director of the Center for Family Enterprises in Kellogg School of Management at Northwestern University, USA")}</p>
                             </li>
                             <li>
                                 <div class="professor-image">
                                      <img src="${static.url('membership/images/professor/professor03.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"蒂姆·塞米特 教授")}</h1>
-                                <p class="professor-info">${_(u"国际金融教育协会副会长及首席营销官")}</p>
+                                <h1 class="professor-name">${_(u"Prof. Tim Smithe")}</h1>
+                                <p class="professor-info">${_(u"Vice President & Chief Management Officer of International Finance Education Association (IFEA)")}</p>
                             </li>
                         </ul>
                        
@@ -255,22 +256,22 @@ from student.models import CourseEnrollment
                                 <div class="professor-image">
                                     <img src="${static.url('membership/images/professor/professor04.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"杨威 博士")}</h1>
-                                <p class="professor-info">${_(u"美国长岛大学Post分校商学院终身教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Wei Yang")}</h1>
+                                <p class="professor-info">${_(u"Lifetime Professor in School of Business,  Long Island University - C. W. Post, USA")}</p>
                             </li>
                             <li>
                                 <div class="professor-image">
                                         <img src="${static.url('membership/images/professor/professor05.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"朱伟春 博士")}</h1>
-                                <p class="professor-info">${_(u"原美国宾夕法尼亚州立大学劳动力研究与雇佣关系学院助理教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Weichun Zhu")}</h1>
+                                <p class="professor-info">${_(u"Prior Assistant Professor of School of Labor and Employment Relations, Penn State University Park, USA")}</p>
                             </li>
                             <li>
                                 <div class="professor-image">
                                         <img src="${static.url('membership/images/professor/professor06.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"汪嘉旻 博士")}</h1>
-                                <p class="professor-info">${_(u"美国长岛大学Post分校商学院终身教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Jiamin Wang")}</h1>
+                                <p class="professor-info">${_(u"Lifetime Professor in School of Business,  Long Island University - C. W. Post, USA")}</p>
                             </li>
                         </ul>
                     </div>
@@ -282,22 +283,24 @@ from student.models import CourseEnrollment
                                 <div class="professor-image">
                                     <img src="${static.url('membership/images/professor/professor07.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"朱灵 博士")}</h1>
-                                <p class="professor-info">${_(u"美国长岛大学Post分校管理信息系统专业终身教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Ling Zhu")}</h1>
+                                <p class="professor-info">${_(u"Lifetime Professor of Information Management & Technology, Long Island University - C. W. Post, USA")}</p>
                             </li>
                             <li>
                                 <div class="professor-image">
                                         <img src="${static.url('membership/images/professor/professor08.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"李天宁 博士")}</h1>
-                                <p class="professor-info">${_(u"美国胡德学院金融财务副教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Tianning Li")}</h1>
+                                <p class="professor-info">${_(u"Associate Professor of Finance and Finance, Hood College, USA")}</p>
                             </li>
                             <li>
                                 <div class="professor-image">
                                         <img src="${static.url('membership/images/professor/professor09.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"施建军 博士")}</h1>
-                                <p class="professor-info">${_(u"原对外经济贸易大学校长、")}<br >${_(u"教授")} </p>
+                                <h1 class="professor-name">${_(u"Dr. Jianjun Shi")}</h1>
+                                <p class="professor-info">${Text(_(u"Prior President and Professor of the University of International Business and Economics {br}")).format(
+                                    br=HTML('<br>')
+                                )}</p>
                             </li>
                         </ul>
                     </div>
@@ -309,8 +312,8 @@ from student.models import CourseEnrollment
                                 <div class="professor-image">
                                     <img src="${static.url('membership/images/professor/professor10.png')}" />
                                 </div>
-                                <h1 class="professor-name">${_(u"克拉克·罗斯 博士")}</h1>
-                                <p class="professor-info">${_(u"美国戴维森学院经济学教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Clark Ross")}</h1>
+                                <p class="professor-info">${_(u"Professor of Economics in Davidson College")}</p>
                             </li>
                         </ul>
                     </div>
@@ -323,8 +326,8 @@ from student.models import CourseEnrollment
                             <img src="${static.url('membership/images/professor/professor01.png')}" />
                         </div>
                         <div class="user-info">
-                            <h1 class="professor-name">${_(u"萧柏春 博士")}</h1>
-                            <p class="professor-info">${_(u"美国长岛大学Post分校商学院管理系终身教授、系主任")}</p>
+                            <h1 class="professor-name">${_(u"Dr. Bochun Xiao")}</h1>
+                            <p class="professor-info">${_(u"Lifetime Professor and Dean of Management Major in School of Business, Long Island University - C. W. Post, USA")}</p>
                         </div>
                     </li>
                     <li class="clearfix">
@@ -332,8 +335,8 @@ from student.models import CourseEnrollment
                             <img src="${static.url('membership/images/professor/professor02.png')}" />
                         </div>
                         <div class="user-info">
-                            <h1 class="professor-name">${_(u"谢洛德 博士")}</h1>
-                            <p class="professor-info">${_(u"原美国西北大学凯洛格商学院家族企业中心创始人，创业专业教授")}</p>
+                            <h1 class="professor-name">${_(u"Dr. Lloyd E. Shefsky")}</h1>
+                            <p class="professor-info">${_(u"Clinical Professor, Founder and Co-director of the Center for Family Enterprises in Kellogg School of Management at Northwestern University, USA")}</p>
                         </div>
                     </li>
                     <li class="clearfix">
@@ -341,8 +344,8 @@ from student.models import CourseEnrollment
                             <img src="${static.url('membership/images/professor/professor03.png')}" />
                         </div>
                         <div class="user-info">
-                                <h1 class="professor-name">${_(u"蒂姆·塞米特 教授")}</h1>
-                                <p class="professor-info">${_(u"国际金融教育协会副会长及首席营销官")}</p>
+                                <h1 class="professor-name">${_(u"Prof. Tim Smithe")}</h1>
+                                <p class="professor-info">${_(u"Vice President & Chief Management Officer of International Finance Education Association (IFEA)")}</p>
                         </div>
                     </li>
                     <div class="extend-professor hidden">
@@ -351,8 +354,8 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor04.png')}" />
                             </div>
                             <div class="user-info">
-                                <h1 class="professor-name">${_(u"杨威 博士")}</h1>
-                                <p class="professor-info">${_(u"美国长岛大学Post分校商学院终身教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Wei Yang")}</h1>
+                                <p class="professor-info">${_(u"Lifetime Professor in School of Business,  Long Island University - C. W. Post, USA")}</p>
                             </div>
                         </li>
                         <li class="clearfix">
@@ -360,8 +363,8 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor05.png')}" />
                             </div>
                             <div class="user-info">
-                                    <h1 class="professor-name">${_(u"朱伟春 博士")}</h1>
-                                <p class="professor-info">${_(u"原美国宾夕法尼亚州立大学劳动力研究与雇佣关系学院助理教授")}</p>
+                                    <h1 class="professor-name">${_(u"Dr. Weichun Zhu")}</h1>
+                                <p class="professor-info">${_(u"Prior Assistant Professor of School of Labor and Employment Relations, Penn State University Park, USA")}</p>
                             </div>
                         </li>
                         <li class="clearfix">
@@ -369,8 +372,8 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor06.png')}" />
                             </div>
                             <div class="user-info">
-                                <h1 class="professor-name">${_(u"汪嘉旻 博士")}</h1>
-                                <p class="professor-info">${_(u"美国长岛大学Post分校商学院终身教授")}</p>
+                                <h1 class="professor-name">${_(u"Dr. Jiamin Wang")}</h1>
+                                <p class="professor-info">${_(u"Lifetime Professor in School of Business,  Long Island University - C. W. Post, USA")}</p>
                             </div>
                         </li>
                         <li class="clearfix">
@@ -378,8 +381,8 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor07.png')}" />
                             </div>
                             <div class="user-info">
-                                    <h1 class="professor-name">${_(u"")}朱灵 博士</h1>
-                                    <p class="professor-info">${_(u"美国长岛大学Post分校管理信息系统专业终身教授")}</p>
+                                    <h1 class="professor-name">${_(u"Dr. Ling Zhu")}</h1>
+                                    <p class="professor-info">${_(u"Lifetime Professor of Information Management & Technology, Long Island University - C. W. Post, USA")}</p>
                             </div>
                         </li>
                         <li class="clearfix">
@@ -387,8 +390,8 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor08.png')}" />
                             </div>
                             <div class="user-info">
-                                    <h1 class="professor-name">${_(u"李天宁 博士")}</h1>
-                                <p class="professor-info">${_(u"美国胡德学院金融财务副教授")}</p>
+                                    <h1 class="professor-name">${_(u"Dr. Tianning Li")}</h1>
+                                <p class="professor-info">${_(u"Associate Professor of Finance and Finance, Hood College, USA")}</p>
                             </div>
                         </li>
                         <li class="clearfix">
@@ -396,8 +399,8 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor09.png')}" />
                             </div>
                             <div class="user-info">
-                                    <h1 class="professor-name">${_(u"施建军 博士")}</h1>
-                                <p class="professor-info">${_(u"原对外经济贸易大学校长、教授")} </p>
+                                    <h1 class="professor-name">${_(u"Dr. Jianjun Shi")}</h1>
+                                <p class="professor-info">${_(u"Prior President and Professor of the University of International Business and Economics")} </p>
                             </div>
                         </li>
                         <li class="clearfix">
@@ -405,87 +408,87 @@ from student.models import CourseEnrollment
                                 <img src="${static.url('membership/images/professor/professor10.png')}" />
                             </div>
                             <div class="user-info">
-                                    <h1 class="professor-name">${_(u"克拉克·罗斯 博士")}</h1>
-                                <p class="professor-info">${_(u"美国戴维森学院经济学教授")}</p>
+                                    <h1 class="professor-name">${_(u"Dr. Clark Ross")}</h1>
+                                <p class="professor-info">${_(u"Professor of Economics in Davidson College")}</p>
                            </div>
                         </li>
                     </div>
                     <div class="find-more-professor">
-                        ${_(u"查看更多")} 
+                        ${_(u"View More")} 
                     </div>
                 </ul>
             </div>
         </div>
         <div class="section mobile vip-list-wrap">
-            <h1 class="vip-list-title">${_(u"成为英荔会员")}</h1>
+            <h1 class="vip-list-title">${_(u"Become Eliteu Member")}</h1>
             <h5 class="vip-list-tips">
-                ${_(u"根据您的需求选择合适的学习时长")}
+                ${_(u"Choose appropriate learning duration according to your needs")}
                 <br>
-                ${_(u"学习期内享有英荔商学院所有课程的学习权益")}
+                ${_(u"Enjoy learning all courses in the Eliteu MBA school during the study period")}
                 <br>
-                ${_(u"新课上线亦可马上加入学习")}
+                ${_(u"You can join the new class once online")}
             </h5>
             <div class="h5-card">
                 <div class="pay-item current">
                     <div class="card-h5-message">
-                        <p>一年</p><p>2400</p>
+                        <p>${pgettext("Membership", "Full Year")}</p><p>2400</p>
                     </div>
-                    <div class="card-h5-money"><span>1199</span><span class="decimal">.00</span><br><span class="month">月均¥99.9</span></div>
+                    <div class="card-h5-money"><span>1199</span><span class="decimal">.00</span><br><span class="month">${_(u"average per month")}¥99.9</span></div>
                     <!-- 推荐图标 -->
                     <div class="h5-recommend"></div>
                 </div>
                 <div class="pay-item">
                     <div class=" card-h5-message">
-                        <p>半年会员</p><p>1200</p>
+                        <p>${pgettext(u"Membership", "Half-Year")}</p><p>1200</p>
                     </div>
-                    <div class="card-h5-money"><span>899</span><span class="decimal">.00</span><br><span class="month">月均¥149.8</span></div>
+                    <div class="card-h5-money"><span>899</span><span class="decimal">.00</span><br><span class="month">${_(u"average per month")}¥149.8</span></div>
                 </div>
                 <div class="pay-item">
                     <div class="card-h5-message">
-                        <p>三个月会员</p><p>600</p>
+                        <p>${pgettext(u"Membership", "Three-Month")}</p><p>600</p>
                     </div>
-                    <div class="card-h5-money"><span>499</span><span class="decimal">.00</span><br><span class="month">月均¥166.3</span></div>
+                    <div class="card-h5-money"><span>499</span><span class="decimal">.00</span><br><span class="month">${_(u"average per month")}¥166.3</span></div>
                 </div>
                 <div class="pay-item">
                     <div class="card-h5-message">
-                        <p>一个月会员</p><p>200</p>
+                        <p>${pgettext(u"Membership", "One-Month")}</p><p>200</p>
                     </div>
                     <div class="card-h5-money"><span>199</span><span class="decimal">.00</span></div>
                 </div>
             </div>
             <div class="ad-tips">
-                ${_(u"*现在报名可享以上优惠，具体详情请前往购买页。")}
+                ${_(u"*Now sign up to enjoy the above offers. Please go to the purchase page for details.")}
             </div>
         </div>
         <div class="section vip-characteristic-wrap">
-            <h1 class="vip-characteristic-title">${_(u"学习特色")}</h1>
+            <h1 class="vip-characteristic-title">${_(u"Learning Feature")}</h1>
             <ul class="characteristic-list">
                 <li class="circle-1">
-                    <p>${_(u"视频学习")}</p>
+                    <p>${_(u"Video Lesson")}</p>
                 </li>
                 <li class="circle-2">
-                    <p>${_(u"群内互动")}</p>
+                    <p>${_(u"Interaction within Groups")}</p>
                 </li>
                 <li class="circle-3">
-                    <p>${_(u"直播讲座")}</p>
+                    <p>${_(u"Live Lecture")}</p>
                 </li>
                 <li class="circle-4">
-                    <p>${_(u"习题测试")}</p>
+                    <p>${_(u"Exercise Test")}</p>
                 </li>
                 <li class="circle-5">
-                    <p>${_(u"结课证书")}</p>
+                    <p>${_(u"Certificate")}</p>
                 </li>
             </ul>
             <div class="characteristic-list-mobile">
                 <img src="${static.url('membership/images/characteristic.png')}" />
             </div>
             <div>
-                <a class="add-vip-btn" href="javascript:;">${_(u"加入会员")}</a>
+                <a class="add-vip-btn" href="javascript:;">${_(u"Become a Member")}</a>
             </div>
             <div class="characteristic-dialog">
-                <span class="dialog-text">${_(u"有一种差距，叫8小时以外的自律，和英荔一起出发，成为自律的全栈职场人！")}</span>
+                <span class="dialog-text">${_(u"There is a gap called self-discipline outside of 8 hours. Start with the Eliteu and become a self-disciplined full-stack workplace!")}</span>
                 <span class="characteristic-dialog-icon"></span>
-                <span class="characteristic-from-who">—— ${_(u"英荔说")}</span>
+                <span class="characteristic-from-who">—— ${_(u"Eliteu Theory")}</span>
             </div>
         </div>
     </div>

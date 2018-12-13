@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2018-12-11 15:42+0800\n"
-"PO-Revision-Date: 2018-12-11 07:42:07.453454\n"
+"POT-Creation-Date: 2018-12-13 17:36+0800\n"
+"PO-Revision-Date: 2018-12-13 09:36:08.605105\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -238,17 +238,18 @@ msgid "Become Eliteu Member"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Choose appropriate learning duration according to your needs,"
+msgid "Choose appropriate learning duration according to your needs"
 msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"During the study period, you will enjoy the learning of all the courses of "
-"Elite MBA School. You can join the new class online now!"
+"Enjoy learning all courses in the Eliteu MBA school during the study "
+"period，You can join the new class online now!"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Full-Year Membership"
+msgctxt "Membership"
+msgid "Full Year"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -260,7 +261,8 @@ msgid "Full-stack workplace practice"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Half-Year Membership"
+msgctxt "Membership"
+msgid "Half-Year"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -268,7 +270,8 @@ msgid "Improve Ability Efficiently"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Three-Month Membership"
+msgctxt "Membership"
+msgid "Three-Month"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -276,7 +279,8 @@ msgid "A series of courses for learning"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "One-Month Membership"
+msgctxt "Membership"
+msgid "One-Month"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -349,17 +353,12 @@ msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"Assistant Professor of School of Labor and Employment Relations, Penn State "
-"University Park, USA"
+"Prior Assistant Professor of School of Labor and Employment Relations, Penn "
+"State University Park, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
 msgid "Dr. Jiamin Wang"
-msgstr ""
-
-#: membership/templates/membership/index.html
-msgid ""
-"Lifetime Professor in Management, Long Island University-C. W. Post, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -383,11 +382,17 @@ msgstr ""
 #: membership/templates/membership/index.html
 msgid ""
 "Prior President and Professor of the University of International Business "
-"and Economics"
+"and Economics {br}"
 msgstr ""
 
 #: membership/templates/membership/index.html
 msgid "Professor of Economics in Davidson College"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid ""
+"Prior President and Professor of the University of International Business "
+"and Economics"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -400,11 +405,7 @@ msgid ""
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "You can join the new class once online!"
-msgstr ""
-
-#: membership/templates/membership/index.html
-msgid "One Year"
+msgid "You can join the new class once online"
 msgstr ""
 
 #: membership/templates/membership/index.html
