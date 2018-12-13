@@ -249,7 +249,12 @@ class VIPOrder(models.Model):
 
         vip_info = VIPInfo.get_vipinfo_for_user(self.created_by)
         if vip_info:
-            vip_info.expired_at = vip_info.new_expired_at(self.month)
+            if vip_info.is_vip(self.created_by):
+                vip_info.expired_at = vip_info.new_expired_at(self.month)
+            else:
+                vip_info.start_at = datetime.now(pytz.utc)
+                vip_info.expired_at = vip_info.start_at + \
+                    relativedelta(months=+int(self.month))
             vip_info.save()
         else:
             expired_at = datetime.now(pytz.utc) + \
