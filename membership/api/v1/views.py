@@ -273,7 +273,6 @@ class VIPPurchase(APIView):
         trade_no = request.POST.get("trade_no")
         pay_type = request.POST.get("trade_type")
 
-        # TODO : 需要根据 响应body 进行付款类型的判断
         order_pay_types = {
             'alipay': VIPOrder.PAY_TYPE_BY_ALIPAY,
             'wechat': VIPOrder.PAY_TYPE_BY_WECHAT
@@ -321,7 +320,7 @@ class VIPWechatPaying(APIView):
             # 获取二维码链接
             wxpayconf_pub = WxPayConf_pub()
             unifiedorder_pub = UnifiedOrder_pub()
-            # TODO
+            # TODO 微信支付页面显示购买内容，待确认body的信息
             body = 'wechat vip'
             total_fee = int(order.price * 100)
 
@@ -589,7 +588,7 @@ class MobileVIPWechatPaying(APIView):
                 # 获取二维码链接
                 wxpayconf_pub = AppWxPayConf_pub()
                 unifiedorder_pub = AppUnifiedOrder_pub()
-                # TODO
+                # TODO 微信支付页面显示购买内容，待确认body的信息
                 body = 'wechat vip'
                 total_fee = int(order.price * 100)
 
@@ -609,7 +608,8 @@ class MobileVIPWechatPaying(APIView):
                 prepay_id = unifiedorder_pub.getPrepayId()
                 data = unifiedorder_pub.getUndResult()
                 result = {
-                        'order_id': order.id,
+                    'order_id': order.id,
+                    'wechat_request': {
                         'prepay_id': prepay_id,
                         'sign': data['sign'],
                         'appid': data['appid'],
@@ -617,6 +617,7 @@ class MobileVIPWechatPaying(APIView):
                         'nonce_str': data['nonce_str'],
                         'package': 'Sign=WXPay'
                     }
+                }
                 return Response(result)
         except Exception, e:
             log.exception(e)
