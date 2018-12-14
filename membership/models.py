@@ -10,6 +10,7 @@ import pytz
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
@@ -329,6 +330,17 @@ class VIPCourseEnrollment(models.Model):
             except CourseOverview.DoesNotExist:
                 self._course_overview = None
         return self._course_overview
+
+    def can_vip_enroll(self, user, course_id):
+        if settings.FEATURES.get('ENABLE_MEMBERSHIP_INTEGRATION', False):
+            is_vip = VIPInfo.is_vip(user)
+            is_subscribe_pay = VIPCoursePrice.is_subscribe_pay(course_id)
+            if is_vip and not is_subscribe_pay:
+                return True
+            else:
+                return False
+        else:
+            return False
 
 
 class VIPCoursePrice(models.Model):
