@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import logging
 import json
+import random
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
@@ -54,6 +55,7 @@ from payments.wechatpay.wxapp_pay import (
     WxPayConf_pub as AppWxPayConf_pub,
     UnifiedOrder_pub as AppUnifiedOrder_pub,
     OrderQuery_pub as AppOrderQuery_pub,
+    AppOrder_pub,
 )
 
 from payments.wechatpay.wxh5_pay import (
@@ -617,15 +619,21 @@ class MobileVIPWechatPaying(APIView):
 
                 prepay_id = unifiedorder_pub.getPrepayId()
                 data = unifiedorder_pub.getUndResult()
+
+                app_order_pub = AppOrder_pub()
+                app_order_pub.setParameter('prepayid', prepay_id)
+                sign, nonce_str, timestamp, wx_package = app_order_pub.get_request_params()
+
                 result = {
                     'order_id': order.id,
                     'wechat_request': {
                         'prepay_id': prepay_id,
-                        'sign': data['sign'],
+                        'sign': sign,
                         'appid': data['appid'],
                         'mch_id': data['mch_id'],
-                        'nonce_str': data['nonce_str'],
-                        'package': 'Sign=WXPay'
+                        'nonce_str': nonce_str,
+                        'package': wx_package,
+                        'timestamp': timestamp,
                     }
                 }
                 return Response(result)
@@ -701,7 +709,10 @@ class VIPWechatH5Paying(APIView):
 
                 prepay_id = unifiedorderh5_pub.getPrepayId()
                 mweb_url = unifiedorderh5_pub.getMwebUrl()
-                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card")
+
+                # 返回页面时不使用缓存
+                random_str = str(random.randint(100000, 999999))
+                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card") + "?random=" +random_str
                 mweb_url = mweb_url + "&redirect_url=" + quote_plus(redirect_url)
                 data = {
                     'mweb_url': mweb_url
