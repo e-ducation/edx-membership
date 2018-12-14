@@ -549,6 +549,8 @@ class MobileVIPAlipayPaying(APIView):
             if order:
                 log.info('****** order id: {} ******'.format(order.id))
                 order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY
+                out_trade_no = create_trade_id(order.id)
+                order.outtradeno = out_trade_no
                 order.save()
                 result = {'order_id': order.id}
 
@@ -565,7 +567,7 @@ class MobileVIPAlipayPaying(APIView):
                 model.product_code = smart_str("QUICK_MSECURITY_PAY")
                 model.body = smart_str("BUY {amount} RMB ".format(amount=order.price))
                 model.subject = smart_str("BUY VIP")
-                model.out_trade_no = smart_str(create_trade_id(order.id))
+                model.out_trade_no = smart_str(out_trade_no)
                 model.passback_params = smart_str(settings.LMS_ROOT_URL + reverse("vip_purchase"))
 
                 request = AlipayTradeAppPayRequest(biz_model=model)
