@@ -10,7 +10,7 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse
 
 from course_api.serializers import CourseSerializer, CourseDetailSerializer
-from course_modes.models import get_course_prices
+from course_modes.models import get_course_prices, CourseMode
 from courseware.access import has_access
 from mobile_api.users.serializers import CourseEnrollmentSerializer
 from lms.djangoapps.certificates.models import certificate_status_for_student
@@ -192,6 +192,7 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
     is_enroll = serializers.SerializerMethodField()
     is_normal_enroll = serializers.SerializerMethodField()
     is_subscribe_pay = serializers.SerializerMethodField()
+    can_free_enroll = serializers.SerializerMethodField()
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)
@@ -224,3 +225,9 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
 
     def get_is_subscribe_pay(self, model):
         return VIPCoursePrice.is_subscribe_pay(model.id)
+
+    def get_can_free_enroll(self, model):
+        modes_dict = CourseMode.modes_for_course_dict(model.id)
+        if CourseMode.has_professional_mode(modes_dict):
+            return False
+        return CourseMode.AUDIT in modes_dict or CourseMode.HONOR in modes_dict
