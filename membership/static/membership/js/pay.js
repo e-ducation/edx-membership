@@ -81,12 +81,13 @@ var wxH5Payer = function(id){
         success: function(res){
             console.log('success',res);
             if (res.code == 0) {
-                var tempwindow = window.open("",'_blank');
-                tempwindow.location = res.data.mweb_url;
+                window.location.href = res.data.mweb_url;
+            }else{
+                alert(gettext("调起支付失败"));
             }
         },
         error: function(){
-            console.log('error')
+            alert(gettext("调起支付失败"));
         },
         async: false // 防止拦截
     })
