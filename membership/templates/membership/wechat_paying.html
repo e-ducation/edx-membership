@@ -60,8 +60,7 @@ from student.models import CourseEnrollment
 <script type="text/javascript" src="${static.url('membership/libs/qrcode.js')}"></script>
 <script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
 <script>
-    window.onload = function(){
-
+    $(document).ready(function(){
         new QRCode(document.getElementById("qrcode"), "${code_url}");
         var checker =  new checkStatus()
         var id = $('#input').val();
@@ -71,5 +70,5 @@ from student.models import CourseEnrollment
             // $('#result').show();
             window.location.href = "/vip/pay/result"
         },id);
-    }
+    })
 </script>
