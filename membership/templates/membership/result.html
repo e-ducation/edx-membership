@@ -20,6 +20,11 @@ from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
 %>
 <%block name="title"><title>${_(u"WeChat")}</title></%block>
+<style>
+    .window-wrap .content-wrapper{
+        padding: 0;
+    }
+</style>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
 <div class="wxpay-wrap">
     <div class="wxpay-container">
@@ -43,20 +48,20 @@ from student.models import CourseEnrollment
 <script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
 <input type="hidden" value="${order_id}" id="order_id">
 <script>
-window.onload = function(){
-    var time = 3;
-    var odd = function () {
-        if (time <= 0){
-            clearInterval(timer);
-            return ;
+    $(document).ready(function(){
+        var time = 3;
+        var odd = function () {
+            if (time <= 0){
+                clearInterval(timer);
+                return ;
+            }
+            time --;
+            $('.wxpay-tips')[0].innerHTML = time + gettext('Return to EliteMBA in _ seconds');
         }
-        time --;
-        $('.wxpay-tips')[0].innerHTML = time + gettext('Return to EliteMBA in _ seconds');
-    }
-    var timer = setInterval(odd,1000)
-    setTimeout(function(){
-            window.location.href = "/vip/card"
-            // console.log('return')
-        },3500)
-    }
+        var timer = setInterval(odd,1000)
+        setTimeout(function(){
+                window.location.href = "/vip/card"
+                // console.log('return')
+            },3500)
+    })
 </script>

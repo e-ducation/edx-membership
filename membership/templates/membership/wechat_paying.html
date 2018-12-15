@@ -21,7 +21,11 @@ from student.models import CourseEnrollment
 %>
 <%block name="title"><title>${_(u"WeChat")}</title></%block>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
-
+<style>
+    .window-wrap .content-wrapper{
+        padding: 0;
+    }
+</style>
 <div class="wxpay-wrap">
     <div class="wxpay-container">
         <div class="wxpay-header">
@@ -56,8 +60,7 @@ from student.models import CourseEnrollment
 <script type="text/javascript" src="${static.url('membership/libs/qrcode.js')}"></script>
 <script type="text/javascript" src="${static.url('membership/js/pay.js')}"></script>
 <script>
-    window.onload = function(){
-
+    $(document).ready(function(){
         new QRCode(document.getElementById("qrcode"), "${code_url}");
         var checker =  new checkStatus()
         var id = $('#input').val();
@@ -67,5 +70,5 @@ from student.models import CourseEnrollment
             // $('#result').show();
             window.location.href = "/vip/pay/result"
         },id);
-    }
+    })
 </script>
