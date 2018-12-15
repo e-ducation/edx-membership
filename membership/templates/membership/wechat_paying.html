@@ -21,7 +21,11 @@ from student.models import CourseEnrollment
 %>
 <%block name="title"><title>${_(u"WeChat")}</title></%block>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
-
+<style>
+    .window-wrap .content-wrapper{
+        padding: 0;
+    }
+</style>
 <div class="wxpay-wrap">
     <div class="wxpay-container">
         <div class="wxpay-header">

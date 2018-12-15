@@ -20,6 +20,11 @@ from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
 %>
 <%block name="title"><title>${_(u"WeChat")}</title></%block>
+<style>
+    .window-wrap .content-wrapper{
+        padding: 0;
+    }
+</style>
 <link rel="stylesheet"  href="${static.url('membership/css/index.css')}" />
 <div class="wxpay-wrap">
     <div class="wxpay-container">

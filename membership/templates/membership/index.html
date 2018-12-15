@@ -25,6 +25,11 @@ from student.models import CourseEnrollment
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
 </%block>
+<style>
+    .window-wrap .content-wrapper{
+        padding: 0;
+    }
+</style>
 <link rel="stylesheet" href="${static.url('membership/css/index.css')}" />
 <link rel="stylesheet" href="${static.url('membership/libs/jSlider.min.css')}" />
 <a href="${reverse('membership_card')}"></a>
