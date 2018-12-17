@@ -140,6 +140,7 @@ class VIPOrder(models.Model):
     PAY_TYPE_BY_APPLEPAY = 4   # Apple Pay
     PAY_TYPE_REMAIN_AMOUNT = 5  # Balance
     PAY_TYPE_NOT_ONLINE = 6  # Offline
+    PAY_TYPE_BY_APPLE_INAPPPURCHASE = 7  # apple in-app purchase
 
     PAY_TYPE_CHOICES = (
         (PAY_TYPE_REMAIN_AMOUNT, _(u'Balance')),
@@ -147,7 +148,8 @@ class VIPOrder(models.Model):
         (PAY_TYPE_BY_WECHAT, _(u'WeChat')),
         (PAY_TYPE_BY_ALIPAY, _(u'Alipay')),
         (PAY_TYPE_BY_UNIONPAY, _(u'Union pay')),
-        (PAY_TYPE_BY_APPLEPAY, _(u'Apple Pay'))
+        (PAY_TYPE_BY_APPLEPAY, _(u'Apple Pay')),
+        (PAY_TYPE_BY_APPLE_INAPPPURCHASE, _(u'Apple Inpurasing')),
     )
 
     name = models.CharField(max_length=64)

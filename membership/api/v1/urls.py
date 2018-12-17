@@ -25,7 +25,9 @@ from .views import (
     MobileVIPWechatPaying,
     MobileUserDetail,
     MobileUserCourseStatus,
-    VIPWechatH5Paying
+    VIPWechatH5Paying,
+    MobileVIPAppleInAppPurchase,
+    MobileVIPAppleReceiptVerify,
 )
 
 
@@ -74,6 +76,16 @@ urlpatterns = [
         r'^mobile/vip/pay/wechat/paying/$',
         MobileVIPWechatPaying.as_view(),
         name='mobile_vip_wechat_paying'
+    ),
+    url(
+        r'^mobile/vip/pay/apple/inapp_purchase/$',
+        MobileVIPAppleInAppPurchase.as_view(),
+        name='mobile_vip_pay_apple_inapppurchase'
+    ),
+    url(
+        r'^mobile/vip/pay/apple/receipt_verify/$',
+        MobileVIPAppleReceiptVerify.as_view(),
+        name='mobile_vip_pay_apple_receipt_verify'
     ),
     url(
         r'mobile/vip/package/$',
