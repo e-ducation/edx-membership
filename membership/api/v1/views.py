@@ -239,8 +239,8 @@ class VIPAlipayPaying(APIView):
         order.save()
         pay_html = ""
         if order:
-            body = "BUY {amount} RMB ".format(amount=order.price)
-            subject = "BUY VIP"
+            body = order.name
+            subject = order.name
             total_fee = order.price
             http_host = request.META.get("HTTP_HOST")
 
@@ -333,12 +333,10 @@ class VIPWechatPaying(APIView):
             # 获取二维码链接
             wxpayconf_pub = WxPayConf_pub()
             unifiedorder_pub = UnifiedOrder_pub()
-            # TODO 微信支付页面显示购买内容，待确认body的信息
-            body = 'wechat vip'
             total_fee = int(order.price * 100)
 
             attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
-            unifiedorder_pub.setParameter("body", body)
+            unifiedorder_pub.setParameter("body", order.name)
             out_trade_no = create_trade_id(order.id)
             order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
             order.outtradeno = out_trade_no
@@ -567,8 +565,8 @@ class MobileVIPAlipayPaying(APIView):
                 model = AlipayTradeAppPayModel()
                 model.total_amount = smart_str(str_to_specify_digits(str(order.price)))
                 model.product_code = smart_str("QUICK_MSECURITY_PAY")
-                model.body = smart_str("BUY {amount} RMB ".format(amount=order.price))
-                model.subject = smart_str("BUY VIP")
+                model.body = smart_str(order.name)
+                model.subject = smart_str(order.name)
                 model.out_trade_no = smart_str(out_trade_no)
                 model.passback_params = smart_str(settings.LMS_ROOT_URL + reverse("vip_purchase"))
 
@@ -603,12 +601,10 @@ class MobileVIPWechatPaying(APIView):
                 # 获取二维码链接
                 wxpayconf_pub = AppWxPayConf_pub()
                 unifiedorder_pub = AppUnifiedOrder_pub()
-                # TODO 微信支付页面显示购买内容，待确认body的信息
-                body = 'wechat vip'
                 total_fee = int(order.price * 100)
 
                 attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
-                unifiedorder_pub.setParameter("body", body)
+                unifiedorder_pub.setParameter("body", order.name)
                 out_trade_no = create_trade_id(order.id)
                 order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
                 order.outtradeno = out_trade_no
@@ -760,11 +756,10 @@ class VIPWechatH5Paying(APIView):
             # 获取二维码链接
             wxh5payconf_pub = WxH5PayConf_pub()
             unifiedorderh5_pub = UnifiedOrderH5_pub()
-            body = 'wechat vip'
             total_fee = int(order.price * 100)
 
             attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
-            unifiedorderh5_pub.setParameter("body", body)
+            unifiedorderh5_pub.setParameter("body", order.name)
             out_trade_no = create_trade_id(order.id)
             order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
             order.outtradeno = out_trade_no
