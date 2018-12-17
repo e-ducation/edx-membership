@@ -23,6 +23,11 @@ from membership.models import VIPInfo
 %>
 <%block name="title"><title>${_(u"VIP membership")} | ${_(u"Elite Education")}</title></%block>
 <link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
+<style>
+    .window-wrap .content-wrapper{
+        padding: 0;
+    }
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
 <meta content="telephone=no,email=no" name="format-detection" />
 <a id="card_url" href="${settings.LMS_ROOT_URL + '/login?next=' + reverse('membership_card')}" hidden="hidden"></a>
@@ -93,7 +98,7 @@ from membership.models import VIPInfo
         <div class="popup-btnGrounp">
             <a href="JavaScript:void(0);">${_(u"Choose another payment method")}</a>
             <a href="JavaScript:void(0);">${_(u"payment completed")}</a>
-            <a href="JavaScript:void(0);">${_(u"Encounter a problem？")}</a>
+            <!-- <a href="JavaScript:void(0);">${_(u"Encounter a problem？")}</a> -->
         </div>
     </div>
 </div>

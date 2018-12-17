@@ -316,14 +316,7 @@ $(".h5btn-pay").click(function () {
 
 })
 
-//弹窗关闭
-function hide(item) {
 
-  $(item).click(function () {
-    $(".eliteu-popup").hide();
-  });
-
-}
 function checkLogin(){
   var vip_status = $('#vip_status').html();
   var card_url = $('#card_url').attr('href');
@@ -333,9 +326,13 @@ function checkLogin(){
   }
   return true;
 }
-hide(".e-popup-colse");
-hide(".popup-btnGrounp a:nth-of-type(1)");
-hide(".popup-btnGrounp a:nth-of-type(2)");
-
+// 弹窗关闭
+$('.e-popup-colse,.popup-btnGrounp a:nth-of-type(1)').click(function(){
+  $(".eliteu-popup").hide();
+});
+// 支付完成
+$('.popup-btnGrounp a:nth-of-type(2)').click(function(){
+  window.location.reload();
+})
 
 

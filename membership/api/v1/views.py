@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import logging
 import json
 import requests
+import random
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
@@ -111,10 +112,10 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
             serializer = self.get_serializer(instance)
             expired = timezone.now() - instance.expired_at
             # 已过期
-            if expired.days > 0:
+            if expired.days >= 0:
                 data = {
                     'status': False,
-                    'expired': expired.days,
+                    'expired': 1 if expired.days == 0 and expired.total_seconds() > 0 else expired.days,
                     'start_at': instance.start_at,
                     'expired_at': instance.expired_at
                 }
@@ -777,7 +778,10 @@ class VIPWechatH5Paying(APIView):
 
                 prepay_id = unifiedorderh5_pub.getPrepayId()
                 mweb_url = unifiedorderh5_pub.getMwebUrl()
-                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card")
+
+                # 返回页面时不使用缓存
+                random_str = str(random.randint(100000, 999999))
+                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card") + "?random=" +random_str
                 mweb_url = mweb_url + "&redirect_url=" + quote_plus(redirect_url)
                 data = {
                     'mweb_url': mweb_url

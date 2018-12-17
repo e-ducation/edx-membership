@@ -2,6 +2,7 @@
   width: 100%;
   background: url('../images/bg.png') no-repeat;
   background-size: 100% 100%;
+  height: 242px;
   .home>header{  
     background: none;
     box-shadow: none;
@@ -12,7 +13,7 @@
     margin: 0 auto;
     padding: 38px 0 48px 0;
     .vip-message{  
-      padding: 28px;
+      padding: 22px;
       height: 100px;
       max-width: 939px;
       margin: 0 auto;
@@ -51,6 +52,7 @@
         }
         li:nth-of-type(3){  
           margin-right: 0px;
+          float: right;
         }
       }
       .has-vip-time{ 
