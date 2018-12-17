@@ -46,7 +46,11 @@ class VIPInfo(models.Model):
         """
         get vip info for user
         """
-        vip_info = cls.objects.filter(user=user).order_by('-id').first()
+        if user.is_authenticated():
+            vip_info = cls.objects.filter(user=user).order_by('-id').first()
+        else:
+            vip_info = None
+
         return vip_info
 
     @classmethod
@@ -77,7 +81,7 @@ class VIPInfo(models.Model):
 
     @classmethod
     def is_vip(cls, user):
-        vip_info = cls.objects.filter(user=user).order_by('-id').first()
+        vip_info = cls.get_vipinfo_for_user(user)
         return vip_info and vip_info.expired_at > timezone.now() or False
 
     @classmethod
