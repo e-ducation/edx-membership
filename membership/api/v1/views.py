@@ -662,8 +662,9 @@ class MobileVIPAppleInAppPurchase(APIView):
             package_id = request.POST.get('package_id')
             order = VIPOrder.create_order(request.user, package_id)
             if order:
-                order.pay_type = order.PAY_TYPE_BY_APPLE_INAPPPURCHASE
-                order.save()
+                if order.pay_type != order.PAY_TYPE_BY_APPLE_INAPPPURCHASE:
+                    order.pay_type = order.PAY_TYPE_BY_APPLE_INAPPPURCHASE
+                    order.save(update_fields=['pay_type'])
                 return Response({
                     'order_id': order.id
                 })
