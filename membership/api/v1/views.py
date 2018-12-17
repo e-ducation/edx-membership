@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import logging
 import json
+import requests
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
@@ -641,6 +642,72 @@ class MobileVIPWechatPaying(APIView):
         except Exception, e:
             log.exception(e)
         return Response({})
+
+
+class MobileVIPAppleInAppPurchase(APIView):
+
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+
+    def post(self, request, *args, **kwargs):
+        '''
+        apple in-app purchasing
+        '''
+        try:
+            package_id = request.POST.get('package_id')
+            order = VIPOrder.create_order(request.user, package_id)
+            if order:
+                order.pay_type = order.PAY_TYPE_BY_APPLE_INAPPPURCHASE
+                order.save()
+                return Response({
+                    'order_id': order.id
+                })
+        except Exception, e:
+            log.exception(e)
+        return Response({})
+
+
+class MobileVIPAppleReceiptVerify(APIView):
+
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (
+        JwtAuthentication,
+        OAuth2AuthenticationAllowInactiveUser,
+        SessionAuthenticationAllowInactiveUser
+    )
+
+    def post(self, request, *args, **kwargs):
+        '''
+        apple receipt verify
+        '''
+        try:
+            status = 1
+            receipt = request.POST.get('receipt', '')
+            req_url = (settings.APPLE_VERIFY_RECEIPT_SANDBOX_URL if settings.APPLE_VERIFY_RECEIPT_IS_SANDBOX else
+                       settings.APPLE_VERIFY_RECEIPT_URL)
+            receipt_data = json.dumps({"receipt-data": receipt})
+            verify_resp = requests.post(req_url, data=receipt_data).json()
+            status = verify_resp['status']
+            if status == 0:
+                order_id = request.POST.get('order_id', '')
+                order = VIPOrder.get_user_order(order_id)
+                total_fee = request.POST.get('total_fee', '')
+                if order and order.status == VIPOrder.STATUS_WAIT and float(total_fee) == float(order.price):
+                    order.purchase(
+                        order.created_by,
+                        VIPOrder.PAY_TYPE_BY_APPLE_INAPPPURCHASE,
+                        receipt=receipt,
+                    )
+                    log.info('********* apple in-app purchase success ********')
+        except Exception, e:
+            log.exception(e)
+        return Response({
+            'status': status
+        })
 
 
 class MobileUserDetail(UserDetail):
