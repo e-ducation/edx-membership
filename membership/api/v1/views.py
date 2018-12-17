@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 import logging
 import json
-import requests
 import random
+import requests
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
