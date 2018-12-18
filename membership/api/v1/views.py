@@ -684,20 +684,23 @@ class MobileVIPAppleReceiptVerify(APIView):
         '''
         try:
             verify_status = 1  # 0 success; 1 fail
-            receipt = request.POST.get('receipt', '')
             req_url = (settings.APPLE_VERIFY_RECEIPT_SANDBOX_URL if settings.APPLE_VERIFY_RECEIPT_IS_SANDBOX else
                        settings.APPLE_VERIFY_RECEIPT_URL)
-            receipt_data = json.dumps({"receipt-data": receipt})
+            receipt_data = json.dumps({"receipt-data": request.POST['receipt']})
             verify_resp = requests.post(req_url, data=receipt_data).json()
-            if verify_resp['status'] == 0:
-                order_id = request.POST.get('order_id', '')
-                order = VIPOrder.get_user_order(order_id)
-                total_fee = request.POST.get('total_fee', '')
-                if order and order.status == VIPOrder.STATUS_WAIT and float(total_fee) == float(order.price):
+
+            inapp_info = verify_resp['receipt']['in_app'][-1]
+            if (verify_resp['status'] == 0 and
+               settings.APPLE_IN_APP_PRODUCT_ID[str(request.POST['package_id'])] == inapp_info['product_id']):
+                order = VIPOrder.objects.get(id=request.POST['order_id'])
+                if order.status == VIPOrder.STATUS_WAIT and float(request.POST['total_fee']) == float(order.price):
                     order.purchase(
                         order.created_by,
                         VIPOrder.PAY_TYPE_BY_APPLE_INAPPPURCHASE,
-                        receipt=receipt,
+                        receipt=request.POST['receipt'],
+                        refno=inapp_info['transaction_id'],
+                        version=request.POST.get('version', ''),
+                        os_version=request.POST.get('os_version', '')
                     )
                 if order.status == VIPOrder.STATUS_SUCCESS:
                     verify_status = 0
