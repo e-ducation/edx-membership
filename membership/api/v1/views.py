@@ -683,14 +683,13 @@ class MobileVIPAppleReceiptVerify(APIView):
         apple receipt verify
         '''
         try:
-            status = 1
+            verify_status = 1  # 0 success; 1 fail
             receipt = request.POST.get('receipt', '')
             req_url = (settings.APPLE_VERIFY_RECEIPT_SANDBOX_URL if settings.APPLE_VERIFY_RECEIPT_IS_SANDBOX else
                        settings.APPLE_VERIFY_RECEIPT_URL)
             receipt_data = json.dumps({"receipt-data": receipt})
             verify_resp = requests.post(req_url, data=receipt_data).json()
-            status = verify_resp['status']
-            if status == 0:
+            if verify_resp['status'] == 0:
                 order_id = request.POST.get('order_id', '')
                 order = VIPOrder.get_user_order(order_id)
                 total_fee = request.POST.get('total_fee', '')
@@ -700,11 +699,13 @@ class MobileVIPAppleReceiptVerify(APIView):
                         VIPOrder.PAY_TYPE_BY_APPLE_INAPPPURCHASE,
                         receipt=receipt,
                     )
+                if order.status == VIPOrder.STATUS_SUCCESS:
+                    verify_status = 0
                     log.info('********* apple in-app purchase success ********')
         except Exception, e:
             log.exception(e)
         return Response({
-            'status': status
+            'status': verify_status
         })
 
 
