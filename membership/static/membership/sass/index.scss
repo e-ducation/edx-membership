@@ -9,14 +9,14 @@
         background: url('../images/bg_tmp.png') no-repeat;
         position: relative;
         background-position: center;
-        background-size: 100%;
+        background-size: cover;
     }
     .banner-content{
 
-        .banner-pc-img{
+        &.banner-pc-img{
             display: block;
         }
-        .banner-mobile-img{
+        &.banner-mobile-img{
             display: none;
         }
     }
@@ -524,14 +524,14 @@
             height: 39vw;
             // min-width: 1024px;
             // height: 332px;
-            background: url('../images/bg.png') no-repeat;
+            background: url('../images/bg_tmp.png') no-repeat;
             position: relative;
         }
         .banner-content{
-            img.banner-pc-img{
+            &.banner-pc-img{
                 display: none;
             }
-            img.banner-mobile-img{
+            &.banner-mobile-img{
                 display: block;
             }
         }
