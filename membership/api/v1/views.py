@@ -771,6 +771,8 @@ class VIPWechatH5Paying(APIView):
                     "notify_url", wxh5payconf_pub.NOTIFY_URL)
                 unifiedorderh5_pub.setParameter("trade_type", "MWEB")
                 unifiedorderh5_pub.setParameter("attach", attach_data)
+                client_ip = unifiedorderh5_pub.get_client_ip(request)
+                unifiedorderh5_pub.setParameter("spbill_create_ip", client_ip)
 
                 prepay_id = unifiedorderh5_pub.getPrepayId()
                 mweb_url = unifiedorderh5_pub.getMwebUrl()
