@@ -195,7 +195,11 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
     can_free_enroll = serializers.SerializerMethodField()
 
     def get_is_vip(self, model):
-        return VIPInfo.is_vip(self.context['request'].user)
+        user = self.context['request'].user
+        if user.is_authenticated():
+            return VIPInfo.is_vip(self.context['request'].user)
+        else:
+            return False 
 
     def get_is_subscribe_pay(self, model):
         return VIPCoursePrice.is_subscribe_pay(model.id)
@@ -209,17 +213,33 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
         return p and PackageListSerializer(p).data or None
 
     def get_has_cert(self, model):
-        return certificate_status_for_student(self.context.get('request').user, model.id)['status'] == 'downloadable'
+        user = self.context['request'].user
+        if user.is_authenticated():
+            cert_status = certificate_status_for_student(
+                user, 
+                model.id
+            )['status']
+            return cert_status == 'downloadable'
+        else:
+            return False 
 
     def get_is_enroll(self, model):
-        return True if CourseEnrollment.get_enrollment(self.context.get('request').user, model.id) else False
+        user = self.context['request'].user
+        if user.is_authenticated():
+            return True if CourseEnrollment.get_enrollment(self.context.get('request').user, model.id) else False
+        else:
+            return False 
 
     def get_is_normal_enroll(self, model):
-        vip_enroll = VIPCourseEnrollment.objects.filter(
-            user=self.context['request'].user,
-            course_id=model.id,
-            is_active=True
-        ).exists()
+        user = self.context['request'].user
+        if user.is_authenticated():
+            vip_enroll = VIPCourseEnrollment.objects.filter(
+                user=self.context['request'].user,
+                course_id=model.id,
+                is_active=True
+            ).exists()
+        else:
+            return False 
 
         return not vip_enroll
 
