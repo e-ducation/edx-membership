@@ -491,22 +491,10 @@ class MobileUserCourseEnrollmentsList(UserCourseEnrollmentsList):
 
 
 class MobileCourseListView(CourseListView):
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (
-        JwtAuthentication,
-        OAuth2AuthenticationAllowInactiveUser,
-        SessionAuthenticationAllowInactiveUser
-    )
     serializer_class = MobileCourseSerializer
 
 
 class MobileCourseDetailView(CourseDetailView):
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (
-        JwtAuthentication,
-        OAuth2AuthenticationAllowInactiveUser,
-        SessionAuthenticationAllowInactiveUser
-    )
     serializer_class = MobileCourseDetailSerializer
 
 
