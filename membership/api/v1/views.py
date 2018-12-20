@@ -25,7 +25,9 @@ from rest_framework.views import APIView
 from alipay.aop.api.AlipayClientConfig import AlipayClientConfig
 from alipay.aop.api.DefaultAlipayClient import DefaultAlipayClient
 from alipay.aop.api.domain.AlipayTradeAppPayModel import AlipayTradeAppPayModel
+from alipay.aop.api.domain.AlipayTradeQueryModel import AlipayTradeQueryModel
 from alipay.aop.api.request.AlipayTradeAppPayRequest import AlipayTradeAppPayRequest
+from alipay.aop.api.request.AlipayTradeQueryRequest import AlipayTradeQueryRequest
 
 from course_api.views import CourseListView, CourseDetailView
 from mobile_api.users.views import (
@@ -44,25 +46,26 @@ from membership.api.v1.serializers import (
     MobileCourseSerializer,
     MobileCourseDetailSerializer)
 
-from payments.alipay.alipay import create_direct_pay_by_user
-from payments.alipay.app_alipay import smart_str
+from payments.alipay.alipay import create_direct_pay_by_user, AlipayVerify, SERVER_URL
+from payments.alipay.app_alipay import smart_str, AlipayAppVerify
 from payments.wechatpay.wxpay import (
     WxPayConf_pub,
     UnifiedOrder_pub,
     OrderQuery_pub,
+    Wxpay_server_pub,
 )
-
 from payments.wechatpay.wxapp_pay import (
     WxPayConf_pub as AppWxPayConf_pub,
     UnifiedOrder_pub as AppUnifiedOrder_pub,
     OrderQuery_pub as AppOrderQuery_pub,
+    Wxpay_server_pub as AppWxpay_server_pub,
     AppOrder_pub,
 )
-
 from payments.wechatpay.wxh5_pay import (
     WxH5PayConf_pub,
     UnifiedOrderH5_pub,
     OrderQueryH5_pub,
+    WxpayH5_server_pub,
 )
 from membership.utils import (
     create_trade_id, recovery_order_id, str_to_specify_digits,
@@ -139,13 +142,6 @@ class VIPOrderAPIView(generics.RetrieveAPIView):
         SessionAuthenticationAllowInactiveUser
     )
 
-    WECHAT_PAY_STATUS = {
-        'NOTPAY': VIPOrder.STATUS_WAIT,
-        'SUCCESS': VIPOrder.STATUS_SUCCESS,
-        'REVOKED': VIPOrder.STATUS_FAILED,
-        'REFUND': VIPOrder.STATUS_REFUND
-    }
-
     def get(self, request, pk, *args, **kwargs):
         """
         查询订单状态详情
@@ -165,28 +161,89 @@ class VIPOrderAPIView(generics.RetrieveAPIView):
             serializer = self.get_serializer(order)
 
             if order.status == VIPOrder.STATUS_WAIT:
-                if order.pay_type == VIPOrder.PAY_TYPE_BY_WECHAT:
-                    serializer.data['status'] = self.wechatpay_query(order)
-
+                trade_types = {
+                    VIPOrder.PAY_TYPE_BY_ALIPAY: self.alipay_query,
+                    VIPOrder.PAY_TYPE_BY_ALIPAY_APP: self.alipay_query,
+                    VIPOrder.PAY_TYPE_BY_WECHAT: self.wechat_query,
+                    VIPOrder.PAY_TYPE_BY_WECHAT_APP: self.wechat_query,
+                    VIPOrder.PAY_TYPE_BY_WECHAT_H5: self.wechat_query,
+                }
+                if trade_types.get(order.pay_type):
+                    query_resp = trade_types[order.pay_type](order.outtradeno, order.refno, order.receipt, order.pay_type)
+                    if (order.status == VIPOrder.STATUS_WAIT and query_resp.get('trade_status') and
+                       float(order.price) == query_resp.get('total_fee')):
+                        order.purchase(
+                            order.created_by,
+                            order.pay_type,
+                            refno=query_resp['refno']
+                        )
+                        log.info('********** purchase success ***********')
             return Response(xresult(data=serializer.data))
         except Exception, e:
-            log.error(e)
+            log.exception(e)
             return Response(xresult(code=-1, msg='query fail'))
 
     @classmethod
-    def wechatpay_query(cls, order):
-        '''
-        查询微信支付订单状态
-        '''
-        orderquery_pub = OrderQuery_pub()
-        orderquery_pub.setParameter('out_trade_no', order.outtradeno)
-        if order.refno:
-            orderquery_pub.setParameter('transaction_id', order.refno)
-        result = orderquery_pub.getResult()
-        # 验签
-        if result.pop('sign') == orderquery_pub.getSign(result):
-            return cls.WECHAT_PAY_STATUS.get(result['trade_state'], 0)
-        return 0
+    def alipay_query(cls, out_trade_no, trade_no, receipt, trade_type):
+        '''alipay query'''
+        try:
+            config_dict = {
+                VIPOrder.PAY_TYPE_BY_ALIPAY_APP: settings.ALIPAY_APP_INFO,
+                VIPOrder.PAY_TYPE_BY_ALIPAY: settings.ALIPAY_APP_INFO,
+            }
+            config = config_dict[trade_type]
+            alipay_client_config = AlipayClientConfig()
+            alipay_client_config.app_id = smart_str(config['basic_info']['APP_ID'])
+            alipay_client_config.sign_type = smart_str(config['other_info']['SIGN_TYPE'])
+            with open(config['basic_info']['APP_PRIVATE_KEY'], 'r') as fp:
+                alipay_client_config.app_private_key = fp.read()
+            client = DefaultAlipayClient(alipay_client_config=alipay_client_config)
+
+            model = AlipayTradeQueryModel()
+            model.out_trade_no = smart_str(out_trade_no)
+            if trade_no:
+                model.trade_no = smart_str(trade_no)
+            request = AlipayTradeQueryRequest(biz_model=model)
+
+            request_params = client.sdk_execute(request)
+            resp = requests.get('{}?{}'.format(SERVER_URL, request_params)).json()
+            log.info('********** alipay query result ***********')
+            log.info(resp)
+            query_resp = resp['alipay_trade_query_response']
+            return {
+                'trade_status': query_resp.get('trade_status') == 'TRADE_SUCCESS',
+                'total_fee': float(query_resp.get('total_amount', 0)),
+                'refno': query_resp.get('trade_no', ''),
+            }
+        except Exception, e:
+            log.exception(e)
+        return {}
+
+    @classmethod
+    def wechat_query(cls, out_trade_no, refno, receipt, trade_type):
+        '''wechat query'''
+        try:
+            trade_types = {
+                VIPOrder.PAY_TYPE_BY_WECHAT: OrderQuery_pub,
+                VIPOrder.PAY_TYPE_BY_WECHAT_APP: AppOrderQuery_pub,
+                VIPOrder.PAY_TYPE_BY_WECHAT_H5: OrderQueryH5_pub,
+            }
+            orderquery_pub = trade_types[trade_type]()
+            orderquery_pub.setParameter('out_trade_no', out_trade_no)
+            if refno:
+                orderquery_pub.setParameter('transaction_id', refno)
+            result = orderquery_pub.getResult()
+            log.info('********** wechat query result ***********')
+            log.info(result)
+            return {
+                'trade_status': (result.pop('sign') == orderquery_pub.getSign(result) and
+                                 result.get('trade_state') == 'SUCCESS'),
+                'total_fee': float(result.get('total_fee', 0))/100,
+                'refno': result.get('transaction_id', '')
+            }
+        except Exception, e:
+            log.exception(e)
+        return {}
 
 
 class VIPPayOrderView(APIView):
@@ -281,25 +338,63 @@ class VIPPurchase(APIView):
         """
         支付成功之后，接受payments app回调，进行业务逻辑的处理
         """
+        try:
+            log.info('********** purchase ***********')
+            log.info(request.POST)
 
-        out_trade_no = request.POST.get("out_trade_no", "")
-        trade_no = request.POST.get("trade_no")
-        pay_type = request.POST.get("trade_type")
+            pay_type = request.POST['trade_type']
+            trade_type = self.get_trade_types()[pay_type]
+            verify_srv = trade_type['verify']()
+            verify_srv.saveData(json.loads(request.POST['original_data'])['data'])
 
-        order_pay_types = {
-            'alipay': VIPOrder.PAY_TYPE_BY_ALIPAY,
-            'wechat': VIPOrder.PAY_TYPE_BY_WECHAT
+            if verify_srv.checkSign():
+                log.info('********** verify success ***********')
+                req_data = verify_srv.getData()
+                out_trade_no = req_data.get(trade_type['trade_info'][0])
+                trade_no = req_data.get(trade_type['trade_info'][1])
+                order_id = recovery_order_id(out_trade_no)
+                order = VIPOrder.get_user_order(order_id)
+                if order and float(order.price) == float(req_data.get(trade_type['trade_info'][2])):
+                    order.purchase(
+                        order.created_by,
+                        trade_type['type'],
+                        refno=trade_no
+                    )
+                    log.info('********** purchase success ***********')
+            return Response({'result': 'success'})
+        except Exception, e:
+            log.exception(e)
+        return Response({'result': 'fail'})
+
+    @classmethod
+    def get_trade_types(cls):
+        return {
+            'alipay': {
+                'type': VIPOrder.PAY_TYPE_BY_ALIPAY,
+                'verify': AlipayVerify,
+                'trade_info': ('out_trade_no', 'trade_no', 'total_fee'),
+            },
+            'alipay_app': {
+                'type': VIPOrder.PAY_TYPE_BY_ALIPAY_APP,
+                'verify': AlipayAppVerify,
+                'trade_info': ('out_trade_no', 'trade_no', 'total_amount'),
+            },
+            'wechat': {
+                'type': VIPOrder.PAY_TYPE_BY_WECHAT,
+                'verify': Wxpay_server_pub,
+                'trade_info': ('out_trade_no', 'transaction_id', 'total_fee'),
+            },
+            'wechat_app': {
+                'type': VIPOrder.PAY_TYPE_BY_WECHAT_APP,
+                'verify': AppWxpay_server_pub,
+                'trade_info': ('out_trade_no', 'transaction_id', 'total_fee'),
+            },
+            'wechat_h5': {
+                'type': VIPOrder.PAY_TYPE_BY_WECHAT_H5,
+                'verify': WxpayH5_server_pub,
+                'trade_info': ('out_trade_no', 'transaction_id', 'total_fee'),
+            },
         }
-        order_id = recovery_order_id(out_trade_no)
-        order = VIPOrder.get_user_order(order_id)
-        if order and order.status == VIPOrder.STATUS_WAIT:
-            order.purchase(
-                order.created_by,
-                order_pay_types.get(pay_type),
-                outtradeno=out_trade_no,
-                refno=trade_no
-            )
-        return Response({'result': 'success'})
 
 
 class VIPWechatPaying(APIView):
