@@ -354,7 +354,7 @@ class VIPPurchase(APIView):
                 trade_no = req_data.get(trade_type['trade_info'][1])
                 order_id = recovery_order_id(out_trade_no)
                 order = VIPOrder.get_user_order(order_id)
-                if order and int(order.price * 100) == int(req_data.get(trade_type['trade_info'][2])):
+                if order:
                     order.purchase(
                         order.created_by,
                         trade_type['type'],
