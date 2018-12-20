@@ -631,7 +631,7 @@ class MobileVIPAlipayPaying(APIView):
             order = VIPOrder.create_order(request.user, int(package_id))
             if order:
                 log.info('****** order id: {} ******'.format(order.id))
-                order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY
+                order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY_APP
                 out_trade_no = create_trade_id(order.id)
                 order.outtradeno = out_trade_no
                 order.save()
@@ -689,7 +689,7 @@ class MobileVIPWechatPaying(APIView):
                 attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
                 unifiedorder_pub.setParameter("body", order.name)
                 out_trade_no = create_trade_id(order.id)
-                order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
+                order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT_APP
                 order.outtradeno = out_trade_no
                 order.save()
 
@@ -848,7 +848,7 @@ class VIPWechatH5Paying(APIView):
             attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
             unifiedorderh5_pub.setParameter("body", order.name)
             out_trade_no = create_trade_id(order.id)
-            order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
+            order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT_H5
             order.outtradeno = out_trade_no
             try:
                 order.save()
