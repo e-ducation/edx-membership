@@ -3,7 +3,7 @@
 User-facing views for the Membership app.
 """
 from __future__ import unicode_literals
-
+from django.contrib.auth.decorators import login_required
 from edxmako.shortcuts import render_to_response
 from utils import recovery_order_id
 
@@ -16,6 +16,7 @@ def index(request):
     return response
 
 
+@login_required
 def card(request):
     context = {
 
