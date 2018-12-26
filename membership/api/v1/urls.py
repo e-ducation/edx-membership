@@ -28,7 +28,8 @@ from .views import (
     VIPWechatH5Paying,
     MobileVIPAppleInAppPurchase,
     MobileVIPAppleReceiptVerify,
-    VIPAlipayH5Paying
+    VIPAlipayH5Paying,
+    VIPAlipayH5Result
 )
 
 
@@ -137,5 +138,10 @@ urlpatterns = [
         r'vip/pay/alipay_h5/paying/$',
         VIPAlipayH5Paying.as_view(),
         name='vip_alipay_h5_paying'
+    ),
+    url(
+        r'vip/pay/alipay_h5/result/$',
+        VIPAlipayH5Result.as_view(),
+        name='vip_alipay_h5_result'
     )
 ]

@@ -5,6 +5,8 @@ import logging
 import json
 import random
 import requests
+import time
+from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
@@ -921,19 +923,12 @@ class VIPAlipayH5Paying(APIView):
                 model = AlipayTradeWapPayModel()
                 model.total_amount = smart_str(str_to_specify_digits(str(order.price)))
                 model.product_code = smart_str("QUICK_WAP_WAY")
-                model.body = smart_str(order.name)
-                print '$' * 100
-                print smart_str(order.name)
-                print order.name
-                print '哈哈'
-                print '$' * 100
                 model.subject = smart_str(order.name)
                 model.out_trade_no = smart_str(out_trade_no)
                 # 返回页面时不使用缓存
-                random_str = str(random.randint(100000, 999999))
-                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card") + "?random=" + random_str
-                model.return_url= redirect_url
-                log.error(redirect_url)
+                return_url = settings.LMS_ROOT_URL + reverse("vip_alipay_h5_result")
+                model.return_url= return_url
+                log.error(return_url)
                 model.passback_params = smart_str(settings.LMS_ROOT_URL + reverse("vip_purchase"))
 
                 request = AlipayTradeWapPayRequest(biz_model=model)
@@ -948,3 +943,17 @@ class VIPAlipayH5Paying(APIView):
         except Exception, e:
             log.exception(e)
         return Response({})
+
+
+class VIPAlipayH5Result(APIView):
+    """
+    支付宝H5购买跳转
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        get
+        """
+        time.sleep(3)
+        random_str = str(random.randint(100000, 999999))
+        redirect_url = settings.LMS_ROOT_URL + reverse("membership_card") + "?random=" + random_str
+        return HttpResponseRedirect(redirect_url)
