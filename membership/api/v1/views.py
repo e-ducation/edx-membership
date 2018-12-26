@@ -28,7 +28,8 @@ from alipay.aop.api.domain.AlipayTradeAppPayModel import AlipayTradeAppPayModel
 from alipay.aop.api.domain.AlipayTradeQueryModel import AlipayTradeQueryModel
 from alipay.aop.api.request.AlipayTradeAppPayRequest import AlipayTradeAppPayRequest
 from alipay.aop.api.request.AlipayTradeQueryRequest import AlipayTradeQueryRequest
-
+from alipay.aop.api.request.AlipayTradeWapPayRequest import AlipayTradeWapPayRequest
+from alipay.aop.api.domain.AlipayTradeWapPayModel import AlipayTradeWapPayModel
 from course_api.views import CourseListView, CourseDetailView
 from mobile_api.users.views import (
     UserCourseEnrollmentsList,
@@ -46,7 +47,11 @@ from membership.api.v1.serializers import (
     MobileCourseSerializer,
     MobileCourseDetailSerializer)
 
-from payments.alipay.alipay import create_direct_pay_by_user, AlipayVerify, SERVER_URL
+from payments.alipay.alipay import (
+    create_direct_pay_by_user,
+    AlipayVerify,
+    SERVER_URL,
+)
 from payments.alipay.app_alipay import smart_str, AlipayAppVerify
 from payments.wechatpay.wxpay import (
     WxPayConf_pub,
@@ -878,3 +883,68 @@ class VIPWechatH5Paying(APIView):
 
         else:
             return Response(xresult(msg='fail', code=-1))
+
+
+class VIPAlipayH5Paying(APIView):
+    """
+        VIP alipay H5 paying
+        参数：package_id 套餐ID
+        返回: 跳转到支付宝支付页面
+        """
+    """
+        mobile VIP alipay paying
+        参数：package_id 套餐ID
+        """
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
+
+    def get(self, request, *args, **kwargs):
+        try:
+            package_id = request.GET.get('package_id')
+            order = VIPOrder.create_order(request.user, int(package_id))
+            if order:
+                log.info('****** order id: {} ******'.format(order.id))
+                order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY_APP
+                out_trade_no = create_trade_id(order.id)
+                order.outtradeno = out_trade_no
+                order.save()
+                result = {'order_id': order.id}
+
+                alipay_client_config = AlipayClientConfig()
+                alipay_client_config.app_id = smart_str(settings.ALIPAY_APP_INFO['basic_info']['APP_ID'])
+                alipay_client_config.sign_type = smart_str(settings.ALIPAY_APP_INFO['other_info']['SIGN_TYPE'])
+                with open(settings.ALIPAY_APP_INFO['basic_info']['APP_PRIVATE_KEY'], 'r') as fp:
+                    alipay_client_config.app_private_key = fp.read()
+
+                client = DefaultAlipayClient(alipay_client_config=alipay_client_config)
+
+                model = AlipayTradeWapPayModel()
+                model.total_amount = smart_str(str_to_specify_digits(str(order.price)))
+                model.product_code = smart_str("QUICK_WAP_WAY")
+                model.body = smart_str(order.name)
+                print '$' * 100
+                print smart_str(order.name)
+                print order.name
+                print '哈哈'
+                print '$' * 100
+                model.subject = smart_str(order.name)
+                model.out_trade_no = smart_str(out_trade_no)
+                # 返回页面时不使用缓存
+                random_str = str(random.randint(100000, 999999))
+                redirect_url = settings.LMS_ROOT_URL + reverse("membership_card") + "?random=" + random_str
+                model.return_url= redirect_url
+                log.error(redirect_url)
+                model.passback_params = smart_str(settings.LMS_ROOT_URL + reverse("vip_purchase"))
+
+                request = AlipayTradeWapPayRequest(biz_model=model)
+                request.notify_url = smart_str(settings.ALIPAY_APP_INFO['other_info']['NOTIFY_URL'])
+                result['alipay_request'] = client.sdk_execute(request)
+                log.error(SERVER_URL + "?" + result['alipay_request'])
+                data = {
+                    'alipay_url': SERVER_URL + "?" + result['alipay_request'],
+                    'order_id': order.id
+                }
+                return Response(xresult(data=data))
+        except Exception, e:
+            log.exception(e)
+        return Response({})
