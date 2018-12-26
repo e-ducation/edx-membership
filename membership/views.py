@@ -6,8 +6,10 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from edxmako.shortcuts import render_to_response
 from utils import recovery_order_id
+from util.cache import cache_if_anonymous
 
 
+@cache_if_anonymous()
 def index(request):
     context = {
 
