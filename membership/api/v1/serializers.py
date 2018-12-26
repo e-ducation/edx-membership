@@ -42,13 +42,11 @@ class VIPInfoSerializer(serializers.ModelSerializer):
     remain = serializers.SerializerMethodField()
 
     def get_opened(self, info):
-        today = timezone.now()
-        delta = today - info.start_at
+        delta = timezone.now().date() - info.start_at.date()
         return delta.days + 1
 
     def get_remain(self, info):
-        today = timezone.now()
-        delta = info.expired_at - today
+        delta = info.expired_at.date() - timezone.now().date()
         return delta.days
 
     def get_status(self, info):
