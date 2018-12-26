@@ -113,7 +113,7 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
         try:
             instance = VIPInfo.objects.get(user=self.request.user)
             serializer = self.get_serializer(instance)
-            expired = timezone.now() - instance.expired_at
+            expired = timezone.now().date() - instance.expired_at.date()
             # 已过期
             if expired.days >= 0:
                 data = {
