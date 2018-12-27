@@ -309,7 +309,7 @@ $(".h5btn-pay").click(function () {
     return;
   }
   if (payWay == 0) {
-    aliPayer(orderId);
+    aliH5Payer(orderId);
   } else {
     wxH5Payer(orderId);
   }
