@@ -905,7 +905,6 @@ class VIPAlipayH5Paying(APIView):
             package_id = request.GET.get('package_id')
             order = VIPOrder.create_order(request.user, int(package_id))
             if order:
-                log.info('****** order id: {} ******'.format(order.id))
                 order.pay_type = VIPOrder.PAY_TYPE_BY_ALIPAY_APP
                 out_trade_no = create_trade_id(order.id)
                 order.outtradeno = out_trade_no
@@ -926,9 +925,8 @@ class VIPAlipayH5Paying(APIView):
                 model.subject = smart_str(order.name)
                 model.out_trade_no = smart_str(out_trade_no)
                 # 返回页面时不使用缓存
-                return_url = settings.LMS_ROOT_URL + reverse("vip_alipay_h5_result")
-                model.return_url= return_url
-                log.error(return_url)
+                quit_url = settings.LMS_ROOT_URL + reverse("vip_alipay_h5_result")
+                model.quit_url= smart_str(quit_url)
                 model.passback_params = smart_str(settings.LMS_ROOT_URL + reverse("vip_purchase"))
 
                 request = AlipayTradeWapPayRequest(biz_model=model)
@@ -947,11 +945,11 @@ class VIPAlipayH5Paying(APIView):
 
 class VIPAlipayH5Result(APIView):
     """
-    支付宝H5购买跳转
+    支付宝H5购买点击完成跳转
     """
     def get(self, request, *args, **kwargs):
         """
-        get
+        支付宝H5购买点击完成跳转
         """
         time.sleep(3)
         random_str = str(random.randint(100000, 999999))
