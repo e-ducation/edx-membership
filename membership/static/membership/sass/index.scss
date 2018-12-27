@@ -195,6 +195,7 @@
             text-align: center;
             margin-top: 60px;
             li{
+                position: relative;
             //     border: 1px solid #ffe4d1;
             //     box-shadow: 0 0 3px #ffe4d1;
                 border-color: rgb(182, 220, 254);
@@ -484,7 +485,7 @@
                 display: inline-block;
                    width: 100px;
                    border-radius: 50%;
-                   border: solid 2px rgba(71, 136, 199, 0.74);
+                //    border: solid 2px rgba(71, 136, 199, 0.74);
                    height: 100px;
                    margin-bottom: 24px;
                 }
@@ -513,6 +514,15 @@
         background-color: #b6dcfe;
 	    border: solid 1px #4788c7;
     }
+    li.current .recommend{ 
+        width: 45px;
+        height: 41px;
+        background: url('../images/recommend.png') no-repeat top;
+        background-size: 45px 41px;
+        position: absolute;
+        left: -2px;
+        top: -2px;
+     }
 }
 @media screen and (max-width: 768px){
     .member-ship-wrap{
