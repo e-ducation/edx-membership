@@ -120,18 +120,7 @@ class VIPInfoAPIView(generics.RetrieveAPIView):
         try:
             instance = VIPInfo.objects.get(user=self.request.user)
             serializer = self.get_serializer(instance)
-            expired = timezone.now().date() - instance.expired_at.date()
-            # 已过期
-            if expired.days >= 0:
-                data = {
-                    'status': False,
-                    'expired': 1 if expired.days == 0 and expired.total_seconds() > 0 else expired.days,
-                    'start_at': instance.start_at,
-                    'expired_at': instance.expired_at
-                }
-                return Response(xresult(data=data))
-            else:
-                return Response(xresult(data=serializer.data))
+            return Response(xresult(data=serializer.data))
         except Exception as ex:
             log.error(ex)
             return Response(xresult(data={'status': False}))
