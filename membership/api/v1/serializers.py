@@ -44,7 +44,7 @@ class VIPInfoSerializer(serializers.ModelSerializer):
 
     def get_opened(self, info):
         delta = timezone.now().date() - info.start_at.date()
-        return delta.days + 1
+        return delta.days
 
     def get_remain(self, info):
         delta = info.expired_at.date() - timezone.now().date()
