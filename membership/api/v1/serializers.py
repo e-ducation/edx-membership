@@ -40,6 +40,7 @@ class VIPInfoSerializer(serializers.ModelSerializer):
     status = serializers.SerializerMethodField()
     opened = serializers.SerializerMethodField()
     remain = serializers.SerializerMethodField()
+    expired = serializers.SerializerMethodField()
 
     def get_opened(self, info):
         delta = timezone.now().date() - info.start_at.date()
@@ -51,10 +52,14 @@ class VIPInfoSerializer(serializers.ModelSerializer):
 
     def get_status(self, info):
         return info.expired_at >= timezone.now()
+    
+    def get_expired(self, info):
+        delta = timezone.now().date() - info.expired_at.date() 
+        return delta.days
 
     class Meta:
         model = VIPInfo
-        fields = ('start_at', 'expired_at', 'status', 'opened', 'remain')
+        fields = ('start_at', 'expired_at', 'status', 'opened', 'remain', 'expired')
 
 
 class CourseOverviewField(serializers.RelatedField):
