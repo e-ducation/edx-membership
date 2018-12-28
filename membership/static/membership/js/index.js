@@ -18,6 +18,9 @@ var getPackages = function (){
         }
     });
 }
+Number.prototype.toCeil = function (num) {
+    return Math.ceil(this * Math.pow(10, num)) / Math.pow(10, num);
+};
 var vipListRender = function(data){
     // mobile 
     var $payItem = $('.pay-item');
@@ -38,13 +41,15 @@ var vipListRender = function(data){
         $p[1].innerHTML = '¥' + data[i].suggested_price;
         $price[0].innerHTML = '¥' + data[i].price.split('.')[0];
         $price[1].innerHTML =  '.' + data[i].price.split('.')[1];
-        if(data[i].month != 1) $price[2].innerHTML = gettext('Average per month')+ (data[i].price / data[i].month).toFixed(2);
+        if(data[i].month != 1) $price[2].innerHTML = gettext('Average per month')+ (data[i].price / data[i].month).toCeil(2);
         // pc 
         $header[i].innerHTML = data[i].name;
         $number[i].innerHTML = '¥' + data[i].price.split('.')[0];
         $trail[i].innerHTML  = '.' + data[i].price.split('.')[1];
         $delete[i].innerHTML = '¥' + data[i].suggested_price;
-        $hint[i] = data[i].month != 1  ? gettext('Average per month')+ (data[i].price / data[i].month).toFixed(2) : '';
+        var text = data[i].month != 1  ? gettext('Average per month')+ (data[i].price / data[i].month).toCeil(2) : '';
+        console.log(text)
+        $hint[i].innerHTML = text;
     }
     for (var i =3,len = data.length; i >=len ;i--){
         $list.eq(i).hide();
