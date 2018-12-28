@@ -765,6 +765,8 @@ class MobileVIPAppleReceiptVerify(APIView):
             verify_status = 1  # 0 success; 1 fail
             req_url = (settings.APPLE_VERIFY_RECEIPT_SANDBOX_URL if settings.APPLE_VERIFY_RECEIPT_IS_SANDBOX else
                        settings.APPLE_VERIFY_RECEIPT_URL)
+            log.info('************ verify url *************')
+            log.info(req_url)
             receipt_data = json.dumps({"receipt-data": request.POST['receipt']})
             verify_resp = requests.post(req_url, data=receipt_data).json()
 
