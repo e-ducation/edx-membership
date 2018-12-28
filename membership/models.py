@@ -59,9 +59,9 @@ class VIPInfo(models.Model):
             info = VIPInfo.objects.get(user=user.id)
             start_at = info.start_at
             expired_at = info.expired_at
-            vip_pass = timezone.now() - info.start_at
-            vip_remain = info.expired_at - timezone.now()
-            vip_expired = timezone.now() - info.expired_at
+            vip_pass = timezone.now().date() - info.start_at.date()
+            vip_remain = info.expired_at.date() - timezone.now().date()
+            vip_expired = timezone.now().date() - info.expired_at.date()
         except VIPInfo.DoesNotExist:
             start_at = ''
             expired_at = ''
