@@ -48,7 +48,6 @@ var vipListRender = function(data){
         $trail[i].innerHTML  = '.' + data[i].price.split('.')[1];
         $delete[i].innerHTML = '¥' + data[i].suggested_price;
         var text = data[i].month != 1  ? gettext('Average per month')+ (data[i].price / data[i].month).toCeil(2) : '';
-        console.log(text)
         $hint[i].innerHTML = text;
     }
     for (var i =3,len = data.length; i >=len ;i--){
