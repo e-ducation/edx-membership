@@ -83,11 +83,11 @@ var wxH5Payer = function(id){
             if (res.code == 0) {
                 window.location.href = res.data.mweb_url;
             }else{
-                alert(gettext("调起支付失败"));
+                alert(gettext("Failed to pay the payment"));
             }
         },
         error: function(){
-            alert(gettext("调起支付失败"));
+            alert(gettext("Failed to pay the payment"));
         },
         async: false // 防止拦截
     })

@@ -92,7 +92,7 @@ $.ajax({
 
         }
 
-        isBtnVip = '<div class="become-vip">' + gettext('续费') + '</div>';
+        isBtnVip = '<div class="become-vip">' + gettext('Renew') + '</div>';
       }
       //不是会员
       else {
