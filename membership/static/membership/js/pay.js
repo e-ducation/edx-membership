@@ -99,8 +99,7 @@ var aliH5Payer = function(id){
         xhrFields: { withCredentials: true},
         success: function(res){
             if (res.code == 0){
-                var tempwindow = window.open("",'_blank');
-                tempwindow.location = res.data.alipay_url;
+                window.location.href = res.data.alipay_url;
                 // var checker =  new checkStatus()
                 // checker.start(function(){
                 //     alert('支付成功')
