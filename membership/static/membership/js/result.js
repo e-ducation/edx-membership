@@ -9,7 +9,7 @@ $(document).ready(function(){
         $('.wxpay-tips')[0].innerHTML = StringUtils.interpolate(
             gettext('Return to EliteMBA in {second} seconds'),
             {
-                secone: time
+                second: time
             }
         )
     }
