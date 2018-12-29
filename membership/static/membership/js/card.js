@@ -331,7 +331,7 @@ $('.e-popup-colse,.popup-btnGrounp a:nth-of-type(1)').click(function(){
   $(".eliteu-popup").hide();
 });
 // 支付完成
-$('.popup-btnGrounp a:nth-of-type(2)').click(function(){
+$('.popup-btnGrounp a:nth-of-type(2),.popup-btnGrounp a:nth-of-type(3)').click(function(){
   window.location.reload();
 })
 
