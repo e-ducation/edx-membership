@@ -46,9 +46,9 @@
     }
   }
   .popup-btnGrounp{  
-    width: 316px; 
+    width: 280px; 
     margin: 0 auto;
-    background: #000;
+    // background: #000;
     font-size: 14px;
     a{  
       display: inline-block;
@@ -64,13 +64,13 @@
       background-color: #f7fbfe;
       color:#4a8ac8;
       padding:0 10px;
-      margin-right: 12px;
+      margin-right: 10px;
       border-radius: 2px;
     }
     a:nth-of-type(2){ 
       float: left;
       margin: 0 auto;
-      width: 90px;
+      // width: 90px;
       padding: 0 18px;
       background: $buleFont;
       color: #fff;
