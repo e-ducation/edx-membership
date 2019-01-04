@@ -51,8 +51,8 @@ $.ajax({
             var vip =
               '<ul class="vip-basic-inf">' +
               '<li class="has-vip-time">' + gettext("Membership opened") + '<span>' + data["aredyTime"] + '</span>' + gettext("day") + gettext("Remaining days") + '<span class="has-time">' + data["hasTime"] + '</span>' + gettext("day") + '</li>' +
-              '<li>' + gettext("Opened on:") + '<span>' + data["sTime"] + '</span></li>' +
-              '<li>' + gettext("Expire on:") + '<span>' + data["eTime"] + '</span></li>' +
+              '<li>' + pgettext("Membership", "Opened:") + '<span>' + data["sTime"] + '</span></li>' +
+              '<li>' + pgettext("Membership", "Expire:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
           }
           else {
@@ -76,8 +76,8 @@ $.ajax({
             var vip =
               '<ul class="vip-basic-inf">' +
               '<li class="has-vip-time">' + gettext("Membership expired") + '<span class="has-time orange">' + data["expiredTime"] + '</span>' + gettext("day") + '</li>' +
-              '<li>' + gettext("Opened on:") + '<span>' + data["sTime"] + '</span></li>' +
-              '<li>' + gettext("Expire on:") + '<span>' + data["eTime"] + '</span></li>' +
+              '<li>' + pgettext("Membership", "Opened:") + '<span>' + data["sTime"] + '</span></li>' +
+              '<li>' + pgettext("Membership", "Expire:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
           }
           else {
