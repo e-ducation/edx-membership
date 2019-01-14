@@ -5,13 +5,9 @@ $(document).ready(function(){
             clearInterval(timer);
             return ;
         }
-        time --;
-        $('.wxpay-tips')[0].innerHTML = StringUtils.interpolate(
-            gettext('Return to EliteMBA in {second} seconds'),
-            {
-                second: time
-            }
-        )
+        time --;        
+        fmts = gettext('Return to EliteMBA in %s seconds')
+        $('.wxpay-tips')[0].innerHTML = interpolate(fmts, [time]);
     }
     var timer = setInterval(odd,1000)
     setTimeout(function(){
