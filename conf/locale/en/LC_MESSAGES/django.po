@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2019-01-04 16:04+0800\n"
-"PO-Revision-Date: 2019-01-04 08:04:48.221377\n"
+"POT-Creation-Date: 2019-01-14 10:06+0800\n"
+"PO-Revision-Date: 2019-01-14 02:06:46.408129\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -245,7 +245,7 @@ msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"*All course updates reserved to Eliteu and Eliteu has the final "
+"*All course updates reserved to EliteMBA and EliteMBA has the final "
 "interpretation."
 msgstr ""
 
@@ -356,7 +356,7 @@ msgid "View More"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Become Eliteu Member"
+msgid "Become EliteMBA Member"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -365,7 +365,7 @@ msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"Enjoy learning all courses in the Eliteu MBA school during the study "
+"Enjoy learning all courses in the EliteMBA MBA school during the study "
 "period，You can join the new class online now!"
 msgstr ""
 
@@ -417,7 +417,8 @@ msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"Enjoy learning all courses in the Eliteu MBA school during the study period"
+"Enjoy learning all courses in the EliteMBA MBA school during the study "
+"period"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -455,25 +456,25 @@ msgstr ""
 #: membership/templates/membership/index.html
 msgid ""
 "There is a gap called self-discipline outside of 8 hours. Start with the "
-"Eliteu and become a self-disciplined full-stack workplace!"
+"EliteMBA and become a self-disciplined full-stack workplace!"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Eliteu Theory"
+msgid "EliteMBA Theory"
 msgstr ""
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
-msgid "Eliteu MBA school cashier"
+msgid "EliteMBA school cashier"
 msgstr ""
 
 #: membership/templates/membership/result.html
-msgid "Eliteu MBA school cashier payment success"
+msgid "EliteMBA school cashier payment success"
 msgstr ""
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
-msgid "Return to Eliteu MBA school in 3 seconds"
+msgid "Return to EliteMBA school in 3 seconds"
 msgstr ""
 
 #: membership/templates/membership/result.html
