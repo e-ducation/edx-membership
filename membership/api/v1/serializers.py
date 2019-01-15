@@ -41,6 +41,7 @@ class VIPInfoSerializer(serializers.ModelSerializer):
     opened = serializers.SerializerMethodField()
     remain = serializers.SerializerMethodField()
     expired = serializers.SerializerMethodField()
+    last_start_at = serializers.SerializerMethodField()
 
     def get_opened(self, info):
         delta = timezone.now().date() - info.start_at.date()
@@ -57,9 +58,26 @@ class VIPInfoSerializer(serializers.ModelSerializer):
         delta = timezone.now().date() - info.expired_at.date() 
         return delta.days
 
+    def get_last_start_at(self, info):
+        """
+        获取最后一次开通时间
+        :param info:
+        :return:
+        """
+        last_start_at = ''
+        vip_order = VIPOrder.objects.filter(
+            created_by=self.context['request'].user,
+            status=VIPOrder.STATUS_SUCCESS
+        ).order_by('-id').first()
+
+        if vip_order:
+            last_start_at = vip_order.start_at
+
+        return last_start_at
+
     class Meta:
         model = VIPInfo
-        fields = ('start_at', 'expired_at', 'status', 'opened', 'remain', 'expired')
+        fields = ('start_at', 'expired_at', 'status', 'opened', 'remain', 'expired', 'last_start_at')
 
 
 class CourseOverviewField(serializers.RelatedField):
