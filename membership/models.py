@@ -38,8 +38,8 @@ class VIPInfo(models.Model):
     class Meta(object):
         app_label = 'membership'
 
-    def new_expired_at(self, month):
-        return self.expired_at + relativedelta(months=+int(month))
+    def new_expired_at(self, days):
+        return self.expired_at + relativedelta(days=+int(days))
 
     @classmethod
     def get_vipinfo_for_user(cls, user):
@@ -104,12 +104,13 @@ class VIPPackage(models.Model):
 
     name = models.CharField(max_length=64)
     month = models.IntegerField()
+    days = models.IntegerField()
     is_active = models.BooleanField(default=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     price = models.DecimalField(default=0.0, decimal_places=2, max_digits=30)
     suggested_price = models.DecimalField(
         default=0.0, decimal_places=2, max_digits=30)
-    is_recommended = models.BooleanField(default=False)
+    is_recommended = models.BooleanField(default=False) 
 
     class Meta(object):
         app_label = 'membership'
@@ -164,6 +165,7 @@ class VIPOrder(models.Model):
 
     name = models.CharField(max_length=64)
     month = models.IntegerField()
+    days = models.IntegerField()
     trans_at = models.DateTimeField(auto_now_add=True)
     start_at = models.DateTimeField()
     expired_at = models.DateTimeField()
@@ -208,11 +210,11 @@ class VIPOrder(models.Model):
             if user_info and user_info.is_vip(user):
                 start_at = user_info.expired_at
                 expired_at = user_info.expired_at + \
-                    relativedelta(months=+int(vip_package.month))
+                    relativedelta(days=+int(vip_package.days))
             else:
                 start_at = datetime.now(pytz.utc)
                 expired_at = start_at + \
-                    relativedelta(months=+int(vip_package.month))
+                    relativedelta(days=+int(vip_package.days))
             try:
                 order = cls.objects.filter(
                     created_by=user, status=cls.STATUS_WAIT).order_by('-id')[:1].get()
@@ -220,6 +222,7 @@ class VIPOrder(models.Model):
                 order.expired_at = expired_at
                 order.name = vip_package.name
                 order.month = vip_package.month
+                order.days = vip_package.days
                 order.price = vip_package.price
                 order.suggested_price = vip_package.suggested_price
                 order.trans_at = datetime.now(pytz.utc)
@@ -229,6 +232,7 @@ class VIPOrder(models.Model):
                     created_by=user,
                     name=vip_package.name,
                     month=vip_package.month,
+                    days=vip_package.days,
                     status=cls.STATUS_WAIT,
                     start_at=start_at,
                     expired_at=expired_at,
@@ -263,15 +267,15 @@ class VIPOrder(models.Model):
         vip_info = VIPInfo.get_vipinfo_for_user(self.created_by)
         if vip_info:
             if vip_info.is_vip(self.created_by):
-                vip_info.expired_at = vip_info.new_expired_at(self.month)
+                vip_info.expired_at = vip_info.new_expired_at(self.days)
             else:
                 vip_info.start_at = datetime.now(pytz.utc)
                 vip_info.expired_at = vip_info.start_at + \
-                    relativedelta(months=+int(self.month))
+                    relativedelta(days=+int(self.days))
             vip_info.save()
         else:
             expired_at = datetime.now(pytz.utc) + \
-                relativedelta(months=+int(self.month))
+                relativedelta(days=+int(self.days))
             VIPInfo.objects.create(user=self.created_by, expired_at=expired_at)
 
     def __unicode__(self):
