@@ -37,11 +37,10 @@ from membership.models import VIPInfo
         <header>
             <div class="vip-box">
                 <div class="vip-message outer-wrapper">
-                    <p class="vip-name">${_(u"Elite MBA VIP membership")}</p>
+                    <p class="vip-name">${_(u"Elite MBA VIP membership")}<a style="font-size:14px;color: #346ca3;margin-left: 10px;" href="${reverse('membership')}">${_(u"View Introduction")}</a></p>
                     <span class="vip-line"></span>
                     <div class="jq-vip-message">
-                        <!--  -->
-                        <a class="vip-instro" href="${reverse('membership')}">${_(u"View Introduction")}</a>
+                        <a class="vip-instro" href="/">${_(u"Select a course")}</a>
                     </div>
                 </div>
             </div>

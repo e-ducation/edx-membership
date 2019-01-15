@@ -40,56 +40,45 @@ $.ajax({
         hasTime: res.remain,
         expiredTime:res.expired,
         sTime: moment(res.start_at).format(gettext("YYYY-MM-DD")),
-        eTime: moment(res.expired_at).format(gettext("YYYY-MM-DD"))
+        eTime: moment(res.expired_at).format(gettext("YYYY-MM-DD")),
+        // 如果最后开通时间为空，取开通时间
+        lTime: res.last_start_at == '' ? moment(res.start_at).format(gettext("YYYY-MM-DD")) : moment(res.last_start_at).format(gettext("YYYY-MM-DD"))
       }
-
+      var lang = document.querySelector('html').getAttribute('lang');
       if (res.start_at != undefined) {
         //会员未过期
         if (data["isVip"] === true) {
-
-          if (phone) {
-            var vip =
-              '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">' + gettext("Membership opened:") + '<span>' + ' ' + data["aredyTime"] + '</span>' + gettext("day") + gettext("Remaining days:") + '<span class="has-time">' + data["hasTime"] + '</span>' + gettext("day") + '</li>' +
-              '<li>' + gettext("Duration:") + '<span>' + data["sTime"] + ' ~ ' + data["eTime"] + '</span></li>' +
-              '</ul>';
+          var $tips = undefined;
+          if (lang == 'zh-cn'){
+            $tips = '<li class="has-vip-time">会员身份将在<span class="has-time">' + data["hasTime"] + '</span>天后过期</li>'
+          } else{
+            $tips = '<li class="has-vip-time">VIP membership will expire in <span class="has-time">' + data["hasTime"] + '</span> days</li>'
           }
-          else {
-
-            var vip =
+          var vip =
               '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">' + gettext("Membership opened:") + '<span>' + data["aredyTime"] + '</span>' + gettext("day") + gettext("Remaining days:") + '<span class="has-time">' + data["hasTime"] + '</span>' + gettext("day") + '</li>' +
-              '<li>' + gettext("Opened on:") + '<span>' + data["sTime"] + '</span></li>' +
-              '<li>' + gettext("Expire on:") + '<span>' + data["eTime"] + '</span></li>' +
+              $tips+
+              '<li>' + gettext("Last open date:") + '<span>' + data["lTime"] + '</span></li>' +
+              '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
               '</ul>';
-          }
-
           $(".jq-vip-message").prepend(vip);
 
         }
         //会员已过期
         else {
-
-          if (phone) {
-
-            var vip =
-              '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">' + gettext("Membership opened:") + '<span>' + data["aredyTime"] + '</span>' + gettext("day") + gettext("Remaining days:") + '<span class="has-time">' + data["hasTime"] + '</span>' + gettext("day") + '</li>' +
-              '<li>' + gettext("Duration:") + '<span>' + data["sTime"] + ' ~ ' + data["eTime"] + '</span></li>' +
-              '</ul>';
+          var $tips = undefined;
+          if (lang == 'zh-cn'){
+            $tips = '<li class="has-vip-time">会员身份已在<span class="has-time orange">' + data["expiredTime"] + '</span>天前过期</li>'
+          } else{
+            $tips = '<li class="has-vip-time">VIP membership has expired in <span class="has-time orange">' + data["expiredTime"] + '</span> days</li>'
           }
-          else {
-            var vip =
-              '<ul class="vip-basic-inf">' +
-              '<li class="has-vip-time">' + gettext("Membership expired:") + '<span class="has-time orange">' + data["expiredTime"] + '</span>' + gettext("day") + '</li>' +
-              '<li>' + gettext("Opened on:") + '<span>' + data["sTime"] + '</span></li>' +
-              '<li>' + gettext("Expire on:") + '<span>' + data["eTime"] + '</span></li>' +
-              '</ul>';
-          }
+          var vip =
+          '<ul class="vip-basic-inf">' +
+          $tips+
+          '<li>' + gettext("Last open date:") + '<span>' + data["lTime"] + '</span></li>' +
+          '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
+          '</ul>';
           $(".jq-vip-message").prepend(vip);
-
         }
-
         isBtnVip = '<div class="become-vip">' + gettext('Renew') + '</div>';
       }
       //不是会员
