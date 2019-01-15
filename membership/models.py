@@ -55,6 +55,8 @@ class VIPInfo(models.Model):
 
     @classmethod
     def get_vip_info_for_mobile(cls, user):
+
+        last_start_at = ''
         try:
             info = VIPInfo.objects.get(user=user.id)
             start_at = info.start_at
@@ -75,7 +77,6 @@ class VIPInfo(models.Model):
             vip_pass = None
             vip_remain = None
             vip_expired = None
-            last_start_at = None
 
         vip_info = {
             'start_at': start_at,
