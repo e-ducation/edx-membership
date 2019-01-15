@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2019-01-12 12:02+0800\n"
+"POT-Creation-Date: 2019-01-15 19:13+0800\n"
 "PO-Revision-Date: 2018-12-07 12:23+0000\n"
 "Last-Translator: li ying <code@eliteu.cn>, 2019\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/e-ducation/teams/93939/zh_CN/)\n"
@@ -48,7 +48,7 @@ msgstr "已退款"
 
 #: membership/models.py
 msgid "Balance"
-msgstr "账户余额"
+msgstr "账号余额"
 
 #: membership/models.py
 msgid "Offline"
@@ -111,6 +111,10 @@ msgstr "英荔商学院VIP会员"
 #: membership/templates/membership/card.html
 msgid "View Introduction"
 msgstr "查看介绍"
+
+#: membership/templates/membership/card.html
+msgid "Select a course"
+msgstr "加入课程"
 
 #: membership/templates/membership/card.html
 msgid "Choose a payment method"
@@ -276,7 +280,7 @@ msgstr "萧柏春 博士"
 msgid ""
 "Lifetime Professor and Dean of Management Major in School of Business, Long "
 "Island University - C. W. Post, USA"
-msgstr "改为 美国长岛大学商学院管理系主任，终身教授"
+msgstr "美国长岛大学商学院管理系主任，终身教授"
 
 #: membership/templates/membership/index.html
 msgid "Dr. Lloyd E. Shefsky"
