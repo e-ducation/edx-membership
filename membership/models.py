@@ -62,12 +62,20 @@ class VIPInfo(models.Model):
             vip_pass = timezone.now().date() - info.start_at.date()
             vip_remain = info.expired_at.date() - timezone.now().date()
             vip_expired = timezone.now().date() - info.expired_at.date()
+            vip_order = VIPOrder.objects.filter(
+                created_by=user,
+                status=VIPOrder.STATUS_SUCCESS
+            ).order_by('-id').first()
+
+            if vip_order:
+                last_start_at = vip_order.start_at
         except VIPInfo.DoesNotExist:
             start_at = ''
             expired_at = ''
             vip_pass = None
             vip_remain = None
             vip_expired = None
+            last_start_at = None
 
         vip_info = {
             'start_at': start_at,
@@ -75,7 +83,8 @@ class VIPInfo(models.Model):
             'is_vip': cls.is_vip(user),
             'vip_pass_days': vip_pass and vip_pass.days or 0,
             'vip_remain_days': vip_remain and vip_remain.days or 0,
-            'vip_expired_days': vip_expired and vip_expired.days or 0
+            'vip_expired_days': vip_expired and vip_expired.days or 0,
+            'last_start_at': last_start_at
         }
         return vip_info
 
