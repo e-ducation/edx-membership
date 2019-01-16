@@ -25,7 +25,7 @@ class PackageListSerializer(serializers.ModelSerializer):
     class Meta:
         model = VIPPackage
         fields = ('id', 'name', 'month', 'price', 'suggested_price',
-                  'is_recommended')
+                  'is_recommended', 'days')
 
 
 class VIPOrderSerializer(serializers.ModelSerializer):
