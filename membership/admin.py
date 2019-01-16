@@ -61,7 +61,8 @@ class VIPPackageAdmin(admin.ModelAdmin):
         'is_active',
         'price',
         'suggested_price',
-        'is_recommended'
+        'is_recommended',
+        'days'
     )
 
 
@@ -83,5 +84,6 @@ class VIPOrderAdmin(admin.ModelAdmin):
         'created_by',
         'refno',
         'outtradeno',
-        'pay_type'
+        'pay_type',
+        'days'
     )
