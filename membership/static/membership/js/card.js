@@ -207,7 +207,7 @@ $.ajax({
         }
         orderId = data[_index].id;
         // 初始化信息
-        $(".vip-name-pay").text(data[_index].name)
+        $(".vip-name-pay").text(data[_index].days)
         $(".pay-box .pay-money-card").html('￥' + data[_index].price.split(".")[0]);
         $(".pay-box .pay-money-card01").html('.' + data[_index].price.split(".")[1]);
         
@@ -234,7 +234,7 @@ $(".jq-card").on('click', 'li', function () {
   $(".pay-box .pay-money-card").html('￥' + vipCard[i].price.split(".")[0]);
   $(".pay-box .pay-money-card01").html('.' + vipCard[i].price.split(".")[1]);
 
-  $(".vip-name-pay").text(vipCard[i].name);
+  $(".vip-name-pay").text(vipCard[i].days);
 
   // 三角形移动
   $(".triangle_border_up").stop().animate({
