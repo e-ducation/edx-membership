@@ -1,7 +1,7 @@
-var getQueryString = function(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
-  var r = window.location.search.substr(1).match(reg); 
-  if (r != null) return unescape(r[2]); return null; 
+var getQueryString = function (name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]); return null;
 }
 var vipCard = ""
 //暴露付款方式以及会员价格提供到支付接口
@@ -22,7 +22,8 @@ var isBtnVip = '<div class="become-vip">' + gettext('Open membership') + '</div>
 var phone = isMoblie();
 //不是会员
 var novip = '<p class="no-vip">' + gettext('Become a VIP member and watch all EliteMBA courses for free') + '</p>';
-
+var infoLoading = true;
+// vip 信息加载
 $.ajax({
   type: "get",
   url: "/api/v1/vip/info",
@@ -38,7 +39,7 @@ $.ajax({
         isTimeout: moment(res.expired_at) < moment(),
         aredyTime: res.opened,
         hasTime: res.remain,
-        expiredTime:res.expired,
+        expiredTime: res.expired,
         sTime: moment(res.start_at).format(gettext("YYYY-MM-DD")),
         eTime: moment(res.expired_at).format(gettext("YYYY-MM-DD")),
         // 如果最后开通时间为空，取开通时间
@@ -49,34 +50,34 @@ $.ajax({
         //会员未过期
         if (data["isVip"] === true) {
           var $tips = undefined;
-          if (lang == 'zh-cn'){
+          if (lang == 'zh-cn') {
             $tips = '<li class="has-vip-time">会员身份将在<span class="has-time">' + data["hasTime"] + '</span>天后过期</li>'
-          } else{
+          } else {
             $tips = '<li class="has-vip-time">VIP membership will expire in <span class="has-time">' + data["hasTime"] + '</span> days</li>'
           }
           var vip =
-              '<ul class="vip-basic-inf">' +
-              $tips+
-              '<li>' + gettext("Open date:") + '<span>' + data["lTime"] + '</span></li>' +
-              '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
-              '</ul>';
+            '<ul class="vip-basic-inf">' +
+            $tips +
+            '<li>' + gettext("Open date:") + '<span>' + data["lTime"] + '</span></li>' +
+            '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
+            '</ul>';
           $(".jq-vip-message").prepend(vip);
 
         }
         //会员已过期
         else {
           var $tips = undefined;
-          if (lang == 'zh-cn'){
+          if (lang == 'zh-cn') {
             $tips = '<li class="has-vip-time">会员身份已在<span class="has-time orange">' + data["expiredTime"] + '</span>天前过期</li>'
-          } else{
+          } else {
             $tips = '<li class="has-vip-time">VIP membership has expired in <span class="has-time orange">' + data["expiredTime"] + '</span> days</li>'
           }
           var vip =
-          '<ul class="vip-basic-inf">' +
-          $tips+
-          '<li>' + gettext("Last open date:") + '<span>' + data["lTime"] + '</span></li>' +
-          '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
-          '</ul>';
+            '<ul class="vip-basic-inf">' +
+            $tips +
+            '<li>' + gettext("Last open date:") + '<span>' + data["lTime"] + '</span></li>' +
+            '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
+            '</ul>';
           $(".jq-vip-message").prepend(vip);
         }
         isBtnVip = '<div class="become-vip">' + gettext('Renew') + '</div>';
@@ -85,6 +86,7 @@ $.ajax({
       else {
         $(".jq-vip-message").prepend(novip);
       }
+      infoLoading = false;
     }
 
   },
@@ -107,97 +109,110 @@ $.ajax({
   type: "get",
   url: "/api/v1/vip/packages",
   success: function (data) {
-
-    var data = data.data.results;
-    var card = '';
-    vipCard = data;
-    var target = getQueryString('id');
-    for (var i = 0; i < data.length; i++) {
-
-      //PC端
-      var d1;
-      if (target !=undefined && target == data[i].id){
-        d1 = '<li class="current" data-id="pay' + data[i].id + '">'
-      }else if (target ==undefined && i == 0) {
-        d1 = '<li class="current" data-id="pay' + data[i].id + '">'
+    var timer = setInterval(() => {
+      
+      update(data)
+    }, 100);
+    var update = function (data) {
+      if (infoLoading) {
+        console.log('123')
+        return
       } else {
-        d1 = '<li data-id="pay' + data[i].id + '">'
-      }
+        // 清除计时器
+        clearInterval(timer)
+        var data = data.data.results;
+        var card = '';
+        vipCard = data;
+        var target = getQueryString('id');
+        for (var i = 0; i < data.length; i++) {
 
-      if (data[i].is_recommended === true) {
-        card += d1 +
-          '<div class="vip-card-header">' +
-          '<p>' + data[i].name + '</p>' +
-          '</div>' +
-          '<div class="vip-card-body">' +
-          '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
-          '<p class="old-money">￥' + data[i].suggested_price + '</p>' +
-          isBtnVip +
-          '</div>' +
-          '<div class="recommend"></div>' +
-          '</li>'
-      }
-      else {
-        card += d1 +
-          '<div class="vip-card-header">' +
-          '<p>' + data[i].name + '</p>' +
-          '</div>' +
-          '<div class="vip-card-body">' +
-          '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
-          '<p class="old-money">￥' + data[i].suggested_price + '</p>' +
-          isBtnVip +
-          '</div>' +
-          '</li>'
-      }
+          //PC端
+          var d1;
+          if (target != undefined && target == data[i].id) {
+            d1 = '<li class="current" data-id="pay' + data[i].id + '">'
+          } else if (target == undefined && i == 0) {
+            d1 = '<li class="current" data-id="pay' + data[i].id + '">'
+          } else {
+            d1 = '<li data-id="pay' + data[i].id + '">'
+          }
 
-    }
+          if (data[i].is_recommended === true) {
+            card += d1 +
+              '<div class="vip-card-header">' +
+              '<p>' + data[i].name + '</p>' +
+              '</div>' +
+              '<div class="vip-card-body">' +
+              '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
+              '<p class="old-money">￥' + data[i].suggested_price + '</p>' +
+              isBtnVip +
+              '</div>' +
+              '<div class="recommend"></div>' +
+              '</li>'
+          }
+          else {
+            card += d1 +
+              '<div class="vip-card-header">' +
+              '<p>' + data[i].name + '</p>' +
+              '</div>' +
+              '<div class="vip-card-body">' +
+              '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
+              '<p class="old-money">￥' + data[i].suggested_price + '</p>' +
+              isBtnVip +
+              '</div>' +
+              '</li>'
+          }
 
-    $(".jq-card").prepend(card);
-
-    
-    money = data[0].price;
-   
-
-    //手机端
-    var h5Card = "";
-    for (var i = 0; i < data.length; i++) {
-
-      if (data[i].is_recommended === true) {
-        h5Card += '<div>' +
-          '<div class="card-h5-message">' +
-          '<p>' + data[i].name + '</p>' +
-          '<p>' + data[i].suggested_price + '</p>' +
-          '</div>' +
-          '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
-          '<div class="h5-recommend"></div>' +
-          '</div>'
-      }
-      else {
-        h5Card += '<div>' +
-          '<div class="card-h5-message">' +
-          '<p>' + data[i].name + '</p>' +
-          '<p>' + data[i].suggested_price + '</p>' +
-          '</div>' +
-          '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
-          '</div>'
-      }
-    }
-    $(".h5-card").prepend(h5Card);
-
-    // target init 
-    var _index = 0;
-    if (target != undefined){
-      for(var i = 0,len =data.length;i <len;i++){
-        if (data[i].id == target){
-          _index = i
         }
+
+        $(".jq-card").prepend(card);
+
+
+        money = data[0].price;
+
+
+        //手机端
+        var h5Card = "";
+        for (var i = 0; i < data.length; i++) {
+
+          if (data[i].is_recommended === true) {
+            h5Card += '<div>' +
+              '<div class="card-h5-message">' +
+              '<p>' + data[i].name + '</p>' +
+              '<p>' + data[i].suggested_price + '</p>' +
+              '</div>' +
+              '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
+              '<div class="h5-recommend"></div>' +
+              '</div>'
+          }
+          else {
+            h5Card += '<div>' +
+              '<div class="card-h5-message">' +
+              '<p>' + data[i].name + '</p>' +
+              '<p>' + data[i].suggested_price + '</p>' +
+              '</div>' +
+              '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
+              '</div>'
+          }
+        }
+        $(".h5-card").prepend(h5Card);
+
+        // target init 
+        var _index = 0;
+        if (target != undefined) {
+          for (var i = 0, len = data.length; i < len; i++) {
+            if (data[i].id == target) {
+              _index = i
+            }
+          }
+        }
+        orderId = data[_index].id;
+        // 初始化信息
+        $(".vip-name-pay").text(data[_index].name)
+        $(".pay-box .pay-money-card").html('￥' + data[_index].price.split(".")[0]);
+        $(".pay-box .pay-money-card01").html('.' + data[_index].price.split(".")[1]);
+        
       }
     }
-    orderId = data[_index].id;
-    // 初始化信息
-    $(".vip-name-pay").text(data[_index].name)
-    $(".pay-box .pay-money-card").html('￥' + data[_index].price.split(".")[0]);
-    $(".pay-box .pay-money-card01").html('.' + data[_index].price.split(".")[1]);
   },
   error: function (error) {
 
@@ -278,7 +293,7 @@ $(".pay li").click(function () {
 })
 
 $(".paybtn").click(function () {
-  if(!checkLogin()){
+  if (!checkLogin()) {
     return;
   }
   if (payWay == 0) {
@@ -292,7 +307,7 @@ $(".paybtn").click(function () {
 })
 
 $(".h5btn-pay").click(function () {
-  if(!checkLogin()){
+  if (!checkLogin()) {
     return;
   }
   if (payWay == 0) {
@@ -304,21 +319,21 @@ $(".h5btn-pay").click(function () {
 })
 
 
-function checkLogin(){
+function checkLogin() {
   var vip_status = $('#vip_status').html();
   var card_url = $('#card_url').attr('href');
-  if (vip_status == 'False'){
+  if (vip_status == 'False') {
     window.location.href = card_url;
     return false;
   }
   return true;
 }
 // 弹窗关闭
-$('.e-popup-colse,.popup-btnGrounp a:nth-of-type(1)').click(function(){
+$('.e-popup-colse,.popup-btnGrounp a:nth-of-type(1)').click(function () {
   $(".eliteu-popup").hide();
 });
 // 支付完成
-$('.popup-btnGrounp a:nth-of-type(2),.popup-btnGrounp a:nth-of-type(3)').click(function(){
+$('.popup-btnGrounp a:nth-of-type(2),.popup-btnGrounp a:nth-of-type(3)').click(function () {
   window.location.reload();
 })
 
