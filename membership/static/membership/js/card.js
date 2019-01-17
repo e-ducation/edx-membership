@@ -109,8 +109,7 @@ $.ajax({
   type: "get",
   url: "/api/v1/vip/packages",
   success: function (data) {
-    var timer = setInterval(() => {
-      
+    var timer = setInterval(function(){
       update(data)
     }, 100);
     var update = function (data) {
