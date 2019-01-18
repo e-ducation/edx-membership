@@ -249,7 +249,9 @@ class VIPPayOrderView(APIView):
     返回: 返回order_id
     """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        SessionAuthenticationAllowInactiveUser,
+    )
 
     def post(self, request, *args, **kwargs):
         """
@@ -268,7 +270,9 @@ class VIPAlipayPaying(APIView):
     返回: 跳转到支付宝支付页面
     """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        SessionAuthenticationAllowInactiveUser,
+    )
 
     def get(self, request, *args, **kwargs):
         """
@@ -398,7 +402,9 @@ class VIPWechatPaying(APIView):
     vip wechat paying
     """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        SessionAuthenticationAllowInactiveUser,
+    )
 
     def get(self, request, *args, **kwargs):
         """
@@ -816,7 +822,9 @@ class VIPWechatH5Paying(APIView):
     vip wechat paying
     """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        SessionAuthenticationAllowInactiveUser,
+    )
 
     def get(self, request, *args, **kwargs):
         """
@@ -889,7 +897,9 @@ class VIPAlipayH5Paying(APIView):
         参数：package_id 套餐ID
         """
     permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = (
+        SessionAuthenticationAllowInactiveUser,
+    )
 
     def get(self, request, *args, **kwargs):
         try:
