@@ -5,8 +5,8 @@ The goal of this project is to make learner can subscribe VIP membership of any 
 ## Getting Start
 
 依赖库
-- edx-platform   https://github.com/e-ducation/edx-platform.git
-- edx-membership   https://github.com/e-ducation/edx-membership.git
+- [edx-platform](https://github.com/e-ducation/edx-platform.git)
+- [eliteu-payments](https://github.com/e-ducation/eliteu-payments)
 
 更新 lms.env.json，在 FEATURES 里加上以下字段
 ```json
