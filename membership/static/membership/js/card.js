@@ -172,10 +172,10 @@ $.ajax({
         //手机端
         var h5Card = "";
         for (var i = 0; i < data.length; i++) {
-
+          var $d1 = i == 0 ? '<div class="current">' : '<div>';
           if (data[i].is_recommended === true) {
-            h5Card += '<div>' +
-              '<div class="card-h5-message">' +
+            h5Card += $d1  +
+             '<div class="card-h5-message">' +
               '<p>' + data[i].name + '</p>' +
               '<p>' + data[i].suggested_price + '</p>' +
               '</div>' +
@@ -184,7 +184,7 @@ $.ajax({
               '</div>'
           }
           else {
-            h5Card += '<div>' +
+            h5Card += $d1  +
               '<div class="card-h5-message">' +
               '<p>' + data[i].name + '</p>' +
               '<p>' + data[i].suggested_price + '</p>' +
