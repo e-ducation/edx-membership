@@ -164,7 +164,7 @@ msgstr "英荔商学院"
 
 #: membership/templates/membership/index.html
 msgid "Prestige EMBA courses in America"
-msgstr "美国名校EliteMBA精华课程"
+msgstr "美国名校MBA精华课程"
 
 #: membership/templates/membership/index.html
 msgid "Six Course Specializations of Elite MBA School"
@@ -284,7 +284,7 @@ msgstr "萧柏春 博士"
 msgid ""
 "Lifetime Professor and Dean of Management Major in School of Business, Long "
 "Island University - C. W. Post, USA"
-msgstr "美国长岛大学商学院管理系主任，终身教授"
+msgstr "美国长岛大学商学院管理系主任、终身教授"
 
 #: membership/templates/membership/index.html
 msgid "Dr. Lloyd E. Shefsky"
@@ -294,7 +294,7 @@ msgstr "谢洛德 博士"
 msgid ""
 "Clinical Professor, Founder and Co-director of the Center for Family "
 "Enterprises in Kellogg School of Management at Northwestern University, USA"
-msgstr "原美国西北大学凯洛格商学院家族企业中心创始人，创业专业教授"
+msgstr "原美国西北大学凯洛格商学院家族企业中心创始人、创业专业教授"
 
 #: membership/templates/membership/index.html
 msgid "Prof. Tim Smithe"

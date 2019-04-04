@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2019-01-18 17:45+0800\n"
-"PO-Revision-Date: 2019-01-18 09:45:10.287937\n"
+"POT-Creation-Date: 2019-04-04 10:09+0800\n"
+"PO-Revision-Date: 2019-04-04 02:09:07.537211\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -154,11 +154,11 @@ msgid "Encounter a problem？"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "EliteMBA"
+msgid "Membership of Prestige EMBA Courses in America"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Prestige EMBA courses in America"
+msgid "EliteMBA"
 msgstr ""
 
 #: membership/templates/membership/index.html
