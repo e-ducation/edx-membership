@@ -199,7 +199,7 @@
         }
       }
       .paybtn{  
-        width: 100px;
+        display: inline-block;
         height: $btnHeight;
         background-color: $orangeFont;
         border-radius: 2px;
@@ -208,7 +208,8 @@
         text-align: center;
         line-height: $btnHeight;
         font-size: 14px;
-        cursor: pointer;  
+        cursor: pointer; 
+        padding: 0 20px; 
       }
     }
 

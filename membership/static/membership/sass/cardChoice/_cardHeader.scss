@@ -66,7 +66,6 @@
         }
       }
       .vip-instro{ 
-        width: 90px;
         height: $btnHeight;
         background-color: $buleFont;
         border-radius: 2px;
@@ -80,6 +79,7 @@
         text-shadow: none;
         text-align: center;
         margin-top: 22px;
+        padding: 0 20px;
         &:hover{  
           text-decoration: none;
           background-color: rgba($buleFont,0.9);
