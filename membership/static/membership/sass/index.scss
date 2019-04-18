@@ -72,20 +72,19 @@
             li{
                 list-style: none;
                 padding: 10px;
-                margin-right: 74px;
                 display: inline-block;
-                vertical-align: bottom;
+                vertical-align: text-top;
+                width: 110px;
+                line-height: 1.5;
+                margin: 0 30px;
                 img{
                     width: 62px;
                     // width: 100%;
                 }
                 span{
                     display: block;
-                    padding-top: 12px;
+                    padding-top: 15px;
                 }
-            }
-            li:last-child{
-                margin-right: 0;
             }
         }
         .find-new-course{
@@ -308,12 +307,9 @@
         }
         .characteristic-list{
             li{
-
                 p{
-                    position: absolute;
-                    bottom: 20px;
-                    left: 50%;
-                    margin-left: -28px;
+                    width: 140px;
+                    margin-top: 100px;
                     font-size: 14px;
                     color: #2e313c;
                 }
@@ -362,19 +358,21 @@
             text-decoration: none;
         }
         .characteristic-dialog{
-            width: 850px;
+            width: 90%;
+            max-width: 950px;
             margin: 0 auto;
-            height: 180px;
-            line-height: 180px;
             border-radius: 6px;
             background: #fff;
             position: relative;
             font-size: 16px;
             border: solid 1px #b6dcfe;
+            text-align: left;
 
             .dialog-text{
                 display: inline-block;
                 vertical-align: middle;
+                line-height: 1.8;
+                padding: 80px 35px;
             }
             .characteristic-dialog-icon{
                 position: absolute;
@@ -395,9 +393,6 @@
                 line-height: 24px;
             }
         }
-    }
-    .characteristic-list-mobile{
-        display: none;
     }
     .slider-wrap{
         // height: 300px;
@@ -578,7 +573,9 @@
                     display: block;
                 }
                 li{
-                  margin-right: 20px;
+                  margin: 0;
+                  padding: 20px 10px;
+                  width: 40%;
                   img{
                     //   width: 40px;
                     width: 14vw;
@@ -668,31 +665,33 @@
             font-size: 14px;
         }
         .vip-characteristic-wrap{
-
-            .characteristic-dialog{
-                width: 90%;
-                margin:  0 5%;
-                .characteristic-dialog-icon{
-                    left: 15px;
-                }
-                .characteristic-from-who{
-                    bottom: 24px;
-                }
-                .dialog-text{
-                    display: inline-block;
-                    vertical-align: middle;
-                    position: absolute;
-                    left: 0;
-                    right: 0;
-                    top: 50%;
-                    bottom: 0;
-                    margin-top: -30px;
-                    height: 30px;
-                    text-align: left;
-                    padding: 15px;
-                    line-height: 24px;
-                }
+          .characteristic-dialog{
+              width: 90%;
+              margin:  0 5%;
+              .characteristic-dialog-icon{
+                  left: 15px;
+              }
+              .characteristic-from-who{
+                  bottom: 24px;
+              }
+          }
+          .characteristic-list{
+            height: 220px;
+            width: 290px;
+            li{
+              width: 110px;
+              height: 110px;
+              &.circle-2{ left: 90px; }
+              &.circle-3{ left: 180px; }
+              &.circle-4{ left: 45px; top: 90px; }
+              &.circle-5{ left: 135px; top: 90px; }
+              p{
+                width: 110px;
+                font-size: 12px;
+                margin-top: 77px;
+              }
             }
+          } 
         }
         
         .section.mobile{
@@ -780,9 +779,6 @@
         .section.pc{
             display: none;
         }
-        .characteristic-list{
-            display: none;
-        }
         .vip-characteristic-wrap {
             .vip-characteristic-title{
                 padding-top: 45px;
@@ -791,14 +787,6 @@
             .add-vip-btn{
                 margin-top: 40px;
                 margin-bottom: 30px;
-            }
-        }
-        .characteristic-list-mobile{
-            display: block;
-            width: 80%;
-            margin:  0 auto;
-            img{
-                width: 100%;
             }
         }
     }
