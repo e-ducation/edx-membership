@@ -226,5 +226,9 @@
   left: -2px;
   top: -2px;
   background-size: 45px 41px;
+  &:lang(en){
+    background: url('../images/recommend-en.png') no-repeat top;
+    background-size: 45px 41px;
+  }
 }
 

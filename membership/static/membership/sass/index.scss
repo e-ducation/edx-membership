@@ -517,20 +517,20 @@
         position: absolute;
         left: -2px;
         top: -2px;
-     }
+        &:lang(en){
+          background: url('../images/recommend-en.png') no-repeat top;
+          background-size: 45px 41px;
+        }
+    }
+     
 }
 @media screen and (max-width: 768px){
     .member-ship-wrap{
         .banner{
             width: 100%;
             min-width: 100vw;
-            // height: 146px;
-            min-height: 146px;
-            height: 39vw;
-            // min-width: 1024px;
-            // height: 332px;
-            background: url('../images/bg_tmp.png') no-repeat;
-            position: relative;
+            height: auto;
+            position: static;
         }
         .banner-content{
             &.banner-pc-img{
@@ -541,9 +541,9 @@
             }
         }
         .banner-content{
-            max-width: 95%;
-            min-width: 95%;
-            position: absolute;
+            max-width: 100%;
+            min-width: 100%;
+            position: static;
             left: 0;
             right: 0;
             top: 0;
@@ -721,13 +721,17 @@
                   }
                 }
                 .h5-recommend{ 
-                   width: 45px;
-                   height: 41px;
-                   background: url('../images/recommend.png') no-repeat top;
-                   background-size: 45px 41px;
-                   position: absolute;
-                   left: -2px;
-                   top: -2px;
+                  width: 45px;
+                  height: 41px;
+                  background: url('../images/recommend.png') no-repeat top;
+                  background-size: 45px 41px;
+                  position: absolute;
+                  left: -2px;
+                  top: -2px;
+                  &:lang(en){
+                    background: url('../images/recommend-en.png') no-repeat top;
+                    background-size: 45px 41px;
+                  }
                 }
                 .card-h5-message{  
                   float: left;
