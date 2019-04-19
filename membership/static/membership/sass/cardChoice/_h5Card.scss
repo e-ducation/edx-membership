@@ -75,6 +75,10 @@
      position: absolute;
      left: -2px;
      top: -2px;
+     &:lang(en){
+      background: url('../images/recommend-en.png') no-repeat top;
+      background-size: 45px 41px;
+    }
   }
   .card-h5-message{  
     float: left;
