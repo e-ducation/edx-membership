@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1a\n"
 "Report-Msgid-Bugs-To: openedx-translation@googlegroups.com\n"
-"POT-Creation-Date: 2019-04-04 10:09+0800\n"
-"PO-Revision-Date: 2019-04-04 02:09:07.537211\n"
+"POT-Creation-Date: 2019-04-19 11:45+0800\n"
+"PO-Revision-Date: 2019-04-19 03:45:58.384172\n"
 "Last-Translator: \n"
 "Language-Team: openedx-translation <openedx-translation@googlegroups.com>\n"
 "Language: en\n"
@@ -24,6 +24,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 1.3\n"
+
+#: membership/models.py
+msgid "1 Month"
+msgstr ""
+
+#: membership/models.py
+msgid "3 Months"
+msgstr ""
+
+#: membership/models.py
+msgid "6 Months"
+msgstr ""
+
+#: membership/models.py
+msgid "12 Months"
+msgstr ""
+
+#: membership/models.py
+msgid "24 Months"
+msgstr ""
 
 #: membership/models.py
 msgid "Awaiting for payment"
@@ -272,33 +292,32 @@ msgid ""
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Dr. Bochun Xiao"
+msgid "Dr. Baichun Xiao"
 msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"Lifetime Professor and Dean of Management Major in School of Business, Long "
-"Island University - C. W. Post, USA"
+"Tenured Professor and Chairman of the Department of Management at LIU Post, "
+"USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Dr. Lloyd E. Shefsky"
-msgstr ""
-
-#: membership/templates/membership/index.html
-msgid ""
-"Clinical Professor, Founder and Co-director of the Center for Family "
-"Enterprises in Kellogg School of Management at Northwestern University, USA"
-msgstr ""
-
-#: membership/templates/membership/index.html
-msgid "Prof. Tim Smithe"
+msgid "Lloyd Shefsky"
 msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"Vice President & Chief Management Officer of International Finance Education"
-" Association (IFEA)"
+"Former Clinical Professor of Family Enterprises at Kellogg School of "
+"Management at NU, USA"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid "Tim Smithe"
+msgstr ""
+
+#: membership/templates/membership/index.html
+msgid ""
+"Vice President & CMO of International Finance Education Association (IFEA)"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -306,9 +325,7 @@ msgid "Dr. Wei Yang"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid ""
-"Lifetime Professor in School of Business,  Long Island University - C. W. "
-"Post, USA"
+msgid "Tenured Professor of the School of Business at LIU Post, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -317,8 +334,8 @@ msgstr ""
 
 #: membership/templates/membership/index.html
 msgid ""
-"Prior Assistant Professor of School of Labor and Employment Relations, Penn "
-"State University Park, USA"
+"Former Assistant Professor of School of Labor and Employment Relations at "
+"Penn State, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -326,17 +343,11 @@ msgid "Dr. Jiamin Wang"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid ""
-"Lifetime Professor of Information Management & Technology, Long Island "
-"University - C. W. Post, USA"
-msgstr ""
-
-#: membership/templates/membership/index.html
 msgid "Dr. Tianning Li"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Associate Professor of Finance and Finance, Hood College, USA"
+msgid "Associate Professor of Finance at Hood College, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -344,13 +355,12 @@ msgid "Dr. Jianjun Shi"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid ""
-"Prior President and Professor of the University of International Business "
-"and Economics {br}"
+msgid "Former President and Professor at UIBE"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Professor of Economics in Davidson College"
+msgid ""
+"The Frontis W. Johnston Professor of Economics at Davidson College, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -358,7 +368,7 @@ msgid "Dr. Elia Kacapyr"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Professor of Economics, Ithaca College, USA"
+msgid "Professor of Economics at Ithaca College, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -366,13 +376,7 @@ msgid "Dr. Robert Graham"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Professor of Economics, Hanover College, USA"
-msgstr ""
-
-#: membership/templates/membership/index.html
-msgid ""
-"Prior President and Professor of the University of International Business "
-"and Economics"
+msgid "Professor of Economics at Hanover College, USA"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -454,11 +458,11 @@ msgid "Learning Feature"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Video Lesson"
+msgid "Video"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Interaction within Groups"
+msgid "Group Chat"
 msgstr ""
 
 #: membership/templates/membership/index.html
@@ -466,11 +470,11 @@ msgid "Live Lecture"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Exercise Test"
+msgid "Exam"
 msgstr ""
 
 #: membership/templates/membership/index.html
-msgid "Certificate"
+msgid "Credential"
 msgstr ""
 
 #: membership/templates/membership/index.html
