@@ -138,7 +138,7 @@ $.ajax({
           if (data[i].is_recommended === true) {
             card += d1 +
               '<div class="vip-card-header">' +
-              '<p>' + gettext(data[i].name) + '</p>' +
+              '<p>' + data[i].month + (data[i].month > 1 ? gettext(' Months') : gettext(' Month')) + '</p>' +
               '</div>' +
               '<div class="vip-card-body">' +
               '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
@@ -151,7 +151,7 @@ $.ajax({
           else {
             card += d1 +
               '<div class="vip-card-header">' +
-              '<p>' + gettext(data[i].name) + '</p>' +
+              '<p>' + data[i].month + (data[i].month > 1 ? gettext(' Months') : gettext(' Month')) + '</p>' +
               '</div>' +
               '<div class="vip-card-body">' +
               '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
@@ -176,7 +176,7 @@ $.ajax({
           if (data[i].is_recommended === true) {
             h5Card += $d1  +
              '<div class="card-h5-message">' +
-              '<p>' + data[i].name + '</p>' +
+              '<p>' + data[i].month + (data[i].month > 1 ? gettext(' Months') : gettext(' Month')) + '</p>' +
               '<p>' + data[i].suggested_price + '</p>' +
               '</div>' +
               '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
@@ -186,7 +186,7 @@ $.ajax({
           else {
             h5Card += $d1  +
               '<div class="card-h5-message">' +
-              '<p>' + data[i].name + '</p>' +
+              '<p>' + data[i].month + (data[i].month > 1 ? gettext(' Months') : gettext(' Month')) + '</p>' +
               '<p>' + data[i].suggested_price + '</p>' +
               '</div>' +
               '<div class="card-h5-money"><span>' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</div>' +
