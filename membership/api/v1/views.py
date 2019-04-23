@@ -11,6 +11,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from django.utils import dateparse
+from django.utils.translation import ugettext as _
 
 from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
 from edx_rest_framework_extensions.auth.session.authentication import SessionAuthenticationAllowInactiveUser
@@ -102,6 +103,13 @@ class PackageListAPIView(generics.ListAPIView):
         套餐列表
         '''
         result = super(PackageListAPIView, self).get(request, *args, **kwargs)
+
+        try:
+            for c in result.data['results']:
+                name = _(c['name'])
+                c['name'] = name
+        except Exception as ex:
+            log.error(ex)
         return Response(xresult(data=result.data))
 
 
