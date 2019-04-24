@@ -112,7 +112,20 @@ class VIPInfo(models.Model):
 class VIPPackage(models.Model):
     """ VIP package """
 
-    name = models.CharField(max_length=64)
+    PACKAGE_NAME_ONE_MONTH = '1 Month'  # 1 Month
+    PACKAGE_NAME_THREE_MONTH = '3 Months'  # 3 Months
+    PACKAGE_NAME_SIX_MONTH = '6 Months'  # 6 Months
+    PACKAGE_NAME_ONE_YEAR = '12 Months'  # 12 Months
+    PACKAGE_NAME_TWO_YEARS = '24 Months'  # 12 Months
+    PACKAGE_NAME_CHOICES = (
+        (PACKAGE_NAME_ONE_MONTH, _(u'1 Month')),
+        (PACKAGE_NAME_THREE_MONTH, _(u'3 Months')),
+        (PACKAGE_NAME_SIX_MONTH, _(u'6 Months')),
+        (PACKAGE_NAME_ONE_YEAR, _(u'12 Months')),
+        (PACKAGE_NAME_TWO_YEARS, _(u'24 Months'))
+    )
+
+    name = models.CharField(max_length=64, choices=PACKAGE_NAME_CHOICES)
     month = models.IntegerField()
     days = models.IntegerField()
     is_active = models.BooleanField(default=True)
