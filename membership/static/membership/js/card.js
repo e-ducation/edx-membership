@@ -138,7 +138,7 @@ $.ajax({
           if (data[i].is_recommended === true) {
             card += d1 +
               '<div class="vip-card-header">' +
-              '<p>' + data[i].name + '</p>' +
+              '<p>' + gettext(data[i].name) + '</p>' +
               '</div>' +
               '<div class="vip-card-body">' +
               '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
@@ -151,7 +151,7 @@ $.ajax({
           else {
             card += d1 +
               '<div class="vip-card-header">' +
-              '<p>' + data[i].name + '</p>' +
+              '<p>' + gettext(data[i].name) + '</p>' +
               '</div>' +
               '<div class="vip-card-body">' +
               '<p class="now-money"><span>￥' + data[i].price.split(".")[0] + '</span>.' + data[i].price.split(".")[1] + '</p>' +
