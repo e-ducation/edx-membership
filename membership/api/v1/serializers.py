@@ -3,9 +3,9 @@
 Membership Serializers
 """
 from __future__ import unicode_literals
-
+import logging
 from django.utils import timezone
-
+from django.utils.translation import ugettext as _
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
@@ -18,9 +18,14 @@ from student.models import CourseEnrollment
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
 
 from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice, VIPCourseEnrollment
+log = logging.getLogger(__name__)
 
 
 class PackageListSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, info):
+        return _(info.name)
 
     class Meta:
         model = VIPPackage
@@ -53,9 +58,9 @@ class VIPInfoSerializer(serializers.ModelSerializer):
 
     def get_status(self, info):
         return info.expired_at >= timezone.now()
-    
+
     def get_expired(self, info):
-        delta = timezone.now().date() - info.expired_at.date() 
+        delta = timezone.now().date() - info.expired_at.date()
         return delta.days
 
     def get_last_start_at(self, info):
@@ -220,7 +225,7 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
         if user.is_authenticated():
             return VIPInfo.is_vip(self.context['request'].user)
         else:
-            return False 
+            return False
 
     def get_is_subscribe_pay(self, model):
         return VIPCoursePrice.is_subscribe_pay(model.id)
@@ -237,19 +242,19 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
         user = self.context['request'].user
         if user.is_authenticated():
             cert_status = certificate_status_for_student(
-                user, 
+                user,
                 model.id
             )['status']
             return cert_status == 'downloadable'
         else:
-            return False 
+            return False
 
     def get_is_enroll(self, model):
         user = self.context['request'].user
         if user.is_authenticated():
             return True if CourseEnrollment.get_enrollment(self.context.get('request').user, model.id) else False
         else:
-            return False 
+            return False
 
     def get_is_normal_enroll(self, model):
         user = self.context['request'].user
@@ -260,7 +265,7 @@ class MobileCourseDetailSerializer(CourseDetailSerializer):
                 is_active=True
             ).exists()
         else:
-            return False 
+            return False
 
         return not vip_enroll
 
