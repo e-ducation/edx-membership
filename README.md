@@ -4,9 +4,24 @@ The goal of this project is to make learner can subscribe VIP membership of any 
 
 ## Getting Start
 
-依赖库
+edx-membership 拆分了会员制的主要逻辑，作为一个单独的 djangoapp 存在, 但是整体上仍未能与 edx-platform 完全分割。edx-membership 的支付功能依赖于 elitu-payments。
 - [edx-platform](https://github.com/e-ducation/edx-platform.git)
 - [eliteu-payments](https://github.com/e-ducation/eliteu-payments)
+
+devstack docker 环境配置
+修改 devstack/docker-compose-host.yml
+```yml
+services:
+  lms:
+    volumes:
+      ...
+      - ${DEVSTACK_WORKSPACE}/edx-membership:/edx/app/edxapp/edx-membership:cached
+```
+
+重启 docker
+- 执行 make dev.up
+- 执行 make lms-logs 查看启动情况
+    > 如果 log 出现报错，尝试执行 make lms-shell 进入 lms 环境，再依次执行 make clean 和 make requirements;退出 lms 环境，执行 make lms-static
 
 更新 lms.env.json，在 FEATURES 里加上以下字段
 ```json
@@ -16,26 +31,6 @@ The goal of this project is to make learner can subscribe VIP membership of any 
     "ENABLE_COURSE_UNENROLL": true,
 }
 ```
-
-
-devstack 环境配置
-修改 devstack/docker-compose-host.yml
-```yml
-services:
-  lms:
-    volumes:
-      - ${DEVSTACK_WORKSPACE}/edx-platform:/edx/app/edxapp/edx-platform:cached
-      - edxapp_node_modules:/edx/app/edxapp/edx-platform/node_modules
-      - ${DEVSTACK_WORKSPACE}/src:/edx/src:cached
-      - ${DEVSTACK_WORKSPACE}/edx-membership:/edx/app/edxapp/edx-membership:cached
-      - ${DEVSTACK_WORKSPACE}/eliteu-payments:/edx/app/edxapp/eliteu-payments:cached
-```
-
-重启 docker
-- 执行 make dev.up
-- 执行 make lms-logs 查看启动情况
-    > 若干log 出现报错，尝试执行 make lms-shell 进入 lms 环境，再依次执行 make clean 和 make requirements;退出 lms 环境，执行 make lms-static
-
 
 修改 /edx/app/edxapp/lms.auth.json 添加支付配置
 ```json
@@ -110,17 +105,17 @@ services:
 
 安装依赖库
 ```bash
-cd /edx/app/edxapp/edx-membership
-pip install -r requirements/base.txt
+sudo -H -u edxapp bash
+source /edx/app/edxapp/edxapp_env
 
-cd /edx/app/edxapp/eliteu-payments
+cd /edx/app/edxapp/edx-membership
 pip install -r requirements/base.txt
 ```
 
 同步数据库
 ```bash
 sudo -H -u edxapp bash
-source ../edxapp_env 
+source /edx/app/edxapp/edxapp_env
 python /edx/app/edxapp/edx-platform/manage.py lms --settings devstack_docker makemigrations membership
 python /edx/app/edxapp/edx-platform/manage.py lms --settings devstack_docker migrate membership
 ```
