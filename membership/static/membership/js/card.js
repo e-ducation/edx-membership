@@ -16,7 +16,7 @@ var orderId;
 
 //续费or开通
 // var isBtnVip = '<div class="become-vip">开通</div>';
-var isBtnVip = '<div class="become-vip">' + gettext('Open membership') + '</div>'
+var isBtnVip = '<div class="become-vip">' + gettext('Join') + '</div>'
 
 //是否是手机
 var phone = isMoblie();
@@ -58,8 +58,8 @@ $.ajax({
           var vip =
             '<ul class="vip-basic-inf">' +
             $tips +
-            '<li>' + gettext("Open date:") + '<span>' + data["lTime"] + '</span></li>' +
-            '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
+            '<li>' + gettext("Open date: ") + '<span>' + data["lTime"] + '</span></li>' +
+            '<li>' + gettext("Expire: ") + '<span>' + data["eTime"] + '</span></li>' +
             '</ul>';
           $(".jq-vip-message").prepend(vip);
 
@@ -92,7 +92,7 @@ $.ajax({
   },
   error: function (error) {
     //获取出错的情况下
-    isBtnVip = '<div class="become-vip">' + gettext("Open membership") + '</div>';
+    isBtnVip = '<div class="become-vip">' + gettext("Join") + '</div>';
     if (error.status === 403) {
       $(".jq-vip-message").prepend(novip);
     }
