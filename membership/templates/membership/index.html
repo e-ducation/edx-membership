@@ -45,75 +45,42 @@ from student.models import CourseEnrollment
         </div>
         <div class="section  courses-list-wrap">
             <div class="course-list-top">
-                <h1 class="section-title">${_(u"Six Course Specializations of Elite MBA School")}</h1>
-                <h5 class="slogo">${_(u"Activate your all-round business gene, you alone are a team!")}</h5>
+                <h1 class="section-title">${_(u"Six Main Areas for Administration Learning")}</h1>
+                <h5 class="slogo">${_(u"Activate your potential to become a versatile leader")}</h5>
             </div>
-            <ul class="course-list pc clearfix">
-                
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-business@2x.png')}" />
-                        <span>${_(u"Business Administration")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-innovation@2x.png')}" />
-                        <span>${_(u"Innovation and Entrepreneurship")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-statistics@2x.png')}" />
-                        <span>${_(u"Statistic Analysis")}</span>
-                    </li>
-                
-                
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-informatics@2x.png')}" />
-                        <span>${_(u"Information Technology")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-neutral_trading@2x.png')}" />
-                        <span>${_(u"Marketing and Sales")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-shopping_basket_2@2x.png')}" />
-                        <span>${_(u"Retail Management")}</span>
-                    </li>
-                
+            <ul class="course-list clearfix">
+              <li>
+                  <img src="${static.url('membership/images/course/icons8-business@2x.png')}" />
+                  <span>${_(u"Business Administration")}</span>
+              </li>
+              <li>
+                  <img src="${static.url('membership/images/course/icons8-innovation@2x.png')}" />
+                  <span>${_(u"Innovation and Entrepreneurship")}</span>
+              </li>
+              <li>
+                  <img src="${static.url('membership/images/course/icons8-statistics@2x.png')}" />
+                  <span>${_(u"Statistical Analysis")}</span>
+              </li>
+              <li>
+                  <img src="${static.url('membership/images/course/icons8-informatics@2x.png')}" />
+                  <span>${_(u"Information Technology")}</span>
+              </li>
+              <li>
+                  <img src="${static.url('membership/images/course/icons8-neutral_trading@2x.png')}" />
+                  <span>${_(u"Sales and Marketing")}</span>
+              </li>
+              <li>
+                  <img src="${static.url('membership/images/course/icons8-shopping_basket_2@2x.png')}" />
+                  <span>${_(u"Retail Management")}</span>
+              </li>
             </ul>
-            <ul class="course-list mobile clearfix">
-                <div class="course-group">
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-business@2x.png')}" />
-                        <span>${_(u"Business Administration")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-innovation@2x.png')}" />
-                        <span>${_(u"Innovation and Entrepreneurship")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-statistics@2x.png')}" />
-                        <span>${_(u"Statistic Analysis")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-informatics@2x.png')}" />
-                        <span>${_(u"Information Technology")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-neutral_trading@2x.png')}" />
-                        <span>${_(u"Marketing and Sales")}</span>
-                    </li>
-                    <li>
-                        <img src="${static.url('membership/images/course/icons8-shopping_basket_2@2x.png')}" />
-                        <span>${_(u"Retail Management")}</span>
-                    </li>
-                </div>
-            </ul>
-
             <a class="find-new-course" href="javascript:void(0)">
                 ${_(u"Explore Courses")}
             </a>
         </div>
         <div class="section feature-courses-wrap">
             <h1 class="fetrue-courses-title">
-                ${_(u"More courses coming soon")}
+                ${_(u"More Excellent Courses Coming Soon")}
             </h1>
             <div class="featrue-container">
                 <div class="course-cell">
@@ -121,7 +88,7 @@ from student.models import CourseEnrollment
                     <h1>${_(u"International Business Law")}</h1>
                     <h5>${_(u"Dr. Ling Zhu")}</h5>
                     <p>${_(u"PhD in Management Information Systems, the University of Arizona, USA")}</p>
-                    <p>${_(u"J.D., Fordham University")}</p>
+                    <p>${_(u"J.D., Fordham University, USA")}</p>
                 </div>
                 <div class="course-cell">
                     <img src="${static.url('membership/images/fetrue-2.png')}" >
@@ -138,15 +105,15 @@ from student.models import CourseEnrollment
                 </div>
             </div>
             <h5 class="fetrue-container-extend">
-                ${_(u"*All course updates reserved to EliteMBA and EliteMBA has the final interpretation.")}
+                ${_(u"*EliteMBA reserves the right of final interpretation for all course updates.")}
             </h5>
         </div>
         <div class="section slider-wrap">
             <div class="slider-wrap-header">
-                <h1>${_(u"Best faculties ---- Elite Education")}</h1>
+                <h1>${_(u"World-Class Faculty")}</h1>
                 <p>
-                    ${_(u"Professor of American Famous Business Schools")}<br>
-                    ${_(u"To build the all-around business knowledge matrix, and systematic learning from zero to one")} 
+                    ${_(u"Professors from leading Business Schools in America")}<br>
+                    ${_(u"Learn systematically, create a full knowledge matrix of administration from zero to one")} 
                 </p>
             </div>
 
@@ -380,11 +347,11 @@ from student.models import CourseEnrollment
             </div>
         </div>
         <div class="section pc vip-list-wrap">
-            <h1 class="vip-list-title">${_(u"Become EliteMBA Member")}</h1>
+            <h1 class="vip-list-title">${_(u"Join EliteMBA Membership")}</h1>
             <h5 class="vip-list-tips">
-                ${_(u"Choose appropriate learning duration according to your needs")}
+                ${_(u"Choose a membership plan that fits your needs")}
                 <br>
-                ${_(u"Enjoy learning all courses in the EliteMBA MBA school during the study period，You can join the new class online now!")}
+                ${_(u"Have unlimited access to all courses at EliteMBA during membership period, including newly released courses")}
             </h5>
             <ul class="vip-list">
                 <li class="current">
@@ -398,7 +365,7 @@ from student.models import CourseEnrollment
                             ${_(u"average per month")}¥99.9
                         </div>
                         <div class="item-title">
-                            ${_(u"Full-stack workplace practice")}
+                            ${_(u"Professional")}
                         </div>
                     </div>
                     <div class="recommend"></div>
@@ -414,7 +381,7 @@ from student.models import CourseEnrollment
                             ${_(u"average per month")}¥149.8
                         </div>
                         <div class="item-title">
-                            ${_(u"Improve Ability Efficiently")}
+                            ${_(u"Senior")}
                         </div>
                     </div>
                 </li>
@@ -429,7 +396,7 @@ from student.models import CourseEnrollment
                             ${_(u"average per month")}¥166.3
                         </div>
                         <div class="item-title">
-                            ${_(u"A series of courses for learning")}
+                            ${_(u"Explorer")}
                         </div>
                     </div>
                 </li>
@@ -444,21 +411,19 @@ from student.models import CourseEnrollment
                            
                         </div>
                         <div class="item-title">
-                            ${_(u"Multiple-Course Experience")}
+                            ${_(u"Beginner")}
                         </div>
                     </div>
                 </li>
             </ul>
-            <p class="vip-extend">${_(u"*Now sign up to enjoy the above offers. Please go to the purchase page for details.")}</p>
+            <p class="vip-extend">${_(u"*Sign up NOW and get the most of your membership. More info on the payment page.")}</p>
         </div>
         <div class="section mobile vip-list-wrap">
-            <h1 class="vip-list-title">${_(u"Become EliteMBA Member")}</h1>
+            <h1 class="vip-list-title">${_(u"Join EliteMBA Membership")}</h1>
             <h5 class="vip-list-tips">
-                ${_(u"Choose appropriate learning duration according to your needs")}
+                ${_(u"Choose a membership plan that fits your needs")}
                 <br>
-                ${_(u"Enjoy learning all courses in the EliteMBA MBA school during the study period")}
-                <br>
-                ${_(u"You can join the new class once online")}
+                ${_(u"Have unlimited access to all courses at EliteMBA during membership period, including newly released courses")}
             </h5>
             <div class="h5-card">
                 <div class="pay-item current">
@@ -466,7 +431,6 @@ from student.models import CourseEnrollment
                         <p>${pgettext("Membership", "Full Year")}</p><p>2400</p>
                     </div>
                     <div class="card-h5-money"><span>1199</span><span class="decimal">.00</span><br><span class="month">${_(u"average per month")}¥99.9</span></div>
-                    <!-- 推荐图标 -->
                     <div class="h5-recommend"></div>
                 </div>
                 <div class="pay-item">
@@ -489,7 +453,7 @@ from student.models import CourseEnrollment
                 </div>
             </div>
             <div class="ad-tips">
-                ${_(u"*Now sign up to enjoy the above offers. Please go to the purchase page for details.")}
+                ${_(u"*Sign up NOW and get the most of your membership. More info on the payment page.")}
             </div>
         </div>
         <div class="section vip-characteristic-wrap">
@@ -515,9 +479,9 @@ from student.models import CourseEnrollment
                 <a class="add-vip-btn" href="javascript:;">${_(u"Become a Member")}</a>
             </div>
             <div class="characteristic-dialog">
-                <span class="dialog-text">${_(u"There is a gap called self-discipline outside of 8 hours. Start with the EliteMBA and become a self-disciplined full-stack workplace!")}</span>
+                <span class="dialog-text">${_(u"Self-disciplined learning off work decides how competitive you are. Let’s discipline ourselves and gain advantage!")}</span>
                 <span class="characteristic-dialog-icon"></span>
-                <span class="characteristic-from-who">—— ${_(u"EliteMBA Theory")}</span>
+                <span class="characteristic-from-who">—— ${_(u"EliteMBA")}</span>
             </div>
         </div>
     </div>
