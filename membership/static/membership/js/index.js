@@ -41,13 +41,13 @@ var vipListRender = function(data){
         $p[1].innerHTML = '¥' + data[i].suggested_price;
         $price[0].innerHTML = '¥' + data[i].price.split('.')[0];
         $price[1].innerHTML =  '.' + data[i].price.split('.')[1];
-        if(data[i].month != 1) $price[2].innerHTML = gettext('Average per month')+ (data[i].price / data[i].month).toCeil(2);
+        if(data[i].month != 1) $price[2].innerHTML = '¥' + (data[i].price / data[i].month).toCeil(2) + gettext('/M');
         // pc 
         $header[i].innerHTML = gettext(data[i].name);
         $number[i].innerHTML = '¥' + data[i].price.split('.')[0];
         $trail[i].innerHTML  = '.' + data[i].price.split('.')[1];
         $delete[i].innerHTML = '¥' + data[i].suggested_price;
-        var text = data[i].month != 1  ? gettext('Average per month')+ (data[i].price / data[i].month).toCeil(2) : '';
+        var text = data[i].month != 1  ? '¥' + (data[i].price / data[i].month).toCeil(2) + gettext('/M') : '';
         $hint[i].innerHTML = text;
     }
     for (var i =3,len = data.length; i >=len ;i--){
