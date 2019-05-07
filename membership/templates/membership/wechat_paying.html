@@ -33,12 +33,12 @@ from student.models import CourseEnrollment
         </div>
         <div id="paying" class="wxpay-content" >
             <div class="wxpay-number">${_(u"Amount paid: ")}${price}</div>
-            <div>${_(u"Please complete the  payment within 2 hours, or the purchase may fail")}</div>
+            <div>${_(u"Please complete the payment within 2 hours, otherwise the purchase may fail")}</div>
             <div class="wxpay-scanner">
                 <img src="${static.url('membership/images/scanner.png')}" />
                 <div id="qrcode" src="${code_url}"></div>
             </div>
-            <div>${_(u"Scan QR code with WeChat")}</div>
+            <div>${_(u"Please scan Wechat QR code")}</div>
             <div style="margin-top:5px">${_(u"to complete payment")}</div>
         </div>
         <div id="result" class="wxpay-content" style="display:none">
