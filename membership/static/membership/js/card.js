@@ -75,8 +75,8 @@ $.ajax({
           var vip =
             '<ul class="vip-basic-inf">' +
             $tips +
-            '<li>' + gettext("Last open date:") + '<span>' + data["lTime"] + '</span></li>' +
-            '<li>' + gettext("Expire:") + '<span>' + data["eTime"] + '</span></li>' +
+            '<li>' + gettext("Open date: ") + '<span>' + data["lTime"] + '</span></li>' +
+            '<li>' + gettext("Expire: ") + '<span>' + data["eTime"] + '</span></li>' +
             '</ul>';
           $(".jq-vip-message").prepend(vip);
         }
