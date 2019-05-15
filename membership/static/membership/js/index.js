@@ -57,10 +57,10 @@ var vipListRender = function(data){
 // 事件控制
 var eventHandler = function() {
     // 发现更多课程
-    $('.find-more-professor').click(function () {
-        $('.extend-professor').removeClass('hidden');
-        $('.find-more-professor').hide();
-    });
+    // $('.find-more-professor').click(function () {
+    //     $('.extend-professor').removeClass('hidden');
+    //     $('.find-more-professor').hide();
+    // });
     // 获取设备类型
     var device = getQueryString('device');
     if(device != undefined){

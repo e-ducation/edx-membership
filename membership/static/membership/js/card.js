@@ -281,13 +281,15 @@ $('.popup-pay>div').click(function (e) {
 
 
 //选择支付方式
-$(".pay li").click(function () {
-
+$(".pay li").click(function (e) {
+  e.stopPropagation();
   payWay = $(this).index();
 
-  $(this).addClass("current").siblings("li").removeClass("current");
+  if(!($(this).hasClass('current'))){
+    $(this).addClass("current").siblings("li").removeClass("current");
 
-  $(this).prepend('<img src="../static/membership/images/Group.png" alt="" class="imgCurrent"></img>').siblings("li").children('img').remove();
+    $(this).prepend('<img src="../static/membership/images/Group.png" alt="" class="imgCurrent"></img>').siblings("li").children('img').remove();
+  }
 
 })
 
