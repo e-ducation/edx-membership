@@ -71,18 +71,7 @@ ignore_dirs:
 #
 # We segregate Studio so we can provide new languages for LMS without having to
 # also translate the Studio strings. LMS needs the strings from lms/* and
-# common/*, so those will stay in the main .po file.
-segment:
-    django-partial.po:          # This .po file..
-        django-studio.po:       #  produces this .po file..
-            - cms/*             #   by segregating strings from these files.
-        # Anything that doesn't match a pattern stays in the original file.
-    djangojs-partial.po:
-        djangojs-studio.po:
-            - cms/*
-    mako.po:
-        mako-studio.po:
-            - cms/*
+# common/*, so those will stay in the main .po file.    
 
 # How should the generate step merge files?
 generate_merge:
