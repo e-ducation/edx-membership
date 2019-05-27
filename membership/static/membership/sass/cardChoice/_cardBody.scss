@@ -175,7 +175,12 @@
           border-radius: 4px;
           border: solid 1px #e6e9ed;
           position: relative; 
-
+          .imgCurrent{
+            position: absolute;
+            top: 5px;
+            width: 18px;
+            right: 5px;
+          }
         }
         li.current{ 
           border-color: $buleFont;
