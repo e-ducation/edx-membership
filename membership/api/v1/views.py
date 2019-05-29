@@ -304,8 +304,8 @@ class VIPAlipayPaying(APIView):
         order.save()
         pay_html = ""
         if order:
-            body = order.name
-            subject = order.name
+            body = _(order.name)
+            subject = _(order.name)
             total_fee = order.price
             http_host = request.META.get("HTTP_HOST")
 
@@ -441,7 +441,7 @@ class VIPWechatPaying(APIView):
             total_fee = int(order.price * 100)
 
             attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
-            unifiedorder_pub.setParameter("body", order.name)
+            unifiedorder_pub.setParameter("body", _(order.name))
             out_trade_no = create_trade_id(order.id)
             order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT
             order.outtradeno = out_trade_no
@@ -658,8 +658,8 @@ class MobileVIPAlipayPaying(APIView):
                 model = AlipayTradeAppPayModel()
                 model.total_amount = smart_str(str_to_specify_digits(str(order.price)))
                 model.product_code = smart_str("QUICK_MSECURITY_PAY")
-                model.body = smart_str(order.name)
-                model.subject = smart_str(order.name)
+                model.body = smart_str(_(order.name))
+                model.subject = smart_str(_(order.name))
                 model.out_trade_no = smart_str(out_trade_no)
                 model.passback_params = smart_str(settings.LMS_ROOT_URL + reverse("vip_purchase"))
 
@@ -697,7 +697,7 @@ class MobileVIPWechatPaying(APIView):
                 total_fee = int(order.price * 100)
 
                 attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
-                unifiedorder_pub.setParameter("body", order.name)
+                unifiedorder_pub.setParameter("body", _(order.name))
                 out_trade_no = create_trade_id(order.id)
                 order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT_APP
                 order.outtradeno = out_trade_no
@@ -860,7 +860,7 @@ class VIPWechatH5Paying(APIView):
             total_fee = int(order.price * 100)
 
             attach_data = settings.LMS_ROOT_URL + reverse("vip_purchase")
-            unifiedorderh5_pub.setParameter("body", order.name)
+            unifiedorderh5_pub.setParameter("body", _(order.name))
             out_trade_no = create_trade_id(order.id)
             order.pay_type = VIPOrder.PAY_TYPE_BY_WECHAT_H5
             order.outtradeno = out_trade_no
@@ -931,7 +931,7 @@ class VIPAlipayH5Paying(APIView):
                 model = AlipayTradeWapPayModel()
                 model.total_amount = smart_str(str_to_specify_digits(str(order.price)))
                 model.product_code = smart_str("QUICK_WAP_WAY")
-                model.subject = smart_str(order.name)
+                model.subject = smart_str(_(order.name))
                 model.out_trade_no = smart_str(out_trade_no)
                 # 返回页面时不使用缓存
                 quit_url = settings.LMS_ROOT_URL + reverse("vip_alipay_h5_result")
