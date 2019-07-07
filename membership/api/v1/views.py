@@ -369,9 +369,11 @@ class VIPPurchase(APIView):
                         refno=trade_no
                     )
                     log.info('********** purchase success ***********')
+                    self.pay_result_ga(out_trade_no, 'vip_pay_success')
             return Response({'result': 'success'})
         except Exception, e:
             log.exception(e)
+        self.pay_result_ga(out_trade_no, 'vip_pay_fail')
         return Response({'result': 'fail'})
 
     @classmethod
@@ -403,6 +405,20 @@ class VIPPurchase(APIView):
                 'trade_info': ('out_trade_no', 'transaction_id', 'total_fee'),
             },
         }
+
+    def pay_result_ga(self, out_trade_no, el_name):
+        try:
+            import requests
+            import time
+            cn = time.strftime('%Y%m%d', time.localtime(time.time()))
+            google_analytics = 'http://www.google-analytics.com/collect?v=1&tid={}&cid={}&t=event&ec=vip_pay&ea=pay&el={}&cn={}&cm1=1'.format(
+                settings.GOOGLE_ANALYTICS_ACCOUNT, out_trade_no, el_name, cn
+            )
+            log.info(google_analytics)
+            r = requests.get(google_analytics)
+
+        except Exception as ex:
+            log.error(ex)
 
 
 class VIPWechatPaying(APIView):
