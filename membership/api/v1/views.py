@@ -80,7 +80,7 @@ from membership.utils import (
     xresult
 )
 from urllib import quote_plus
-
+from util_common import pay_result_ga
 
 log = logging.getLogger(__name__)
 
@@ -182,6 +182,7 @@ class VIPOrderAPIView(generics.RetrieveAPIView):
                             refno=query_resp['refno']
                         )
                         log.info('********** purchase success ***********')
+                        pay_result_ga(str(self.request.user.id), 'vip_pay_success')
             return Response(xresult(data=serializer.data))
         except Exception, e:
             log.exception(e)
@@ -369,6 +370,7 @@ class VIPPurchase(APIView):
                         refno=trade_no
                     )
                     log.info('********** purchase success ***********')
+                    pay_result_ga(str(order.id), 'vip_pay_success')
             return Response({'result': 'success'})
         except Exception, e:
             log.exception(e)
