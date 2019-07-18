@@ -16,6 +16,8 @@ from mobile_api.users.serializers import CourseEnrollmentSerializer
 from lms.djangoapps.certificates.models import certificate_status_for_student
 from student.models import CourseEnrollment
 from util.course import get_encoded_course_sharing_utm_params, get_link_for_about_page
+from lms.djangoapps.grades.course_grade_factory import CourseGradeFactory
+from courseware.courses import get_course_with_access
 
 from membership.models import VIPPackage, VIPOrder, VIPInfo, VIPCoursePrice, VIPCourseEnrollment
 log = logging.getLogger(__name__)
@@ -130,12 +132,12 @@ class CourseOverviewField(serializers.RelatedField):
             'course_sharing_utm_parameters': get_encoded_course_sharing_utm_params(),
             'course_updates': reverse(
                 'course-updates-list',
-                kwargs={'course_id': course_id},
+                kwargs={'course_id': course_id, 'api_version': 'v1'},
                 request=request,
             ),
             'course_handouts': reverse(
                 'course-handouts-list',
-                kwargs={'course_id': course_id},
+                kwargs={'course_id': course_id, 'api_version': 'v1'},
                 request=request,
             ),
             'discussion_url': reverse(
@@ -146,7 +148,7 @@ class CourseOverviewField(serializers.RelatedField):
 
             'video_outline': reverse(
                 'video-summary-list',
-                kwargs={'course_id': course_id},
+                kwargs={'course_id': course_id, 'api_version': 'v1'},
                 request=request,
             ),
             'is_vip': VIPInfo.is_vip(request.user),
@@ -166,6 +168,17 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     course = CourseOverviewField(source="course_overview", read_only=True)
     is_vip = serializers.SerializerMethodField()
     is_normal_enroll = serializers.SerializerMethodField()
+    progress = serializers.SerializerMethodField()
+
+    def get_progress(self, model):
+        
+        course = get_course_with_access(model.user, 'load', model.course.id)
+        course_grade = CourseGradeFactory().read(model.user, course)  
+
+        return {
+            'is_pass': course_grade.passed,
+            'total_grade': course_grade.summary['percent']
+        }
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)
@@ -182,7 +195,7 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     class Meta(object):
         model = CourseEnrollment
         fields = ('created', 'mode', 'is_active', 'course', 'certificate',
-                  'is_vip', 'is_normal_enroll')
+                  'is_vip', 'is_normal_enroll', 'progress')
         lookup_field = 'username'
 
 
