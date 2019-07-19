@@ -171,9 +171,16 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     progress = serializers.SerializerMethodField()
 
     def get_progress(self, model):
-        
-        course = get_course_with_access(model.user, 'load', model.course.id)
-        course_grade = CourseGradeFactory().read(model.user, course)  
+
+        try:
+            course = get_course_with_access(model.user, 'load', model.course.id)
+            course_grade = CourseGradeFactory().read(model.user, course)
+        except Exception as e:
+            log.error(e)
+            return {
+                'is_pass': False,
+                'total_grade': 0
+            }
 
         return {
             'is_pass': course_grade.passed,
