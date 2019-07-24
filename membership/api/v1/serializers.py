@@ -95,6 +95,21 @@ class CourseOverviewField(serializers.RelatedField):
     def to_representation(self, course_overview):
         course_id = unicode(course_overview.id)
         request = self.context.get('request')
+
+        try:
+            course = get_course_with_access(request.user, 'load', course_overview.id)
+            course_grade = CourseGradeFactory().read(request.user, course)
+            progress = {
+                'is_pass': course_grade.passed,
+                'total_grade': course_grade.summary['percent']
+            }
+        except Exception as e:
+            log.error(e)
+            progress =  {
+                'is_pass': False,
+                'total_grade': 0
+            }
+
         return {
             # identifiers
             'id': course_id,
@@ -158,6 +173,7 @@ class CourseOverviewField(serializers.RelatedField):
                 is_active=True
             ).exists(),
             'has_cert': certificate_status_for_student(request.user, course_overview.id)['status'] == 'downloadable',
+            'progress': progress,
         }
 
 
@@ -168,24 +184,6 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     course = CourseOverviewField(source="course_overview", read_only=True)
     is_vip = serializers.SerializerMethodField()
     is_normal_enroll = serializers.SerializerMethodField()
-    progress = serializers.SerializerMethodField()
-
-    def get_progress(self, model):
-
-        try:
-            course = get_course_with_access(model.user, 'load', model.course.id)
-            course_grade = CourseGradeFactory().read(model.user, course)
-        except Exception as e:
-            log.error(e)
-            return {
-                'is_pass': False,
-                'total_grade': 0
-            }
-
-        return {
-            'is_pass': course_grade.passed,
-            'total_grade': course_grade.summary['percent']
-        }
 
     def get_is_vip(self, model):
         return VIPInfo.is_vip(self.context['request'].user)
@@ -202,7 +200,7 @@ class MobileCourseEnrollmentSerializer(CourseEnrollmentSerializer):
     class Meta(object):
         model = CourseEnrollment
         fields = ('created', 'mode', 'is_active', 'course', 'certificate',
-                  'is_vip', 'is_normal_enroll', 'progress')
+                  'is_vip', 'is_normal_enroll')
         lookup_field = 'username'
 
 
