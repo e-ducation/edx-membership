@@ -616,6 +616,9 @@ class MobileUserCourseEnrollmentsList(UserCourseEnrollmentsList):
     )
     serializer_class = MobileCourseEnrollmentSerializer
 
+    def get_serializer_class(self):
+        return MobileCourseEnrollmentSerializer
+
 
 class MobileCourseListView(CourseListView):
     serializer_class = MobileCourseSerializer
