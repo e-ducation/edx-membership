@@ -123,12 +123,12 @@ msgstr "会员资格"
 
 #: membership/templates/membership/card.html
 #: membership/templates/membership/index.html
-msgid "EliteMBA"
-msgstr "英荔商学院"
+msgid "Elite A.I. Academy"
+msgstr "英荔 AI 教育学院"
 
 #: membership/templates/membership/card.html
-msgid "EliteMBA VIP Membership"
-msgstr "英荔商学院VIP会员"
+msgid "Elite A.I. Academy VIP Membership"
+msgstr "英荔 AI 教育学院VIP会员"
 
 #: membership/templates/membership/card.html
 msgid "View Introduction"
@@ -190,7 +190,7 @@ msgstr "美国名校MBA精华课程会员资格"
 
 #: membership/templates/membership/index.html
 msgid "Six Main Areas for Administration Learning"
-msgstr "英荔商学院六大课程方向"
+msgstr "英荔 AI 教育学院六大课程方向"
 
 #: membership/templates/membership/index.html
 msgid "Activate your potential to become a versatile leader"
@@ -280,8 +280,8 @@ msgstr "美国波士顿学院经济学博士"
 
 #: membership/templates/membership/index.html
 msgid ""
-"*EliteMBA reserves the right of final interpretation for all course updates."
-msgstr "*英荔商学院保留所有课程更新的最终解释权。"
+"*Elite A.I. Academy reserves the right of final interpretation for all course updates."
+msgstr "*英荔 AI 教育学院保留所有课程更新的最终解释权。"
 
 #: membership/templates/membership/index.html
 msgid "World-Class Faculty"
@@ -390,8 +390,8 @@ msgid "View More"
 msgstr "查看更多"
 
 #: membership/templates/membership/index.html
-msgid "Join EliteMBA Membership"
-msgstr "成为英荔商学院会员"
+msgid "Join Elite A.I. Academy Membership"
+msgstr "成为英荔 AI 教育学院会员"
 
 #: membership/templates/membership/index.html
 msgid "Choose a membership plan that fits your needs"
@@ -399,9 +399,9 @@ msgstr "根据您的需求选择合适的学习时长 "
 
 #: membership/templates/membership/index.html
 msgid ""
-"Have unlimited access to all courses at EliteMBA during membership period, "
+"Have unlimited access to all courses at Elite A.I. Academy during membership period, "
 "including newly released courses"
-msgstr "学习期内享有英荔商学院所有课程的学习权益，新课上线亦可马上加入学习"
+msgstr "学习期内享有英荔 AI 教育学院所有课程的学习权益，新课上线亦可马上加入学习"
 
 #: membership/templates/membership/index.html
 msgctxt "Membership"
@@ -486,17 +486,17 @@ msgstr "有一种差距，叫8小时以外的自律，和英荔一起出发，�
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
-msgid "EliteMBA school cashier"
-msgstr "英荔商学院收银台"
+msgid "Elite A.I. Academy cashier"
+msgstr "英荔 AI 教育学院收银台"
 
 #: membership/templates/membership/result.html
-msgid "EliteMBA school cashier payment success"
-msgstr "英荔商学院收银台支付成功"
+msgid "Elite A.I. Academy cashier payment success"
+msgstr "英荔 AI 教育学院收银台支付成功"
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
-msgid "Return to EliteMBA school in 3 seconds"
-msgstr "3秒后返回英荔商学院"
+msgid "Return to Elite A.I. Academy in 3 seconds"
+msgstr "3秒后返回英荔 AI 教育学院"
 
 #: membership/templates/membership/result.html
 #: membership/templates/membership/wechat_paying.html
