@@ -21,7 +21,7 @@ from openedx.core.djangolib.markup import HTML, Text
 from student.models import CourseEnrollment
 from membership.models import VIPInfo
 %>
-<%block name="title"><title>${_(u"VIP membership")} | ${_(u"EliteMBA")}</title></%block>
+<%block name="title"><title>${_(u"VIP membership")} | ${_(u"Elite A.I. Academy")}</title></%block>
 <link rel="stylesheet" href="${static.url('membership/css/card.css')}" />
 <style>
     .window-wrap .content-wrapper{
@@ -37,7 +37,10 @@ from membership.models import VIPInfo
         <header>
             <div class="vip-box">
                 <div class="vip-message outer-wrapper">
-                    <p class="vip-name">${_(u"EliteMBA VIP Membership")}<a style="font-size:14px;color: #346ca3;margin-left: 10px;" href="${reverse('membership')}">${_(u"View Introduction")}</a></p>
+                    <p class="vip-name">
+                        ${_(u"Elite A.I. Academy VIP Membership")}
+                        <!-- <a style="font-size:14px;color: #346ca3;margin-left: 10px;" href="${reverse('membership')}">${_(u"View Introduction")}</a> -->
+                    </p>
                     <span class="vip-line"></span>
                     <div class="jq-vip-message">
                         <a class="vip-instro" href="/">${_(u"Select a Course")}</a>
@@ -106,7 +109,7 @@ from membership.models import VIPInfo
         <header>
             <div class="vip-box">
                 <div class="vip-message outer-wrapper">
-                    <p class="phone-vip-name">${_(u"EliteMBA VIP Membership")}</p>
+                    <p class="phone-vip-name">${_(u"Elite A.I. Academy VIP Membership")}</p>
 
                     <div class="jq-vip-message clearfix">
 

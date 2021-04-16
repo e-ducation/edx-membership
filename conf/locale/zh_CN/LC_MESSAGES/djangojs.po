@@ -26,8 +26,8 @@ msgid "Join"
 msgstr "开通"
 
 #: membership/static/membership/js/card.js
-msgid "Become a VIP member and watch all EliteMBA courses for free"
-msgstr "开通VIP会员，可免费观看英荔商学院全部课程。"
+msgid "Become a VIP member and watch all Elite A.I. Academy courses for free"
+msgstr "开通VIP会员，可免费观看英荔 AI 教育学院全部课程。"
 
 #: membership/static/membership/js/card.js
 msgid "YYYY-MM-DD"
@@ -55,5 +55,5 @@ msgstr "调起支付失败"
 
 #: membership/static/membership/js/result.js
 #, javascript-format
-msgid "Return to EliteMBA in %s seconds"
-msgstr "%s 秒后返回英荔商学院"
+msgid "Return to Elite A.I. Academy in %s seconds"
+msgstr "%s 秒后返回英荔 AI 教育学院"
