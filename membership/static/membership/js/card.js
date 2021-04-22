@@ -51,9 +51,9 @@ $.ajax({
         if (data["isVip"] === true) {
           var $tips = undefined;
           if (lang == 'zh-cn') {
-            $tips = '<li class="has-vip-time">会员身份将在<span class="has-time">' + data["hasTime"] + '</span>天后过期</li>'
+            $tips = '<li class="has-vip-time">会员身份将在<span class="has-time"> ' + data["hasTime"] + ' </span>天后过期</li>'
           } else {
-            $tips = '<li class="has-vip-time">VIP membership will expire in <span class="has-time">' + data["hasTime"] + '</span> days</li>'
+            $tips = '<li class="has-vip-time">VIP membership will expire in <span class="has-time"> ' + data["hasTime"] + ' </span> days</li>'
           }
           var vip =
             '<ul class="vip-basic-inf">' +
