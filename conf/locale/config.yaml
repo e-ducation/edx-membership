@@ -74,9 +74,9 @@ ignore_dirs:
 # common/*, so those will stay in the main .po file.    
 
 # How should the generate step merge files?
-generate_merge:
-    django.po:
-        - django-partial.po
-        - mako.po
-    djangojs.po:
-        - djangojs-partial.po
+# generate_merge:
+#     django.po:
+#         - django-partial.po
+#         - mako.po
+#     djangojs.po:
+#         - djangojs-partial.po
